@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Level Compiler | Grab Tools | twhlynch </title>
+</head>
+<body>
+    <form id="form" method="post">
+        <input type="text" name="name" placeholder="Name">
+        <input type="text" name="description" placeholder="Description">
+        <input type="text" name="creators" placeholder="Creators">
+        <input type="file" name="file" id="file" accept=".level" multiple>
+        <input type="submit" value="Compile">
+    </form>
+    <button id="download">Download</button>
+    <script src="//cdn.jsdelivr.net/npm/protobufjs@7.X.X/dist/protobuf.js"></script>
+    <script type="text/javascript">
+        const form  = document.getElementById('form');
+        const download = document.getElementById('download');
+        var nodes = [];
+
+        function readArrayBuffer(file) {
+            return new Promise((resolve, reject) => {
+                let reader = new FileReader();
+                reader.onload = () => {
+                    let data = reader.result;
+                    protobuf.load("proto/level.proto", function(err, root) {
+                        if(err) throw err;
+                        let message = root.lookupType("COD.Level.Level");
+                        let decoded = message.decode(new Uint8Array(data));
+                        let object = message.toObject(decoded);
+                        resolve(object.levelNodes);
+                    });
+                }
+                reader.onerror = () => {
+                    reject(reader);
+                }
+                reader.readAsArrayBuffer(file);
+            });
+        }
+
+        document.getElementById('file').addEventListener("submit", (e) => {
+            let files = e.target.files;
+            let readers = [];
+
+            if (!files.length) return;
+
+            for (let i = 0; i < files.length; i++) {
+                readers.push(readArrayBuffer(files[i]));
+            }
+
+            Promise.all(readers).then((values) => {
+                console.log(values);
+            });
+        }, false);
+/*
+        let reader = new FileReader();
+
+        reader.onload = () => {
+            let data = reader.result;
+            protobuf.load("proto/level.proto", function(err, root) {
+                if(err) throw err;
+                const message = root.lookupType("COD.Level.Level");
+                let decoded = message.decode(new Uint8Array(data));
+                let object = message.toObject(decoded);
+                return object.levelNodes;
+            });
+        }
+
+        form.addEventListener('submit', (e) => {
+            for (let i = 0; i < input.files.length; i++) {
+                reader.readAsArrayBuffer(input.files[i]).then((levelNodes) => {
+                    nodes = [].concat(nodes, levelNodes);
+                });
+            }
+        });
+
+        download.addEventListener('click', () => {
+            console.log(JSON.stringify(nodes));
+        });
+
+        input.addEventListener('change', function(e) {
+            for (let i = 0; i < input.files.length; i++) {
+                console.log(input.files[i].name);
+            }
+        });
+        */
+    </script>
+</body>
+</html>
