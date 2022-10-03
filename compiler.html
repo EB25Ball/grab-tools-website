@@ -26,9 +26,8 @@
             display: none;
         }
         #file-custom {
-            /* nice and simpledrag and drop file input */
             width: 80%;
-            height: 100px;
+            height: fit-content;
             border: 2px dashed #ccc;
             border-radius: 5px;
             margin: 0 auto;
@@ -41,7 +40,7 @@
             border: 2px dashed #999;
             color: #999;
         }
-        #compile {
+        #compile, #copy {
             background-color: #4CAF50;
             border: none;
             color: white;
@@ -67,10 +66,15 @@
         <input type="text" id="desc" name="description" placeholder="Description">
         <input type="text" id="creators" name="creators" placeholder="Creators">
     </div>
-    <label for="file" id="file-custom">Click me and select multiple files!</label>
+    <label for="file" id="file-custom">Click me and select multiple files!
+        <div id="file-display"></div>
+    </label>
     <input type="file" name="file" id="file" accept=".level" multiple>
-    <button id="compile">Compile</button>
-    <div id="out"></div>
+    <div id="buttons">
+        <button id="compile">Compile</button>
+        <button id="copy">Copy JSON</button>
+    </div>
+        <div id="out"></div>
     <script src="//cdn.jsdelivr.net/npm/protobufjs@7.X.X/dist/protobuf.js"></script>
     <script type="text/javascript">
         var nodes = [];
@@ -96,12 +100,17 @@
         }
 
         document.getElementById('file').addEventListener("change", function(e) {
+            nodes = [];
             let files = e.target.files;
             let readers = [];
 
             if (!files.length) return;
 
+            document.getElementById('file-custom').innerHTML = '<div id="file-display"></div>';
             for (let i = 0; i < files.length; i++) {
+                let p = document.createElement('p');
+                p.innerText = files[i].name;
+                document.getElementById('file-display').appendChild(p);
                 readers.push(readArrayBuffer(files[i]));
             }
 
@@ -111,14 +120,73 @@
         }, false);
 
         document.getElementById('compile').addEventListener("click", function () {
-            nodes = [].concat.apply([], nodes);
-            var creators = document.getElementById('creators').value;
-            var desc = document.getElementById('desc').value;
-            var title = document.getElementById('title').value;
+            let finalNodes = [].concat.apply([], nodes);
+            let creators = document.getElementById('creators').value;
+            let desc = document.getElementById('desc').value;
+            let title = document.getElementById('title').value;
+            let name = title;
+            if (title == '') {
+                name = (Date.now()).toString().slice(0, -3);
+                title = 'Untitled';
+            }
+            let json = `
+            {
+                "ambienceSettings": {
+                    "skyHorizonColor": {
+                        "a": 1.0,
+                        "b": 0.9574,
+                        "g": 0.9574,
+                        "r": 0.916
+                    },
+                    "skyZenithColor": {
+                        "a": 1.0,
+                        "b": 0.73,
+                        "g": 0.476,
+                        "r": 0.28
+                    },
+                    "sunAltitude": 45.0,
+                    "sunAzimuth": 315.0,
+                    "sunSize": 1.0
+                },
+                "complexity": 0,
+                "creators": "`+creators+`",
+                "description": "`+desc+`",
+                "formatVersion": 6,
+                "levelNodes": `+JSON.stringify(finalNodes)+`,
+                "maxCheckpointCount": 10,
+                "title": "`+title+`"
+            }
+            `
+            var obj = JSON.parse(json);
+            //document.getElementById('out').innerText = json;
+            //console.log(obj);
+            
+            protobuf.load("proto/level.proto", function(err, root) {
+                if(err) throw err;
+
+                let message = root.lookupType("COD.Level.Level");
+                let errMsg = message.verify(obj);
+                if(errMsg) throw Error(errMsg);
+                let buffer = message.encode(message.fromObject(obj)).finish();
+                
+                let blob = new Blob([buffer], {type: "application/octet-stream"});
+                
+                let link = document.createElement("a");
+                link.href = window.URL.createObjectURL(blob);
+                link.download = name+".level";
+                link.click();
+            });
+        }, false);
+
+        document.getElementById("copy").addEventListener('click', function () {
+            let finalNodes = [].concat.apply([], nodes);
+            let creators = document.getElementById('creators').value;
+            let desc = document.getElementById('desc').value;
+            let title = document.getElementById('title').value;
             if (title == '') {
                 title = 'Untitled';
             }
-            json = `
+            let json = `
             {
                 "ambienceSettings": {
                     "skyHorizonColor": {
@@ -146,26 +214,8 @@
                 "title": "`+title+`"
             }
             `
-            var obj = JSON.parse(json);
-            //document.getElementById('out').innerText = json;
-            //console.log(obj);
-            
-            protobuf.load("proto/level.proto", function(err, root) {
-                if(err) throw err;
-
-                let message = root.lookupType("COD.Level.Level");
-                let errMsg = message.verify(obj);
-                if(errMsg) throw Error(errMsg);
-                let buffer = message.encode(message.fromObject(obj)).finish();
-                
-                let blob = new Blob([buffer], {type: "application/octet-stream"});
-                
-                let link = document.createElement("a");
-                link.href = window.URL.createObjectURL(blob);
-                link.download = title+".level";
-                link.click();
-            });
-        }, false);
+            navigator.clipboard.writeText(json);
+        });
     </script>
 </body>
 </html>
