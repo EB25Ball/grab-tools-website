@@ -53,9 +53,12 @@
 
         document.getElementById('compile').addEventListener("click", function () {
             nodes = [].concat.apply([], nodes);
-            creators = document.getElementById('creators');
-            desc = document.getElementById('desc');
-            name = document.getElementById('name');
+            var creators = document.getElementById('creators').value;
+            var desc = document.getElementById('desc').value;
+            var name = document.getElementById('name').value;
+            if (name == '') {
+                name = 'Untitled';
+            }
             json = `
             {
                 "ambienceSettings": {
@@ -79,13 +82,30 @@
                 "creators": "`+creators+`",
                 "description": "`+desc+`",
                 "formatVersion": 6,
-                "levelNodes": `+str(nodes)+`,
+                "levelNodes": `+JSON.stringify(nodes)+`,
                 "maxCheckpointCount": 10,
                 "title": "`+name+`"
             }
             `
             var obj = JSON.parse(json);
             document.getElementById('out').innerText = json;
+            console.log(obj);
+            
+            protobuf.load("proto/level.proto", function(err, root) {
+                if(err) throw err;
+
+                let message = root.lookupType("COD.Level.Level");
+                let errMsg = message.verify(obj);
+                if(errMsg) throw Error(errMsg);
+                let buffer = message.encode(message.fromObject(obj)).finish();
+                
+                let blob = new Blob([buffer], {type: "application/octet-stream"});
+                
+                let link = document.createElement("a");
+                link.href = window.URL.createObjectURL(blob);
+                link.download = name+".level";
+                link.click();
+            });
         }, false);
     </script>
 </body>
