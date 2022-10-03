@@ -11,6 +11,7 @@
     <input type="text" id="creators" name="creators" placeholder="Creators">
     <input type="file" name="file" id="file" accept=".level" multiple>
     <button id="compile">Compile</button>
+    <div id="out"></div>
     <script src="//cdn.jsdelivr.net/npm/protobufjs@7.X.X/dist/protobuf.js"></script>
     <script type="text/javascript">
         var nodes = [];
@@ -84,6 +85,7 @@
             }
             `
             var obj = JSON.parse(json);
+            document.getElementById('out').innerText = json;
         }, false);
     </script>
 </body>
