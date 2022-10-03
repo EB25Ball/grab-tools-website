@@ -63,7 +63,7 @@
 </head>
 <body>
     <div id="details">
-        <input type="text" id="name" name="name" placeholder="Name">
+        <input type="text" id="title" name="title" placeholder="Title">
         <input type="text" id="desc" name="description" placeholder="Description">
         <input type="text" id="creators" name="creators" placeholder="Creators">
     </div>
@@ -114,9 +114,9 @@
             nodes = [].concat.apply([], nodes);
             var creators = document.getElementById('creators').value;
             var desc = document.getElementById('desc').value;
-            var name = document.getElementById('name').value;
-            if (name == '') {
-                name = 'Untitled';
+            var title = document.getElementById('title').value;
+            if (title == '') {
+                title = 'Untitled';
             }
             json = `
             {
@@ -143,7 +143,7 @@
                 "formatVersion": 6,
                 "levelNodes": `+JSON.stringify(nodes)+`,
                 "maxCheckpointCount": 10,
-                "title": "`+name+`"
+                "title": "`+title+`"
             }
             `
             var obj = JSON.parse(json);
@@ -162,7 +162,7 @@
                 
                 let link = document.createElement("a");
                 link.href = window.URL.createObjectURL(blob);
-                link.download = name+".level";
+                link.download = title+".level";
                 link.click();
             });
         }, false);
