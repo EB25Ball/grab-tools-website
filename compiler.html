@@ -51,41 +51,9 @@
             }
 
             Promise.all(readers).then((values) => {
-                console.log(values);
+                nodes = [].concat(nodes, values);
             });
         }, false);
-/*
-        let reader = new FileReader();
-
-        reader.onload = () => {
-            let data = reader.result;
-            protobuf.load("proto/level.proto", function(err, root) {
-                if(err) throw err;
-                const message = root.lookupType("COD.Level.Level");
-                let decoded = message.decode(new Uint8Array(data));
-                let object = message.toObject(decoded);
-                return object.levelNodes;
-            });
-        }
-
-        form.addEventListener('submit', (e) => {
-            for (let i = 0; i < input.files.length; i++) {
-                reader.readAsArrayBuffer(input.files[i]).then((levelNodes) => {
-                    nodes = [].concat(nodes, levelNodes);
-                });
-            }
-        });
-
-        download.addEventListener('click', () => {
-            console.log(JSON.stringify(nodes));
-        });
-
-        input.addEventListener('change', function(e) {
-            for (let i = 0; i < input.files.length; i++) {
-                console.log(input.files[i].name);
-            }
-        });
-        */
     </script>
 </body>
 </html>
