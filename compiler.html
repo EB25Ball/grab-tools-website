@@ -4,11 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Level Compiler | Grab Tools | twhlynch </title>
+    <style>
+        html {
+            width: 100%;
+            height: 100%;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 2rem;
+            height: calc(90% - 2rem);
+            font-family: sans-serif;
+            width: 80%;
+            margin: 0;
+            margin-inline: auto;
+            padding: 2rem;
+        }
+        #file{
+            display: none;
+        }
+        #file-custom {
+            /* nice and simpledrag and drop file input */
+            width: 80%;
+            height: 100px;
+            border: 2px dashed #ccc;
+            border-radius: 5px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+            font-size: 20px;
+            color: #ccc;
+        }
+        #file-custom:hover {
+            border: 2px dashed #999;
+            color: #999;
+        }
+    </style>
 </head>
 <body>
-    <input type="text" id="name" name="name" placeholder="Name">
-    <input type="text" id="desc" name="description" placeholder="Description">
-    <input type="text" id="creators" name="creators" placeholder="Creators">
+    <div id="details">
+        <input type="text" id="name" name="name" placeholder="Name">
+        <input type="text" id="desc" name="description" placeholder="Description">
+        <input type="text" id="creators" name="creators" placeholder="Creators">
+    </div>
+    <label for="file" id="file-custom">Click Me!</label>
     <input type="file" name="file" id="file" accept=".level" multiple>
     <button id="compile">Compile</button>
     <div id="out"></div>
@@ -88,8 +129,8 @@
             }
             `
             var obj = JSON.parse(json);
-            document.getElementById('out').innerText = json;
-            console.log(obj);
+            //document.getElementById('out').innerText = json;
+            //console.log(obj);
             
             protobuf.load("proto/level.proto", function(err, root) {
                 if(err) throw err;
