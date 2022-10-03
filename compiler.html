@@ -6,24 +6,19 @@
     <title> Level Compiler | Grab Tools | twhlynch </title>
 </head>
 <body>
-    <form id="form" method="post">
-        <input type="text" name="name" placeholder="Name">
-        <input type="text" name="description" placeholder="Description">
-        <input type="text" name="creators" placeholder="Creators">
-        <input type="file" name="file" id="file" accept=".level" multiple>
-        <input type="submit" value="Compile">
-    </form>
-    <button id="download">Download</button>
+    <input type="text" id="name" name="name" placeholder="Name">
+    <input type="text" id="desc" name="description" placeholder="Description">
+    <input type="text" id="creators" name="creators" placeholder="Creators">
+    <input type="file" name="file" id="file" accept=".level" multiple>
+    <button id="compile">Compile</button>
     <script src="//cdn.jsdelivr.net/npm/protobufjs@7.X.X/dist/protobuf.js"></script>
     <script type="text/javascript">
-        const form  = document.getElementById('form');
-        const download = document.getElementById('download');
         var nodes = [];
 
         function readArrayBuffer(file) {
-            return new Promise((resolve, reject) => {
+            return new Promise(function(resolve, reject) {
                 let reader = new FileReader();
-                reader.onload = () => {
+                reader.onload = function() {
                     let data = reader.result;
                     protobuf.load("proto/level.proto", function(err, root) {
                         if(err) throw err;
@@ -33,14 +28,14 @@
                         resolve(object.levelNodes);
                     });
                 }
-                reader.onerror = () => {
+                reader.onerror = function() {
                     reject(reader);
                 }
                 reader.readAsArrayBuffer(file);
             });
         }
 
-        document.getElementById('file').addEventListener("submit", (e) => {
+        document.getElementById('file').addEventListener("change", function(e) {
             let files = e.target.files;
             let readers = [];
 
@@ -53,6 +48,42 @@
             Promise.all(readers).then((values) => {
                 nodes = [].concat(nodes, values);
             });
+        }, false);
+
+        document.getElementById('compile').addEventListener("click", function () {
+            nodes = [].concat.apply([], nodes);
+            creators = document.getElementById('creators');
+            desc = document.getElementById('desc');
+            name = document.getElementById('name');
+            json = `
+            {
+                "ambienceSettings": {
+                    "skyHorizonColor": {
+                        "a": 1.0,
+                        "b": 0.9574,
+                        "g": 0.9574,
+                        "r": 0.916
+                    },
+                    "skyZenithColor": {
+                        "a": 1.0,
+                        "b": 0.73,
+                        "g": 0.476,
+                        "r": 0.28
+                    },
+                    "sunAltitude": 45.0,
+                    "sunAzimuth": 315.0,
+                    "sunSize": 1.0
+                },
+                "complexity": 0,
+                "creators": "`+creators+`",
+                "description": "`+desc+`",
+                "formatVersion": 6,
+                "levelNodes": `+str(nodes)+`,
+                "maxCheckpointCount": 10,
+                "title": "`+name+`"
+            }
+            `
+            var obj = JSON.parse(json);
         }, false);
     </script>
 </body>
