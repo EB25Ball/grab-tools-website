@@ -120,7 +120,7 @@
                 img.onload = function() {
                     ctx.drawImage(img, 0, 0);
                     let imageData = ctx.getImageData(0, 0, img.width, img.height);
-                    document.body.appendChild(img);
+                    //document.body.appendChild(img);
                     var pixels = [];
                     for (let i = 0; i < imageData.data.length; i += 4) {
                         pixels.push([
@@ -232,7 +232,7 @@
                 img.onload = function() {
                     ctx.drawImage(img, 0, 0);
                     let imageData = ctx.getImageData(0, 0, img.width, img.height);
-                    document.body.appendChild(img);
+                    //document.body.appendChild(img);
                     var pixels = [];
                     for (let i = 0; i < imageData.data.length; i += 4) {
                         pixels.push([
