@@ -261,8 +261,7 @@
                 "title": "`+title+`"
             }
             `
-            navigator.clipboard.writeText(json).then(
-                () => {},
+            navigator.clipboard.writeText(json).catch(
                 () => {
                     document.getElementById('out').value = json;
                     document.getElementById('out').style.display = "block";
