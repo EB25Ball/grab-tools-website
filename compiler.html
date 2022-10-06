@@ -261,14 +261,27 @@
                 "title": "`+title+`"
             }
             `
-            navigator.clipboard.writeText(json).then(() => {
-                alert("Copied JSON to clipboard!");
-            }, () => {
-                alert("Failed to copy JSON to clipboard!");
-            });
+            if (navigator.userAgent.match(/ipad|ipod|iphone/i)) {
+                // create a temporary element
+                var el = document.createElement('textarea');
+                // set its value to the string that you want copied
+                el.value = json;
+                // make it readonly to be tamper-proof
+                el.setAttribute('readonly', '');
+                // set the absolute position off the screen
+                el.style = {position: 'absolute', left: '-9999px'};
+                // append the textarea to the html page
+                document.body.appendChild(el);
+                // copy the text inside the textarea
+                el.select();
+                document.execCommand('copy');
+                // remove the textarea
+                document.body.removeChild(el);
+            }
+            navigator.clipboard.writeText(json);
+            
             document.getElementById('out').value = json;
             document.getElementById('out').style.display = "block";
-            document.getElementById('out').select();
         }, false);
     </script>
 </body>
