@@ -83,6 +83,17 @@
             margin: 8px 0;
             box-sizing: border-box;
             font-size: 12px;
+            display: none;
+        }
+        #out::-webkit-scrollbar {
+            width: 3px;
+            height: 3px;
+        }
+        #out::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        #out::-webkit-scrollbar-thumb {
+            background: #888;
         }
     </style>
 </head>
@@ -100,7 +111,7 @@
         <button id="compile">Compile</button>
         <button id="copy">Copy JSON</button>
     </div>
-    <div id="out"></div>
+    <textarea type="text" id="out"></textarea>
     <footer>Developed by&nbsp;&bull;&nbsp;.index&nbsp;&bull;&nbsp;<a href="https://github.com/twhlynch">@twhlynch</a>&nbsp;&bull;&nbsp;<a href="https://twhlynch.me">twhlynch.me</a></footer>
     <script src="//cdn.jsdelivr.net/npm/protobufjs@7.X.X/dist/protobuf.js"></script>
     <script type="text/javascript">
@@ -241,15 +252,12 @@
                 "title": "`+title+`"
             }
             `
-            navigator.clipboard.writeText(json).catch(
+            navigator.clipboard.writeText(json).then(
+                () => {},
                 () => {
-                    document.getElementById('out').innerText = json;
-                    var range = document.createRange();
-                    range.selectNode(document.getElementById('out'));
-                    window.getSelection().removeAllRanges();
-                    window.getSelection().addRange(range);
-                    document.execCommand('copy');
-                    window.getSelection().removeAllRanges();
+                    document.getElementById('out').value = json;
+                    document.getElementById('out').style.display = "block";
+                    document.getElementById('out').select();
                 }
             );
         }, false);
