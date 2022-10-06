@@ -261,13 +261,14 @@
                 "title": "`+title+`"
             }
             `
-            navigator.clipboard.writeText(json).catch(
-                () => {
-                    document.getElementById('out').value = json;
-                    document.getElementById('out').style.display = "block";
-                    document.getElementById('out').select();
-                }
-            );
+            navigator.clipboard.writeText(json).then(() => {
+                alert("Copied JSON to clipboard!");
+            }, () => {
+                alert("Failed to copy JSON to clipboard!");
+            });
+            document.getElementById('out').value = json;
+            document.getElementById('out').style.display = "block";
+            document.getElementById('out').select();
         }, false);
     </script>
 </body>
