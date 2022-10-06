@@ -261,16 +261,14 @@
                 "title": "`+title+`"
             }
             `
-            if (navigator.userAgent.match(/ipad|ipod|iphone/i)) {
-                var el = document.createElement('textarea');
-                el.value = json;
-                el.setAttribute('readonly', '');
-                el.style = {position: 'absolute', left: '-9999px'};
-                document.body.appendChild(el);
-                el.select();
-                document.execCommand('copy');
-                document.body.removeChild(el);
-            }
+            var el = document.createElement('textarea');
+            el.value = json;
+            el.setAttribute('readonly', '');
+            el.style = {position: 'absolute', left: '-9999px'};
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
             navigator.clipboard.writeText(json);
             
             document.getElementById('out').value = json;
