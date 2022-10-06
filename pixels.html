@@ -186,7 +186,7 @@
                             "sunAzimuth": 315.0,
                             "sunSize": 1.0
                         },
-                        "complexity": 0,
+                        "complexity": `+q**2+`,
                         "creators": "`+creators+`",
                         "description": "`+desc+`",
                         "formatVersion": 6,
@@ -243,7 +243,7 @@
                     }
                     var pixelNodes = [];
                     for (let i = 0, x = 1; i < img.width; i += img.width / q, x++) {
-                        for (let j = 0, y = 1; j < img.height; j += img.height / q, x++) {
+                        for (let j = 0, y = 1; j < img.height; j += img.height / q, y--) {
                             pixelNodes.push({
                                 "levelNodeStatic": {
                                     "material": "DEFAULT_COLORED",
@@ -298,7 +298,7 @@
                             "sunAzimuth": 315.0,
                             "sunSize": 1.0
                         },
-                        "complexity": 0,
+                        "complexity": `+q**2+`,
                         "creators": "`+creators+`",
                         "description": "`+desc+`",
                         "formatVersion": 6,
