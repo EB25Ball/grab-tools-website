@@ -76,6 +76,9 @@
             margin: 8px 0;
             box-sizing: border-box;
         }
+        #out{
+            max-width: 99vw;
+        }
     </style>
 </head>
 <body>
@@ -96,31 +99,6 @@
     <footer>Developed by&nbsp;&bull;&nbsp;.index&nbsp;&bull;&nbsp;<a href="https://github.com/twhlynch">@twhlynch</a>&nbsp;&bull;&nbsp;<a href="https://twhlynch.me">twhlynch.me</a></footer>
     <script src="//cdn.jsdelivr.net/npm/protobufjs@7.X.X/dist/protobuf.js"></script>
     <script type="text/javascript">
-
-        function imageToPixels(file, x, y) {
-            // pixelate input image to the x and y resolution and add each pixel color to an array
-            var canvas = document.createElement('canvas');
-            var ctx = canvas.getContext('2d');
-            var img = new Image();
-            var pixels = [];
-            img.src = URL.createObjectURL(file);
-            img.onload = function() {
-                canvas.width = x;
-                canvas.height = y;
-                ctx.drawImage(img, 0, 0, x, y);
-                var imageData = ctx.getImageData(0, 0, x, y);
-                for (var i = 0; i < imageData.data.length; i += 4) {
-                    pixels.push({
-                        r: imageData.data[i],
-                        g: imageData.data[i + 1],
-                        b: imageData.data[i + 2],
-                        a: imageData.data[i + 3]
-                    });
-                }
-                return pixels;
-            }
-        }
-
         document.getElementById('file').addEventListener("change", function(e) {
             var file = e.target.files[0];
             document.getElementById('file-custom').innerHTML = '<div id="file-display"></div>';
@@ -130,103 +108,210 @@
         }, false);
 
         document.getElementById('pixelate').addEventListener("click", function () {
-            console.log(file);
             let nodes = [];
-            console.log(imageToPixels(file, 50, 50));
-            let creators = document.getElementById('creators').value;
-            let desc = document.getElementById('desc').value;
-            let title = document.getElementById('title').value;
-            let name = title;
-            if (title == '') {
-                name = (Date.now()).toString().slice(0, -3);
-                title = 'Untitled';
-            }
-            let json = `
-            {
-                "ambienceSettings": {
-                    "skyHorizonColor": {
-                        "a": 1.0,
-                        "b": 0.9574,
-                        "g": 0.9574,
-                        "r": 0.916
-                    },
-                    "skyZenithColor": {
-                        "a": 1.0,
-                        "b": 0.73,
-                        "g": 0.476,
-                        "r": 0.28
-                    },
-                    "sunAltitude": 45.0,
-                    "sunAzimuth": 315.0,
-                    "sunSize": 1.0
-                },
-                "complexity": 0,
-                "creators": "`+creators+`",
-                "description": "`+desc+`",
-                "formatVersion": 6,
-                "levelNodes": `+JSON.stringify(nodes)+`,
-                "maxCheckpointCount": 10,
-                "title": "`+title+`"
-            }
-            `
-            var obj = JSON.parse(json);
-            //document.getElementById('out').innerText = json;
-            //console.log(obj);
-            
-            protobuf.load("proto/level.proto", function(err, root) {
-                if(err) throw err;
+            q = 50;
+            let file = document.getElementById('file').files[0];
+            let canvas = document.createElement('canvas');
+            let ctx = canvas.getContext('2d');
+            let reader = new FileReader();
+            reader.onload = function() {
+                let data = reader.result;
+                let img = new Image();
+                img.onload = function() {
+                    ctx.drawImage(img, 0, 0);
+                    let imageData = ctx.getImageData(0, 0, img.width, img.height);
+                    document.body.appendChild(img);
+                    var pixels = [];
+                    for (let i = 0; i < imageData.data.length; i += 4) {
+                        pixels.push([
+                            imageData.data[i],
+                            imageData.data[i + 1],
+                            imageData.data[i + 2]
+                    ]);
+                    }
+                    var pixelNodes = [];
+                    for (let i = 0, x = 1; i < img.width; i += img.width / q, x++) {
+                        for (let j = 0, y = 1; j < img.height; j += img.height / q, x++) {
+                            pixelNodes.push({
+                                "levelNodeStatic": {
+                                    "material": "DEFAULT_COLORED",
+                                    "position": {
+                                        "x": x,
+                                        "y": y,
+                                        "z": 10.0
+                                    },
+                                    "color": {
+                                        "r": pixels[Math.floor(i) + (img.width * Math.floor(j))][0] / 255,
+                                        "g": pixels[Math.floor(i) + (img.width * Math.floor(j))][1] / 255,
+                                        "b": pixels[Math.floor(i) + (img.width * Math.floor(j))][2] / 255,
+                                        "a": 1.0
+                                    },
+                                    "rotation": {
+                                        "w": 1
+                                    },
+                                    "scale": {
+                                        "x": 1.0,
+                                        "y": 1.0,
+                                        "z": 1.0
+                                    },
+                                    "shape": "CUBE"
+                                }
+                            });
+                        }
+                    }
+                    let creators = document.getElementById('creators').value;
+                    let desc = document.getElementById('desc').value;
+                    let title = document.getElementById('title').value;
+                    let name = title;
+                    if (title == '') {
+                        name = (Date.now()).toString().slice(0, -3);
+                        title = 'Untitled';
+                    }
+                    let json = `
+                    {
+                        "ambienceSettings": {
+                            "skyHorizonColor": {
+                                "a": 1.0,
+                                "b": 0.9574,
+                                "g": 0.9574,
+                                "r": 0.916
+                            },
+                            "skyZenithColor": {
+                                "a": 1.0,
+                                "b": 0.73,
+                                "g": 0.476,
+                                "r": 0.28
+                            },
+                            "sunAltitude": 45.0,
+                            "sunAzimuth": 315.0,
+                            "sunSize": 1.0
+                        },
+                        "complexity": 0,
+                        "creators": "`+creators+`",
+                        "description": "`+desc+`",
+                        "formatVersion": 6,
+                        "levelNodes": `+JSON.stringify(pixelNodes)+`,
+                        "maxCheckpointCount": 10,
+                        "title": "`+title+`"
+                    }
+                    `
+                    var obj = JSON.parse(json);
+                    //document.getElementById("out").innerText = json;
+                    
+                    protobuf.load("proto/level.proto", function(err, root) {
+                        if(err) throw err;
 
-                let message = root.lookupType("COD.Level.Level");
-                let errMsg = message.verify(obj);
-                if(errMsg) throw Error(errMsg);
-                let buffer = message.encode(message.fromObject(obj)).finish();
-                
-                let blob = new Blob([buffer], {type: "application/octet-stream"});
-                
-                let link = document.createElement("a");
-                link.href = window.URL.createObjectURL(blob);
-                link.download = name+".level";
-                link.click();
-            });
+                        let message = root.lookupType("COD.Level.Level");
+                        let errMsg = message.verify(obj);
+                        //if(errMsg) throw Error(errMsg);
+                        let buffer = message.encode(message.fromObject(obj)).finish();
+                        
+                        let blob = new Blob([buffer], {type: "application/octet-stream"});
+                        
+                        let link = document.createElement("a");
+                        link.href = window.URL.createObjectURL(blob);
+                        link.download = name+".level";
+                        link.click();
+                    });
+                }
+                img.src = data;
+            }
+            reader.readAsDataURL(file);
         }, false);
 
         document.getElementById("copy").addEventListener('click', function () {
-            let finalNodes = [].concat.apply([], nodes);
-            let creators = document.getElementById('creators').value;
-            let desc = document.getElementById('desc').value;
-            let title = document.getElementById('title').value;
-            if (title == '') {
-                title = 'Untitled';
+            let nodes = [];
+            q = 50;
+            let file = document.getElementById('file').files[0];
+            let canvas = document.createElement('canvas');
+            let ctx = canvas.getContext('2d');
+            let reader = new FileReader();
+            reader.onload = function() {
+                let data = reader.result;
+                let img = new Image();
+                img.onload = function() {
+                    ctx.drawImage(img, 0, 0);
+                    let imageData = ctx.getImageData(0, 0, img.width, img.height);
+                    document.body.appendChild(img);
+                    var pixels = [];
+                    for (let i = 0; i < imageData.data.length; i += 4) {
+                        pixels.push([
+                            imageData.data[i],
+                            imageData.data[i + 1],
+                            imageData.data[i + 2]
+                    ]);
+                    }
+                    var pixelNodes = [];
+                    for (let i = 0, x = 1; i < img.width; i += img.width / q, x++) {
+                        for (let j = 0, y = 1; j < img.height; j += img.height / q, x++) {
+                            pixelNodes.push({
+                                "levelNodeStatic": {
+                                    "material": "DEFAULT_COLORED",
+                                    "position": {
+                                        "x": x,
+                                        "y": y,
+                                        "z": 10.0
+                                    },
+                                    "color": {
+                                        "r": pixels[Math.floor(i) + (img.width * Math.floor(j))][0] / 255,
+                                        "g": pixels[Math.floor(i) + (img.width * Math.floor(j))][1] / 255,
+                                        "b": pixels[Math.floor(i) + (img.width * Math.floor(j))][2] / 255,
+                                        "a": 1.0
+                                    },
+                                    "rotation": {
+                                        "w": 1
+                                    },
+                                    "scale": {
+                                        "x": 1.0,
+                                        "y": 1.0,
+                                        "z": 1.0
+                                    },
+                                    "shape": "CUBE"
+                                }
+                            });
+                        }
+                    }
+                    let creators = document.getElementById('creators').value;
+                    let desc = document.getElementById('desc').value;
+                    let title = document.getElementById('title').value;
+                    let name = title;
+                    if (title == '') {
+                        name = (Date.now()).toString().slice(0, -3);
+                        title = 'Untitled';
+                    }
+                    let json = `
+                    {
+                        "ambienceSettings": {
+                            "skyHorizonColor": {
+                                "a": 1.0,
+                                "b": 0.9574,
+                                "g": 0.9574,
+                                "r": 0.916
+                            },
+                            "skyZenithColor": {
+                                "a": 1.0,
+                                "b": 0.73,
+                                "g": 0.476,
+                                "r": 0.28
+                            },
+                            "sunAltitude": 45.0,
+                            "sunAzimuth": 315.0,
+                            "sunSize": 1.0
+                        },
+                        "complexity": 0,
+                        "creators": "`+creators+`",
+                        "description": "`+desc+`",
+                        "formatVersion": 6,
+                        "levelNodes": `+JSON.stringify(pixelNodes)+`,
+                        "maxCheckpointCount": 10,
+                        "title": "`+title+`"
+                    }
+                    `
+                    navigator.clipboard.writeText(json);
+                }
+                img.src = data;
             }
-            let json = `
-            {
-                "ambienceSettings": {
-                    "skyHorizonColor": {
-                        "a": 1.0,
-                        "b": 0.9574,
-                        "g": 0.9574,
-                        "r": 0.916
-                    },
-                    "skyZenithColor": {
-                        "a": 1.0,
-                        "b": 0.73,
-                        "g": 0.476,
-                        "r": 0.28
-                    },
-                    "sunAltitude": 45.0,
-                    "sunAzimuth": 315.0,
-                    "sunSize": 1.0
-                },
-                "complexity": 0,
-                "creators": "`+creators+`",
-                "description": "`+desc+`",
-                "formatVersion": 6,
-                "levelNodes": `+JSON.stringify(nodes)+`,
-                "maxCheckpointCount": 10,
-                "title": "`+title+`"
-            }
-            `
-            navigator.clipboard.writeText(json);
+            reader.readAsDataURL(file);
         }, false);
     </script>
 </body>
