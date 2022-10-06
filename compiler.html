@@ -76,6 +76,14 @@
             margin: 8px 0;
             box-sizing: border-box;
         }
+        #out{
+            width: 100%;
+            height: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            font-size: 12px;
+        }
     </style>
 </head>
 <body>
@@ -233,7 +241,17 @@
                 "title": "`+title+`"
             }
             `
-            navigator.clipboard.writeText(json);
+            navigator.clipboard.writeText(json).catch(
+                () => {
+                    document.getElementById('out').innerText = json;
+                    var range = document.createRange();
+                    range.selectNode(document.getElementById('out'));
+                    window.getSelection().removeAllRanges();
+                    window.getSelection().addRange(range);
+                    document.execCommand('copy');
+                    window.getSelection().removeAllRanges();
+                }
+            );
         }, false);
     </script>
 </body>
