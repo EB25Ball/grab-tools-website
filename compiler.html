@@ -234,32 +234,32 @@
                 title = 'Untitled';
             }
             let json = `
-            {
-                "ambienceSettings": {
-                    "skyHorizonColor": {
-                        "a": 1.0,
-                        "b": 0.9574,
-                        "g": 0.9574,
-                        "r": 0.916
-                    },
-                    "skyZenithColor": {
-                        "a": 1.0,
-                        "b": 0.73,
-                        "g": 0.476,
-                        "r": 0.28
-                    },
-                    "sunAltitude": 45.0,
-                    "sunAzimuth": 315.0,
-                    "sunSize": 1.0
-                },
-                "complexity": 0,
-                "creators": "`+creators+`",
-                "description": "`+desc+`",
-                "formatVersion": 6,
-                "levelNodes": `+JSON.stringify(nodes)+`,
-                "maxCheckpointCount": 10,
-                "title": "`+title+`"
-            }
+{
+    "ambienceSettings": {
+        "skyHorizonColor": {
+            "a": 1.0,
+            "b": 0.9574,
+            "g": 0.9574,
+            "r": 0.916
+        },
+        "skyZenithColor": {
+            "a": 1.0,
+            "b": 0.73,
+            "g": 0.476,
+            "r": 0.28
+        },
+        "sunAltitude": 45.0,
+        "sunAzimuth": 315.0,
+        "sunSize": 1.0
+    },
+    "complexity": 0,
+    "creators": "`+creators+`",
+    "description": "`+desc+`",
+    "formatVersion": 6,
+    "levelNodes": `+JSON.stringify(nodes, null, 4)+`,
+    "maxCheckpointCount": 10,
+    "title": "`+title+`"
+}
             `
             var el = document.createElement('textarea');
             el.value = json;
