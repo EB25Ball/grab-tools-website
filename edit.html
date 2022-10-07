@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Level JSON Editor | Grab Tools | twhlynch </title>
+    <style>
+        html {
+            width: 100%;
+            height: 100%;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 2rem;
+            height: calc(90% - 2rem);
+            font-family: sans-serif;
+            width: 80%;
+            margin: 0;
+            margin-inline: auto;
+            padding: 2rem;
+        }
+        footer {
+            width: 100vw;
+            height: 3rem;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            font-family: sans-serif;
+            color: #666;
+            pointer-events: none;
+        }
+        footer a {
+            text-decoration: none;
+            color: #4CAF50;
+            pointer-events: all;
+        }
+        #file{
+            display: none;
+        }
+        #file-custom {
+            height: fit-content;
+            border: 2px dashed #ccc;
+            border-radius: 5px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+            font-size: 20px;
+            color: #ccc;
+        }
+        #file-custom:hover {
+            border: 2px dashed #999;
+            color: #999;
+        }
+        #download, #copy {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+        #details input{
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            box-sizing: border-box;
+        }
+        #out{
+            width: 100%;
+            height: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            font-size: 12px;
+            display: none;
+        }
+        #out::-webkit-scrollbar {
+            width: 3px;
+            height: 3px;
+        }
+        #out::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        #out::-webkit-scrollbar-thumb {
+            background: #888;
+        }
+        @media screen and (max-width: 443px) {
+            footer{
+                font-size: 0;
+            }            
+            footer a {
+                font-size: 16px;
+                padding-inline: .4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <label for="file" id="file-custom">Click me and select a file!
+        <div id="file-display"></div>
+    </label>
+    <input type="file" name="file" id="file" accept=".level">
+    <div id="buttons">
+        <button id="download">Download</button>
+        <button id="copy">Copy JSON</button>
+    </div>
+    <textarea type="text" id="out"></textarea>
+    <footer>Developed by&nbsp;&bull;&nbsp;.index&nbsp;&bull;&nbsp;<a href="https://github.com/twhlynch">@twhlynch</a>&nbsp;&bull;&nbsp;<a href="https://twhlynch.me">twhlynch.me</a></footer>
+    <script src="//cdn.jsdelivr.net/npm/protobufjs@7.X.X/dist/protobuf.js"></script>
+    <script type="text/javascript">
+
+        function readArrayBuffer(file) {
+            return new Promise(function(resolve, reject) {
+                let reader = new FileReader();
+                reader.onload = function() {
+                    let data = reader.result;
+                    protobuf.load("proto/level.proto", function(err, root) {
+                        if(err) throw err;
+                        let message = root.lookupType("COD.Level.Level");
+                        let decoded = message.decode(new Uint8Array(data));
+                        let object = message.toObject(decoded);
+                        resolve(object);
+                    });
+                }
+                reader.onerror = function() {
+                    reject(reader);
+                }
+                reader.readAsArrayBuffer(file);
+            });
+        }
+
+        document.getElementById('file').addEventListener("change", function(e) {
+            let files = e.target.files;
+            let readers = [];
+
+            if (!files.length) return;
+
+            document.getElementById('file-custom').innerHTML = '<div id="file-display"></div>';
+            for (let i = 0; i < files.length; i++) {
+                let p = document.createElement('p');
+                p.innerText = files[i].name;
+                document.getElementById('file-display').appendChild(p);
+                readers.push(readArrayBuffer(files[i]));
+            }
+
+            Promise.all(readers).then((values) => {
+                document.getElementById('out').value = JSON.stringify(values, null, 4);
+                document.getElementById('out').style.display = "block";
+            });
+        }, false);
+
+        document.getElementById('download').addEventListener("click", function () {
+            obj = JSON.parse(document.getElementById('out').value);
+            protobuf.load("proto/level.proto", function(err, root) {
+                if(err) throw err;
+
+                let message = root.lookupType("COD.Level.Level");
+                let errMsg = message.verify(obj);
+                if(errMsg) throw Error(errMsg);
+                let buffer = message.encode(message.fromObject(obj)).finish();
+                
+                let blob = new Blob([buffer], {type: "application/octet-stream"});
+                
+                let link = document.createElement("a");
+                link.href = window.URL.createObjectURL(blob);
+                link.download = (Date.now()).toString().slice(0, -3)+".level";
+                link.click();
+            });
+        }, false);
+
+        document.getElementById("copy").addEventListener('click', function () {
+            document.getElementById('out').value.select();
+            document.execCommand('copy');
+            navigator.clipboard.writeText(document.getElementById('out').value);
+        }, false);
+    </script>
+</body>
+</html>
