@@ -11,6 +11,7 @@
         <input type="text" id="title" name="title" placeholder="Title">
         <input type="text" id="desc" name="description" placeholder="Description">
         <input type="text" id="creators" name="creators" placeholder="Creators">
+        <input type="number" name="num" id="num" placeholder="Quality (default: 50, recommended: 30)" min="1">
     </div>
     <label for="file" id="file-custom">Click me and select an Image!
         <div id="file-display"></div>
@@ -21,6 +22,8 @@
         <button id="copy">Copy JSON</button>
     </div>
     <div id="out"></div>
+    <canvas id="canvas" style="width:100px; height:100px;"></canvas>
+    <canvas id="canvas2" style="width:100px; height:100px;"></canvas>
     <footer>Developed by&nbsp;&bull;&nbsp;.index&nbsp;&bull;&nbsp;<a href="https://github.com/twhlynch">@twhlynch</a>&nbsp;&bull;&nbsp;<a href="https://twhlynch.me">twhlynch.me</a></footer>
     <script src="//cdn.jsdelivr.net/npm/protobufjs@7.X.X/dist/protobuf.js"></script>
     <script type="text/javascript">
@@ -34,56 +37,106 @@
 
         document.getElementById('pixelate').addEventListener("click", function () {
             let nodes = [];
-            q = 50;
+            let q = document.getElementById('num').value;
+            if (q == "" || q == null || q < 1) {
+                q = 50;
+            }
             let file = document.getElementById('file').files[0];
-            let canvas = document.createElement('canvas');
+            let canvas = document.getElementById('canvas');
             let ctx = canvas.getContext('2d');
             let reader = new FileReader();
             reader.onload = function() {
                 let data = reader.result;
                 let img = new Image();
                 img.onload = function() {
+                    canvas.width = img.width;
+                    canvas.height = img.height;
                     ctx.drawImage(img, 0, 0);
-                    let imageData = ctx.getImageData(0, 0, img.width, img.height);
-                    //document.body.appendChild(img);
-                    var pixels = [];
-                    for (let i = 0; i < imageData.data.length; i += 4) {
-                        pixels.push([
-                            imageData.data[i],
-                            imageData.data[i + 1],
-                            imageData.data[i + 2]
-                    ]);
-                    }
-                    var pixelNodes = [];
-                    for (let i = 0, x = 1; i < img.width; i += img.width / q, x++) {
-                        for (let j = 0, y = 1; j < img.height; j += img.height / q, y--) {
-                            pixelNodes.push({
-                                "levelNodeStatic": {
-                                    "material": "DEFAULT_COLORED",
-                                    "position": {
-                                        "x": x,
-                                        "y": y,
-                                        "z": 10.0
-                                    },
-                                    "color": {
-                                        "r": pixels[Math.floor(i) + (img.width * Math.floor(j))][0] / 255,
-                                        "g": pixels[Math.floor(i) + (img.width * Math.floor(j))][1] / 255,
-                                        "b": pixels[Math.floor(i) + (img.width * Math.floor(j))][2] / 255,
-                                        "a": 1.0
-                                    },
-                                    "rotation": {
-                                        "w": 1
-                                    },
-                                    "scale": {
-                                        "x": 1.0,
-                                        "y": 1.0,
-                                        "z": 1.0
-                                    },
-                                    "shape": "CUBE"
-                                }
-                            });
+                    let canvas2 = document.getElementById('canvas2');
+                    let ctx2 = canvas2.getContext('2d');
+                    canvas2.width = q;
+                    canvas2.height = q;
+                    let rgbArray = [];
+                    for (let x = 0; x < q; x++) {
+                        for (let y = 0; y < q; y++) {
+                            let pixel = ctx.getImageData(x*(img.width/q), y*(img.height/q), 1, 1);
+                            ctx2.putImageData(pixel, x, y);
+                            let rgb = pixel.data;
+                            rgbArray.push([rgb[0], rgb[1], rgb[2], x, y]);
                         }
                     }
+
+
+
+                    let imageData = ctx.getImageData(0, 0, img.width, img.height);
+                    //document.body.appendChild(img);
+                    var pixels = rgbArray;
+                    var pixelNodes = [];
+                    for (var i = 0; i < pixels.length; i++) {
+                        if (pixels[i][0] == 0) {
+                            pixels[i][0] == 1;
+                        }
+                        if (pixels[i][1] == 0) {
+                            pixels[i][1] == 1;
+                        }
+                        if (pixels[i][2] == 0) {
+                            pixels[i][2] == 1;
+                        }
+                        pixelNodes.push({
+                            "levelNodeStatic": {
+                                "material": "DEFAULT_COLORED",
+                                "position": {
+                                    "x": pixels[i][3],
+                                    "y": pixels[i][3],
+                                    "z": 10.0
+                                },
+                                "color": {
+                                    "r": pixels[i][0] / 255,
+                                    "g": pixels[i][1] / 255,
+                                    "b": pixels[i][2] / 255,
+                                    "a": 1.0
+                                },
+                                "rotation": {
+                                    "w": 1
+                                },
+                                "scale": {
+                                    "x": 1.0,
+                                    "y": 1.0,
+                                    "z": 1.0
+                                },
+                                "shape": "CUBE"
+                            }
+                        });
+                    }
+                    // for (let i = 0, x = 1; i < img.width; i += img.width / q, x++) {
+                    //     for (let j = 0, y = 1; j < img.height; j += img.height / q, y--) {
+                    //         pixelNodes.push({
+                    //             "levelNodeStatic": {
+                    //                 "material": "DEFAULT_COLORED",
+                    //                 "position": {
+                    //                     "x": x,
+                    //                     "y": y,
+                    //                     "z": 10.0
+                    //                 },
+                    //                 "color": {
+                    //                     "r": pixels[Math.floor(i) + (img.width * Math.floor(j))][0] / 255,
+                    //                     "g": pixels[Math.floor(i) + (img.width * Math.floor(j))][1] / 255,
+                    //                     "b": pixels[Math.floor(i) + (img.width * Math.floor(j))][2] / 255,
+                    //                     "a": 1.0
+                    //                 },
+                    //                 "rotation": {
+                    //                     "w": 1
+                    //                 },
+                    //                 "scale": {
+                    //                     "x": 1.0,
+                    //                     "y": 1.0,
+                    //                     "z": 1.0
+                    //                 },
+                    //                 "shape": "CUBE"
+                    //             }
+                    //         });
+                    //     }
+                    // }
                     let creators = document.getElementById('creators').value;
                     let desc = document.getElementById('desc').value;
                     let title = document.getElementById('title').value;
@@ -146,56 +199,106 @@
 
         document.getElementById("copy").addEventListener('click', function () {
             let nodes = [];
-            q = 50;
+            let q = document.getElementById('num').value;
+            if (q == "" || q == null || q < 1) {
+                q = 50;
+            }
             let file = document.getElementById('file').files[0];
-            let canvas = document.createElement('canvas');
+            let canvas = document.getElementById('canvas');
             let ctx = canvas.getContext('2d');
             let reader = new FileReader();
             reader.onload = function() {
                 let data = reader.result;
                 let img = new Image();
                 img.onload = function() {
+                    canvas.width = img.width;
+                    canvas.height = img.height;
                     ctx.drawImage(img, 0, 0);
-                    let imageData = ctx.getImageData(0, 0, img.width, img.height);
-                    //document.body.appendChild(img);
-                    var pixels = [];
-                    for (let i = 0; i < imageData.data.length; i += 4) {
-                        pixels.push([
-                            imageData.data[i],
-                            imageData.data[i + 1],
-                            imageData.data[i + 2]
-                    ]);
-                    }
-                    var pixelNodes = [];
-                    for (let i = 0, x = 1; i < img.width; i += img.width / q, x++) {
-                        for (let j = 0, y = 1; j < img.height; j += img.height / q, y--) {
-                            pixelNodes.push({
-                                "levelNodeStatic": {
-                                    "material": "DEFAULT_COLORED",
-                                    "position": {
-                                        "x": x,
-                                        "y": y,
-                                        "z": 10.0
-                                    },
-                                    "color": {
-                                        "r": pixels[Math.floor(i) + (img.width * Math.floor(j))][0] / 255,
-                                        "g": pixels[Math.floor(i) + (img.width * Math.floor(j))][1] / 255,
-                                        "b": pixels[Math.floor(i) + (img.width * Math.floor(j))][2] / 255,
-                                        "a": 1.0
-                                    },
-                                    "rotation": {
-                                        "w": 1
-                                    },
-                                    "scale": {
-                                        "x": 1.0,
-                                        "y": 1.0,
-                                        "z": 1.0
-                                    },
-                                    "shape": "CUBE"
-                                }
-                            });
+                    let canvas2 = document.getElementById('canvas2');
+                    let ctx2 = canvas2.getContext('2d');
+                    canvas2.width = q;
+                    canvas2.height = q;
+                    let rgbArray = [];
+                    for (let x = 0; x < q; x++) {
+                        for (let y = 0; y < q; y++) {
+                            let pixel = ctx.getImageData(x*(img.width/q), y*(img.height/q), 1, 1);
+                            ctx2.putImageData(pixel, x, y);
+                            let rgb = pixel.data;
+                            rgbArray.push([rgb[0], rgb[1], rgb[2], x, y]);
                         }
                     }
+
+
+
+                    let imageData = ctx.getImageData(0, 0, img.width, img.height);
+                    //document.body.appendChild(img);
+                    var pixels = rgbArray;
+                    var pixelNodes = [];
+                    for (var i = 0; i < pixels.length; i++) {
+                        if (pixels[i][0] == 0) {
+                            pixels[i][0] == 1;
+                        }
+                        if (pixels[i][1] == 0) {
+                            pixels[i][1] == 1;
+                        }
+                        if (pixels[i][2] == 0) {
+                            pixels[i][2] == 1;
+                        }
+                        pixelNodes.push({
+                            "levelNodeStatic": {
+                                "material": "DEFAULT_COLORED",
+                                "position": {
+                                    "x": pixels[i][3],
+                                    "y": pixels[i][3],
+                                    "z": 10.0
+                                },
+                                "color": {
+                                    "r": pixels[i][0] / 255,
+                                    "g": pixels[i][1] / 255,
+                                    "b": pixels[i][2] / 255,
+                                    "a": 1.0
+                                },
+                                "rotation": {
+                                    "w": 1
+                                },
+                                "scale": {
+                                    "x": 1.0,
+                                    "y": 1.0,
+                                    "z": 1.0
+                                },
+                                "shape": "CUBE"
+                            }
+                        });
+                    }
+                    // for (let i = 0, x = 1; i < img.width; i += img.width / q, x++) {
+                    //     for (let j = 0, y = 1; j < img.height; j += img.height / q, y--) {
+                    //         pixelNodes.push({
+                    //             "levelNodeStatic": {
+                    //                 "material": "DEFAULT_COLORED",
+                    //                 "position": {
+                    //                     "x": x,
+                    //                     "y": y,
+                    //                     "z": 10.0
+                    //                 },
+                    //                 "color": {
+                    //                     "r": pixels[Math.floor(i) + (img.width * Math.floor(j))][0] / 255,
+                    //                     "g": pixels[Math.floor(i) + (img.width * Math.floor(j))][1] / 255,
+                    //                     "b": pixels[Math.floor(i) + (img.width * Math.floor(j))][2] / 255,
+                    //                     "a": 1.0
+                    //                 },
+                    //                 "rotation": {
+                    //                     "w": 1
+                    //                 },
+                    //                 "scale": {
+                    //                     "x": 1.0,
+                    //                     "y": 1.0,
+                    //                     "z": 1.0
+                    //                 },
+                    //                 "shape": "CUBE"
+                    //             }
+                    //         });
+                    //     }
+                    // }
                     let creators = document.getElementById('creators').value;
                     let desc = document.getElementById('desc').value;
                     let title = document.getElementById('title').value;
