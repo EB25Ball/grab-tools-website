@@ -67,7 +67,7 @@
                             let pixel = ctx.getImageData(x*(img.width/q), y*(img.height/q), 1, 1);
                             ctx2.putImageData(pixel, x, y);
                             let rgb = pixel.data;
-                            rgbArray.push([rgb[0], rgb[1], rgb[2], x, y]);
+                            rgbArray.push([rgb[0], rgb[1], rgb[2], x, y*-1]);
                         }
                     }
 
@@ -92,7 +92,7 @@
                                 "material": "DEFAULT_COLORED",
                                 "position": {
                                     "x": pixels[i][3],
-                                    "y": pixels[i][3],
+                                    "y": pixels[i][4],
                                     "z": 10.0
                                 },
                                 "color": {
