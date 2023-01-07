@@ -41,7 +41,25 @@
                         let message = root.lookupType("COD.Level.Level");
                         let decoded = message.decode(new Uint8Array(data));
                         let object = message.toObject(decoded);
-                        resolve(object.levelNodes);
+                        let group = {
+                            "levelNodeGroup": {
+                                "position": {
+                                    "y": 0, 
+                                    "x": 0, 
+                                    "z": 0
+                                }, 
+                                "rotation": {
+                                    "w": 1.0
+                                }, 
+                                "childNodes": object.levelNodes, 
+                                "scale": {
+                                    "y": 1.0, 
+                                    "x": 1.0, 
+                                    "z": 1.0
+                                }
+                            }
+                        }
+                        resolve(group);
                     });
                 }
                 reader.onerror = function() {
