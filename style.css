@@ -70,8 +70,44 @@ button, #compile, #copy, #download, #pixelate {
     margin: 8px 0;
     box-sizing: border-box;
 }
-#out{
+.editing{
     width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    font-size: 12px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+.leg{
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 180px;
+    margin: 20px;
+    padding: 5px;
+    margin-right: 0;
+    background-color: #4caf5077;
+    border-radius: 5px;
+}
+.leg ul{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    padding-block: 5px;
+    word-wrap: none;
+}
+.leg h3{
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: rgb(0, 0, 0);
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+#out{
+    width: calc(100% - 120px);
     height: 100%;
     padding: 12px 20px;
     margin: 8px 0;

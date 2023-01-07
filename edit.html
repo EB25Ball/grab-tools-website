@@ -20,7 +20,32 @@
         <button id="download">Download</button>
         <button id="copy">Copy JSON</button>
     </div>
-    <textarea type="text" id="out"></textarea>
+    <div class="editing">
+        <textarea type="text" id="out"></textarea>
+        <div class="leg">
+            <h3>shape</h3>
+            <ul>
+                <li>1000:CUBE</li>
+                <li>1001:SPHERE</li>
+                <li>1002:CYLINDER</li>
+                <li>1003:PYRAMID</li>
+                <li>1004:PRISM</li>
+            </ul>
+            <h3>type</h3>
+            <ul>
+                <li>0:DEFAULT</li>
+                <li>1:GRABBABLE</li>
+                <li>2:ICE</li>
+                <li>3:LAVA</li>
+                <li>4:WOOD</li>
+                <li>5:GRAPPLABLE</li>
+                <li>6:GRAPPLABLE_LAVA</li>
+                <li>7:GRABBABLE_CRUMBLING</li>
+                <li>8:DEFAULT_COLORED</li>
+                <li>9:BOUNCING</li>
+            </ul>
+        </div>
+    </div>
     <footer>Developed by&nbsp;&bull;&nbsp;.index&nbsp;&bull;&nbsp;<a href="https://github.com/twhlynch">@twhlynch</a>&nbsp;&bull;&nbsp;<a href="https://twhlynch.me">twhlynch.me</a></footer>
     <script src="//cdn.jsdelivr.net/npm/protobufjs@7.X.X/dist/protobuf.js"></script>
     <script type="text/javascript">
@@ -62,6 +87,7 @@
             Promise.all(readers).then((values) => {
                 document.getElementById('out').value = JSON.stringify(values, null, 4);
                 document.getElementById('out').style.display = "block";
+                document.getElementsByClassName('leg')[0].style.display = "flex";
             });
         }, false);
 
