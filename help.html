@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help | Grab Tools | twhlynch</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="help-container">
+    <h1 class="title">Grab Tools - Help
+        <a href="index.html" class="home"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+        </svg></a>
+    </h1>
+    <section id="levelFileFormat">
+        <div class="title"><a href="#levelFileFormat">#</a> .level Files</div>
+        <p>As explained <a href="https://github.com/Slin/GRAB-Level-Format">here</a>, 
+            levels in GRAB are stored in .level files. 
+            The files themselves are stored in your headset in 
+            <code>Android/data/com.slindev.grab_demo/levels/user</code>
+             or <code>Android/data/com.slindev.grablevels/user/levels/user</code> for the tester version,
+              and are named by the <a href="https://unixtime.org/">Unix timestamp</a> of when they were created (Seconds since 00:00:00 UTC on 1 January 1970). 
+            These files are most simply the info about the level and a list of <code>levelNodes</code> (objects), and it is by editing these files that most of these tools work.
+             The files themselves are in <a href="https://protobuf.dev/">Google Protobuf</a> format meaning they can't be modified directly, but by converting them to readable JSON format we are able to do so easily.
+            </p>
+    </section>
+    <section id="transferringFiles">
+        <div class="title"><a href="#transferringFiles">#</a> Transferring Files</div>
+        <p>
+            To transfer files to or from your headset to your computer, you will need to use a file transfer app such as <a href="https://sidequestvr.com/setup-howto">Sidequest</a> (Advanced installer).
+            Once you have Sidequest installed, plug in your headset to your computer and open the files tab (Folder icon). From there, navigate to your <code>levels/user</code> folder in the grab files and either upload or download .level files.
+        </p>
+    </section>
+    <section id="myTools">
+        <div class="title"><a href="#myTools">#</a> My Tools</div>
+        <p>
+            <h3><a href="edit.html">Level JSON Editor</a> - Edit .level files in JSON format</h3>
+            <p>
+                This tool allows you to edit .level files in JSON format, which is much easier to read and edit than the Protobuf format.
+                To upload a file click <code>Click me and select a file!</code> and locate a .level file. A textbox will appear with the JSON contents of the file.
+                You can then save the file with <code>Download</code> and it will be converted back to Protobuf format (.level) and saved to your PC.
+                You also have the option to copy the JSON directly with <code>Copy JSON</code>, but this will not work in game until reconverted back to protobuf (.level).
+            </p>
+            <h3><a href="compiler.html">Level Compiler</a> - Compile .level files into one</h3>
+            <p>
+                This tool allows you to compile multiple .level files into one larger file and groups each individual level for ease of use.
+                To upload files click <code>Click me and select multiple files!</code> and locate multiple .level files you would like to compile.
+                You can then save the file with <code>Compile</code> and it will be saved to your PC.
+                You also have the option to copy the JSON directly with <code>Copy JSON</code>, but this will not work in game until reconverted back to protobuf (.level).
+            </p>
+            <h3><a href="pixels.html">Pixel Art</a> - Create pixel art in grab</h3>
+            <p>
+                This tool allows you to create pixel art in grab. You can choose the quality of the image and the basic level details.
+                To create pixel art, click <code>Click me and select an image!</code> and locate an image file (preferrably a png).
+                You can then save the file with <code>Pixelate</code> and it will be saved to your PC.
+                You also have the option to copy the JSON directly with <code>Copy JSON</code>, but this will not work in game until reconverted back to protobuf (.level).
+            </p>
+        </p>
+    </section>
+</body>
+</html>
