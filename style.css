@@ -211,6 +211,16 @@ p{
     padding-inline: 5px;
     border-radius: 5px;
 }
+.help-container > section > p > a {
+    background-image: linear-gradient(to right, #d1e7d1 0, #4CAF50 100%);
+    background-size: 0 20%;
+    background-position: bottom left;
+    transition: background-size .7s;
+    background-repeat: no-repeat;
+}
+.help-container > section > p > a:hover{
+    background-size: 100% 20%;
+}
 .help-container > section > div > a:hover{
     background-color: #4caf4f44;
 }
@@ -228,6 +238,7 @@ code {
     background-color: #d1e7d1;
     padding: 0 5px;
     border-radius: 5px;
+    overflow-wrap: anywhere;
 }
 h3 {
     font-size: 1.5rem;
@@ -236,4 +247,15 @@ h3 {
     margin: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     padding-top: 0.5rem;
+}
+@media screen and (max-width: 606px) {
+    .help-container .title {
+        font-size: 1.5rem;
+    }
+    .help-container p, .help-container code {
+        font-size: 1.1rem;
+    }
+    .help-container h3 {
+        font-size: 1.2rem;
+    }
 }
