@@ -248,6 +248,22 @@ h3 {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     padding-top: 0.5rem;
 }
+.idea {
+    font-size: 5rem;
+    color: #666;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding-top: 0.5rem;
+    animation: text-glow 1s ease-in-out infinite alternate;
+}
+@keyframes text-glow {
+    from {
+        text-shadow: none;
+    }
+    to {
+        text-shadow: 0 0 20px #4CAF50, 0 0 30px #4CAF50, 0 0 40px #4CAF50;
+    }
+}
 @media screen and (max-width: 606px) {
     .help-container .title {
         font-size: 1.5rem;
