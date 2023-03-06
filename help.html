@@ -19,7 +19,7 @@
             levels in GRAB are stored in .level files. 
             The files themselves are stored in your headset in 
             <code>Android/data/com.slindev.grab_demo/levels/user</code>
-             or <code>Android/data/com.slindev.grablevels/user/levels/user</code> for the tester version,
+             or <code>Android/data/com.slindev.grab/levels/user/levels/user</code> for the tester version,
               and are named by the <a href="https://unixtime.org/">Unix timestamp</a> of when they were created (Seconds since 00:00:00 UTC on 1 January 1970). 
             These files are most simply the info about the level and a list of <code>levelNodes</code> (objects), and it is by editing these files that most of these tools work.
              The files themselves are in <a href="https://protobuf.dev/">Google Protobuf</a> format meaning they can't be modified directly, but by converting them to readable JSON format we are able to do so easily.
