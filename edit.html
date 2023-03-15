@@ -85,35 +85,35 @@
             }
 
             Promise.all(readers).then((values) => {
-                document.getElementById('out').value = JSON.stringify(values, null, 4);
+                document.getElementById('out').value = JSON.stringify(values[0], null, 4);
                 document.getElementById('out').style.display = "block";
                 document.getElementsByClassName('leg')[0].style.display = "flex";
             });
-        }, false);
 
-        document.getElementById('download').addEventListener("click", function () {
-            obj = JSON.parse(document.getElementById('out').value);
-            protobuf.load("proto/level.proto", function(err, root) {
-                if(err) throw err;
+            document.getElementById('download').addEventListener("click", function () {
+                obj = JSON.parse(document.getElementById('out').value);
+                console.log(obj);
+                protobuf.load("proto/level.proto", function(err, root) {
+                    if(err) throw err;
+    
+                    let message = root.lookupType("COD.Level.Level");
+                    let errMsg = message.verify(obj);
+                    if(errMsg) throw Error(errMsg);
+                    let buffer = message.encode(message.fromObject(obj)).finish();
+                    
+                    let blob = new Blob([buffer], {type: "application/octet-stream"});
 
-                let message = root.lookupType("COD.Level.Level");
-                let errMsg = message.verify(obj);
-                if(errMsg) throw Error(errMsg);
-                let buffer = message.encode(message.fromObject(obj)).finish();
-                
-                let blob = new Blob([buffer], {type: "application/octet-stream"});
-                
-                let link = document.createElement("a");
-                link.href = window.URL.createObjectURL(blob);
-                link.download = (Date.now()).toString().slice(0, -3)+".level";
-                link.click();
-            });
-        }, false);
+                    let link = document.createElement("a");
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = (Date.now()).toString().slice(0, -3)+".level";
+                    link.click();
+                });
+            }, false);
 
-        document.getElementById("copy").addEventListener('click', function () {
-            document.getElementById('out').value.select();
-            document.execCommand('copy');
-            navigator.clipboard.writeText(document.getElementById('out').value);
+            document.getElementById("copy").addEventListener('click', function () {
+                navigator.clipboard.writeText(document.getElementById('out').value);
+            }, false);
+
         }, false);
     </script>
 </body>
