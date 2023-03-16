@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Unbeaten Maps | Grab Tools | twhlynch </title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="title">Unbeaten Maps
+        <a href="index.html" class="home"><svg xmlns=http://www.w3.org/2000/svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+        </svg></a>
+    </div>
+    <ul id="levels-output"></ul>
+    <footer>Developed by&nbsp;&bull;&nbsp;.index&nbsp;&bull;&nbsp;<a href=https://github.com/twhlynch>@twhlynch</a>&nbsp;&bull;&nbsp;<a href=https://twhlynch.me>twhlynch.me</a></footer>
+    <script type="text/javascript">
+        function getLevels(stamp) {
+        var arr = [];
+        fetch(`https://api.slin.dev/grab/v1/list?max_format_version=100&type=ok&page_timestamp=${stamp}`)
+            .then((response) => response.json())
+            .then(data => {
+                arr.push(...data);
+ 
+                var promises = [];
+                arr.forEach(item => {
+                    if (item["statistics"]["difficulty"] == 0) {
+                        let id = item["identifier"].replace(":", "/");
+                        promises.push(
+                            fetch("https://api.slin.dev/grab/v1/statistics/" + id)
+                            .then((response) => response.json())
+                            .then(data => {
+                                if (data["finished_count"] == 0) {
+                                    return {
+                                        "title": item["title"],
+                                        "plays": data["total_played_count"],
+                                        "link": "https://grabvr.quest/levels/viewer?level=" + item["identifier"]
+                                    };
+                                }
+                            })
+                        );
+                    }
+                });
+ 
+                Promise
+                    .all(promises)
+                    .then(levels => {
+                        var hardest = levels.filter(level => level != undefined);
+                        levels.forEach(item => {
+                            if (item != undefined) {
+                                document.getElementById('levels-output').innerHTML += "<li><a href='"+item["link"]+"'>"+item["title"]+"</a></li><br/>";
+                            }
+                        });
+ 
+                        if (arr[arr.length - 1]["page_timestamp"]) {
+                            let newStamp = arr[arr.length - 1]["page_timestamp"];
+                            getLevels(newStamp);
+                        }
+                    });
+            });
+    }
+ 
+    getLevels("");
+    console.log("done");
+    </script>
+</body>
+</html>
