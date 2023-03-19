@@ -298,3 +298,19 @@ h3 {
     margin-top: 1rem;
     padding-bottom: 3rem;
 }
+
+.direction-wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    margin-right: auto;
+}
+
+#direction {
+    border: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1rem;
+    color: #163b17;
+    background-color: #d1e7d1;
+    padding: 0 5px;
+}

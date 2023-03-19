@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Text to Signs | Grab Tools | twhlynch </title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="title">Text to Signs 
+        <a href="index.html" class="home"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+        </svg></a>
+    </div>
+    <div id="details">
+        <input type="text" id="title" name="title" placeholder="Title">
+        <input type="text" id="desc" name="description" placeholder="Description">
+        <input type="text" id="creators" name="creators" placeholder="Creators">
+        <input type="text" id="text" name="text" placeholder="Text">
+    </div>
+    <div class="direction-wrapper">
+        <label for="direction"><p>Direction:</p></label>
+        <select name="direction" id="direction">
+            <option value="horizontal">Horizontal</option>
+            <option value="vertical">Vertical</option>
+        </select>
+    </div>
+    <div id="buttons">
+        <button id="download">Download</button>
+        <button id="copy">Copy JSON</button>
+    </div>
+    <footer>Developed by&nbsp;&bull;&nbsp;.index&nbsp;&bull;&nbsp;<a href="https://github.com/twhlynch">@twhlynch</a>&nbsp;&bull;&nbsp;<a href="https://twhlynch.me">twhlynch.me</a></footer>
+    <script src="//cdn.jsdelivr.net/npm/protobufjs@7.X.X/dist/protobuf.js"></script>
+    <script type="text/javascript">
+
+        document.getElementById('download').addEventListener("click", function () {
+            let creators = document.getElementById('creators').value;
+            let desc = document.getElementById('desc').value;
+            let title = document.getElementById('title').value;
+            let name = title;
+            if (title == '') {
+                name = (Date.now()).toString().slice(0, -3);
+                title = 'Untitled';
+            }
+            let text = document.getElementById('text').value;
+            let direction = document.getElementById('direction').value;
+
+            let words = text.split(' ');
+            console.log(words.length % 12);
+
+            let splitStrings = [];
+            for (let i = 0; i < words.length; i += 16) {
+                let chunk = words.slice(i, i + 16);
+                splitStrings.push(chunk.join(' '));
+            }
+            let signs = [];
+            splitStrings.forEach((str, i) => {
+                sign = {levelNodeSign: {position: {x: 0,y: 0,z: 0},rotation: {w: 1.0},text:str}};
+                if (direction == 'horizontal') {
+                    sign.levelNodeSign.position.x = i;
+                } else {
+                    sign.levelNodeSign.position.y = -i;
+                }
+                signs.push(sign);
+            });
+
+            let json = `
+            {
+                "ambienceSettings": {
+                    "skyHorizonColor": {
+                        "a": 1.0,
+                        "b": 0.9574,
+                        "g": 0.9574,
+                        "r": 0.916
+                    },
+                    "skyZenithColor": {
+                        "a": 1.0,
+                        "b": 0.73,
+                        "g": 0.476,
+                        "r": 0.28
+                    },
+                    "sunAltitude": 45.0,
+                    "sunAzimuth": 315.0,
+                    "sunSize": 1.0
+                },
+                "complexity": 0,
+                "creators": "`+creators+`",
+                "description": "`+desc+`",
+                "formatVersion": 6,
+                "levelNodes": `+JSON.stringify(signs)+`,
+                "maxCheckpointCount": 10,
+                "title": "`+title+`"
+            }
+            `
+            var obj = JSON.parse(json);
+            
+            protobuf.load("proto-anim/level.proto", function(err, root) {
+                if(err) throw err;
+
+                let message = root.lookupType("COD.Level.Level");
+                let errMsg = message.verify(obj);
+                if(errMsg) throw Error(errMsg);
+                let buffer = message.encode(message.fromObject(obj)).finish();
+                
+                let blob = new Blob([buffer], {type: "application/octet-stream"});
+                
+                let link = document.createElement("a");
+                link.href = window.URL.createObjectURL(blob);
+                link.download = name+".level";
+                link.click();
+            });
+        }, false);
+
+        document.getElementById("copy").addEventListener('click', function () {
+            let creators = document.getElementById('creators').value;
+            let desc = document.getElementById('desc').value;
+            let title = document.getElementById('title').value;
+            let name = title;
+            if (title == '') {
+                name = (Date.now()).toString().slice(0, -3);
+                title = 'Untitled';
+            }
+            let text = document.getElementById('text').value;
+            let direction = document.getElementById('direction').value;
+
+            let words = text.split(' ');
+            console.log(words.length % 12);
+
+            let splitStrings = [];
+            for (let i = 0; i < words.length; i += 16) {
+                let chunk = words.slice(i, i + 16);
+                splitStrings.push(chunk.join(' '));
+            }
+            let signs = [];
+            splitStrings.forEach((str, i) => {
+                sign = {levelNodeSign: {position: {x: 0,y: 0,z: 0},rotation: {w: 1.0},text:str}};
+                if (direction == 'horizontal') {
+                    sign.levelNodeSign.position.x = i;
+                } else {
+                    sign.levelNodeSign.position.y = -i;
+                }
+                signs.push(sign);
+            });
+
+            let json = `
+            {
+                "ambienceSettings": {
+                    "skyHorizonColor": {
+                        "a": 1.0,
+                        "b": 0.9574,
+                        "g": 0.9574,
+                        "r": 0.916
+                    },
+                    "skyZenithColor": {
+                        "a": 1.0,
+                        "b": 0.73,
+                        "g": 0.476,
+                        "r": 0.28
+                    },
+                    "sunAltitude": 45.0,
+                    "sunAzimuth": 315.0,
+                    "sunSize": 1.0
+                },
+                "complexity": 0,
+                "creators": "`+creators+`",
+                "description": "`+desc+`",
+                "formatVersion": 6,
+                "levelNodes": `+JSON.stringify(signs)+`,
+                "maxCheckpointCount": 10,
+                "title": "`+title+`"
+            }
+            `
+            var el = document.createElement('textarea');
+            el.value = json;
+            el.setAttribute('readonly', '');
+            el.style = {position: 'absolute', left: '-9999px'};
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+            navigator.clipboard.writeText(json);
+        }, false);
+    </script>
+</body>
+</html>
