@@ -299,6 +299,10 @@ h3 {
     padding-bottom: 3rem;
 }
 
+#levels-output a {
+    text-align: center;
+}
+
 .direction-wrapper {
     display: flex;
     flex-direction: row;
