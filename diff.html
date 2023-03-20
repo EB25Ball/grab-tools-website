@@ -31,8 +31,8 @@
                             .then((response) => response.json())
                             .then(data => {
                                 if (data["finished_count"] == 0) {
-                                    var timestampInMilliseconds = item["creation_timestamp"] * 1000;
-                                    var timeElapsedInSeconds = Math.floor((Date.now() - timestampInMilliseconds) / 1000);
+                                    var timestampInMilliseconds = item["creation_timestamp"];
+                                    var timeElapsedInSeconds = Math.floor((Date.now() - timestampInMilliseconds));
                                     var timeElapsedInMinutes = Math.floor(timeElapsedInSeconds / 60);
                                     var timeElapsedInHours = Math.floor(timeElapsedInMinutes / 60);
                                     var timeElapsedInDays = Math.floor(timeElapsedInHours / 24);
