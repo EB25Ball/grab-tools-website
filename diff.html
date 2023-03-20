@@ -31,10 +31,25 @@
                             .then((response) => response.json())
                             .then(data => {
                                 if (data["finished_count"] == 0) {
+                                    var timestampInMilliseconds = item["creation_timestamp"] * 1000;
+                                    var timeElapsedInSeconds = Math.floor((Date.now() - timestampInMilliseconds) / 1000);
+                                    var timeElapsedInMinutes = Math.floor(timeElapsedInSeconds / 60);
+                                    var timeElapsedInHours = Math.floor(timeElapsedInMinutes / 60);
+                                    var timeElapsedInDays = Math.floor(timeElapsedInHours / 24);
+                                    if (timeElapsedInDays > 0) {
+                                        var time = `${timeElapsedInDays} days`;
+                                    } else if (timeElapsedInHours > 0) {
+                                        var time = `${timeElapsedInHours} hours`;
+                                    } else if (timeElapsedInMinutes > 0) {
+                                        var time = `${timeElapsedInMinutes} minutes`;
+                                    } else {
+                                        var time = `${timeElapsedInSeconds} seconds`;
+                                    }
                                     return {
                                         "title": item["title"],
                                         "plays": data["total_played_count"],
-                                        "link": "https://grabvr.quest/levels/viewer?level=" + item["identifier"]
+                                        "link": "https://grabvr.quest/levels/viewer?level=" + item["identifier"],
+                                        "age": time
                                     };
                                 }
                             })
@@ -48,7 +63,7 @@
                         var hardest = levels.filter(level => level != undefined);
                         levels.forEach(item => {
                             if (item != undefined) {
-                                document.getElementById('levels-output').innerHTML += "<li><a href='"+item["link"]+"'>"+item["title"]+"</a></li><br/>";
+                                document.getElementById('levels-output').innerHTML += "<li><a href='"+item["link"]+"'>"+item["title"]+"</a> - "+item["age"]+"</li><br/>";
                             }
                         });
  
