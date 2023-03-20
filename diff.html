@@ -63,7 +63,8 @@
                         var hardest = levels.filter(level => level != undefined);
                         levels.forEach(item => {
                             if (item != undefined) {
-                                document.getElementById('levels-output').innerHTML += "<li><a href='"+item["link"]+"'>"+item["title"]+"</a> - "+item["age"]+"</li><br/>";
+                                console.log(item);
+                                document.getElementById('levels-output').innerHTML += "<li><a href='"+item["link"]+"'>"+item["title"]+"</a> ~ "+item["age"]+"</li><br/>";
                             }
                         });
  
