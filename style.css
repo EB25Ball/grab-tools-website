@@ -308,9 +308,10 @@ h3 {
     flex-direction: row;
     gap: 1rem;
     margin-right: auto;
+    margin-left: auto;
 }
 
-#direction {
+#direction, .direction-wrapper input {
     border: none;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 1rem;

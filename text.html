@@ -24,6 +24,8 @@
             <option value="horizontal">Horizontal</option>
             <option value="vertical">Vertical</option>
         </select>
+        <label for="words"><p>Words per sign:</p></label>
+        <input type="number" name="words" id="words" value="16">
     </div>
     <div id="buttons">
         <button id="download">Download</button>
@@ -37,6 +39,7 @@
             let creators = document.getElementById('creators').value;
             let desc = document.getElementById('desc').value;
             let title = document.getElementById('title').value;
+            let wordsper = document.getElementById('words').value;
             let name = title;
             if (title == '') {
                 name = (Date.now()).toString().slice(0, -3);
@@ -49,8 +52,8 @@
             console.log(words.length % 12);
 
             let splitStrings = [];
-            for (let i = 0; i < words.length; i += 16) {
-                let chunk = words.slice(i, i + 16);
+            for (let i = 0; i < words.length; i += wordsper) {
+                let chunk = words.slice(i, i + wordsper);
                 splitStrings.push(chunk.join(' '));
             }
             let signs = [];
@@ -115,6 +118,7 @@
             let creators = document.getElementById('creators').value;
             let desc = document.getElementById('desc').value;
             let title = document.getElementById('title').value;
+            let wordsper = document.getElementById('words').value;
             let name = title;
             if (title == '') {
                 name = (Date.now()).toString().slice(0, -3);
@@ -127,8 +131,8 @@
             console.log(words.length % 12);
 
             let splitStrings = [];
-            for (let i = 0; i < words.length; i += 16) {
-                let chunk = words.slice(i, i + 16);
+            for (let i = 0; i < words.length; i += wordsper) {
+                let chunk = words.slice(i, i + wordsper);
                 splitStrings.push(chunk.join(' '));
             }
             let signs = [];
