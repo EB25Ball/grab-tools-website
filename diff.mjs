@@ -2,6 +2,7 @@ import fs from 'fs';
 import fetch from 'node-fetch';
 
 function getLevels(stamp) {
+  var arrayData = [];
   var arr = [];
   fetch(`https://api.slin.dev/grab/v1/list?max_format_version=100&type=ok&page_timestamp=${stamp}`)
       .then((response) => response.json())
@@ -47,7 +48,6 @@ function getLevels(stamp) {
               .all(promises)
               .then(levels => {
                   var hardest = levels.filter(level => level != undefined);
-                  var arrayData = [];
                   levels.forEach(item => {
                       if (item != undefined) {
                           console.log(item);
@@ -60,16 +60,17 @@ function getLevels(stamp) {
                             arrayData.push(newData);
                       }
                   });
-                  fs.writeFile('diff.json', JSON.stringify(arrayData), function(err) {
-                      if (err) throw err;
-                      console.log(arrayData);
-                  });
+                  
                   if (arr[arr.length - 1]["page_timestamp"]) {
                       let newStamp = arr[arr.length - 1]["page_timestamp"];
                       getLevels(newStamp);
                   }
             });
       });
+    fs.writeFile('diff.json', JSON.stringify(arrayData), function(err) {
+        if (err) throw err;
+        console.log(arrayData);
+    });
 }
 
 getLevels("");
