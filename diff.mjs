@@ -55,6 +55,7 @@ function getLevels(stamp) {
                               "title": item["title"],
                               "age": item["age"]
                           });
+                          console.log(item);
                       }
                   });
 
@@ -69,7 +70,7 @@ function getLevels(stamp) {
 var OUTPUT = [];
 
 getLevels("");
-
+console.log(OUTPUT);
 fs.writeFile('diff.json', JSON.stringify(OUTPUT), (err) => {
   if (err) throw err;
 });
