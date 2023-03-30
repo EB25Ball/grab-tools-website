@@ -49,11 +49,22 @@ function getLevels(stamp) {
                   var hardest = levels.filter(level => level != undefined);
                   levels.forEach(item => {
                       if (item != undefined) {
-                          OUTPUT.push({
+                          fs.readFile('diff.json', 'utf8', function(err, data) {
+                            if (err) throw err;
+
+                            const dataArray = JSON.parse(data);
+                            const newData = {
                               "plays": item["plays"].toString(),
                               "link": item["link"],
                               "title": item["title"],
                               "age": item["age"]
+                            };
+                            dataArray.push(newData);
+
+                            fs.writeFile('diff.json', JSON.stringify(dataArray), function(err) {
+                              if (err) throw err;
+                              console.log('Data is appended to file!');
+                            });
                           });
                           console.log(item);
                       }
@@ -67,11 +78,14 @@ function getLevels(stamp) {
       });
 }
 
-var OUTPUT = [];
+fs.writeFile('diff.json', '', function(err) {
+  if (err) throw err;
+  console.log('File is cleared!');
+});
 
-getLevels("").then(() => {
-console.log(OUTPUT);
+
+getLevels("");
+
 fs.writeFile('diff.json', JSON.stringify(OUTPUT), (err) => {
   if (err) throw err;
-})
 });
