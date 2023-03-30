@@ -54,7 +54,11 @@ function getLevels(stamp) {
                           fs.readFile('diff.json', 'utf8', function(err, data) {
                             if (err) throw err;
                             console.log(data+" - data");
-                            dataArray = JSON.parse(data || "[]");
+                            if (data == '' || data == "[]") {
+                              dataArray = [];
+                            } else {
+                              dataArray = JSON.parse(data);
+                            }
                             console.log(dataArray);
                             var newData = {
                               "plays": item["plays"].toString(),
