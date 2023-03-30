@@ -1,4 +1,4 @@
-const fs = require('fs');
+import fs from 'fs';
 import fetch from 'node-fetch';
 
 function getLevels(stamp) {
