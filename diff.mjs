@@ -70,6 +70,6 @@ var OUTPUT = [];
 
 getLevels("");
 
-fs.writeFile('diff.json', OUTPUT, (err) => {
+fs.writeFile('diff.json', JSON.stringify(OUTPUT), (err) => {
   if (err) throw err;
 });
