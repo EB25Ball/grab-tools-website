@@ -47,6 +47,7 @@ function getLevels(stamp) {
               .all(promises)
               .then(levels => {
                   var hardest = levels.filter(level => level != undefined);
+                  var arrayData = [];
                   levels.forEach(item => {
                       if (item != undefined) {
                           console.log(item);
@@ -56,10 +57,7 @@ function getLevels(stamp) {
                               "title": item["title"],
                               "age": item["age"]
                             };
-                          fs.writeFile('diff.json', JSON.stringify(newData), { flag: 'a' }, function(err) {
-                            if (err) throw err;
-                            console.log(item["title"]+'appended!');
-                          });
+                            arrayData.push(newData);
                       }
                   });
 
@@ -68,13 +66,11 @@ function getLevels(stamp) {
                       getLevels(newStamp);
                   }
               });
+           fs.writeFile('diff.json', JSON.stringify(arrayData), function(err) {
+              if (err) throw err;
+              console.log(arrayData);
+            });
       });
 }
-
-fs.writeFile('diff.json', '[]', function(err) {
-  if (err) throw err;
-  console.log('File is cleared!');
-});
-
 
 getLevels("");
