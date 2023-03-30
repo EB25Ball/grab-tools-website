@@ -67,10 +67,8 @@ function getLevels(stamp) {
                   }
             });
       });
-    fs.writeFile('diff.json', JSON.stringify(arrayData), function(err) {
-        if (err) throw err;
-        console.log(arrayData);
-    });
+    fs.writeFileSync('diff.json', JSON.stringify(arrayData));
+    console.log(arrayData);
 }
 
 getLevels("");
