@@ -69,8 +69,9 @@ function getLevels(stamp) {
 
 var OUTPUT = [];
 
-getLevels("");
-console.log(OUTPUT+"0");
+getLevels("").then(() => {
+console.log(OUTPUT);
 fs.writeFile('diff.json', JSON.stringify(OUTPUT), (err) => {
   if (err) throw err;
+})
 });
