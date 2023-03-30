@@ -1,93 +1,49 @@
 import fs from 'fs';
 import fetch from 'node-fetch';
 
-function getLevels(stamp) {
-  var arr = [];
-  fetch(`https://api.slin.dev/grab/v1/list?max_format_version=100&type=ok&page_timestamp=${stamp}`)
-      .then((response) => response.json())
-      .then(data => {
-          arr.push(...data);
+async function processLevels() {
+  try {
+    // Clear the file by writing an empty array
+    await fs.promises.writeFile('diff.json', '[]');
+    console.log('File is cleared!');
 
-          var promises = [];
-          arr.forEach(item => {
-              if (item["statistics"]["difficulty"] == 0) {
-                  let id = item["identifier"].replace(":", "/");
-                  promises.push(
-                      fetch("https://api.slin.dev/grab/v1/statistics/" + id)
-                      .then((response) => response.json())
-                      .then(data => {
-                          if (data["finished_count"] == 0) {
-                              var timestampInMilliseconds = item["creation_timestamp"];
-                              var timeElapsedInSeconds = Math.floor((Date.now() - timestampInMilliseconds) / 1000);
-                              var timeElapsedInMinutes = Math.floor(timeElapsedInSeconds / 60);
-                              var timeElapsedInHours = Math.floor(timeElapsedInMinutes / 60);
-                              var timeElapsedInDays = Math.floor(timeElapsedInHours / 24);
-                              if (timeElapsedInDays > 0) {
-                                  var time = `${timeElapsedInDays} days`;
-                              } else if (timeElapsedInHours > 0) {
-                                  var time = `${timeElapsedInHours} hours`;
-                              } else if (timeElapsedInMinutes > 0) {
-                                  var time = `${timeElapsedInMinutes} minutes`;
-                              } else {
-                                  var time = `${timeElapsedInSeconds} seconds`;
-                              }
-                              return {
-                                  "title": item["title"],
-                                  "plays": data["total_played_count"],
-                                  "link": "https://grabvr.quest/levels/viewer?level=" + item["identifier"],
-                                  "age": time
-                              };
-                          }
-                      })
-                  );
-              }
-          });
+    // Fetch the levels from the API
+    const response = await fetch('https://api.slin.dev/grab/v1/list?max_format_version=100&type=ok');
+    const levels = await response.json();
 
-          Promise
-              .all(promises)
-              .then(levels => {
-                  var hardest = levels.filter(level => level != undefined);
-                  levels.forEach(item => {
-                      if (item != undefined) {
-                          console.log(item);
-                          var dataArray;
-                          fs.readFile('diff.json', 'utf8', function(err, data) {
-                            if (err) throw err;
-                            console.log(data+" - data");
-                            if (data == '' || data == "[]") {
-                              dataArray = [];
-                            } else {
-                              dataArray = JSON.parse(data);
-                            }
-                            console.log(dataArray);
-                            var newData = {
-                              "plays": item["plays"].toString(),
-                              "link": item["link"],
-                              "title": item["title"],
-                              "age": item["age"]
-                            };
-                            dataArray.push(newData);
-                            fs.writeFile('diff.json', JSON.stringify(dataArray), function(err) {
-                              if (err) throw err;
-                              console.log(item["title"]+'appended!');
-                            });
-                          });
-                          
-                      }
-                  });
+    // Filter the levels to find the ones with 0 difficulty and no plays
+    const unplayedLevels = levels.filter(level => level.statistics.difficulty === 0)
+                                 .filter(level => level.statistics.total_played_count === 0);
 
-                  if (arr[arr.length - 1]["page_timestamp"]) {
-                      let newStamp = arr[arr.length - 1]["page_timestamp"];
-                      getLevels(newStamp);
-                  }
-              });
-      });
+    // Process the unplayed levels and write them to the file
+    const data = await Promise.all(unplayedLevels.map(async level => {
+      const id = level.identifier.replace(':', '/');
+      const statsResponse = await fetch(`https://api.slin.dev/grab/v1/statistics/${id}`);
+      const stats = await statsResponse.json();
+      const timestampInMilliseconds = level.creation_timestamp;
+      const timeElapsedInSeconds = Math.floor((Date.now() - timestampInMilliseconds) / 1000);
+      const timeElapsedInMinutes = Math.floor(timeElapsedInSeconds / 60);
+      const timeElapsedInHours = Math.floor(timeElapsedInMinutes / 60);
+      const timeElapsedInDays = Math.floor(timeElapsedInHours / 24);
+      const time = timeElapsedInDays > 0
+        ? `${timeElapsedInDays} days`
+        : timeElapsedInHours > 0
+          ? `${timeElapsedInHours} hours`
+          : timeElapsedInMinutes > 0
+            ? `${timeElapsedInMinutes} minutes`
+            : `${timeElapsedInSeconds} seconds`;
+      return {
+        title: level.title,
+        plays: stats.total_played_count,
+        link: `https://grabvr.quest/levels/viewer?level=${level.identifier}`,
+        age: time,
+      };
+    }));
+    await fs.promises.writeFile('diff.json', JSON.stringify(data));
+    console.log('Data written to file!');
+  } catch (error) {
+    console.error(error);
+  }
 }
 
-fs.writeFile('diff.json', '[]', function(err) {
-  if (err) throw err;
-  console.log('File is cleared!');
-});
-
-
-getLevels("");
+processLevels();
