@@ -60,15 +60,14 @@ function getLevels(stamp) {
                             arrayData.push(newData);
                       }
                   });
-
+                  fs.writeFile('diff.json', JSON.stringify(arrayData), function(err) {
+                      if (err) throw err;
+                      console.log(arrayData);
+                  });
                   if (arr[arr.length - 1]["page_timestamp"]) {
                       let newStamp = arr[arr.length - 1]["page_timestamp"];
                       getLevels(newStamp);
                   }
-              });
-           fs.writeFile('diff.json', JSON.stringify(arrayData), function(err) {
-              if (err) throw err;
-              console.log(arrayData);
             });
       });
 }
