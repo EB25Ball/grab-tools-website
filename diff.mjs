@@ -55,6 +55,7 @@ function getLevels(stamp) {
                             if (err) throw err;
                             console.log(data+" - data");
                             dataArray = JSON.parse(data || "[]");
+                            console.log(dataArray);
                             var newData = {
                               "plays": item["plays"].toString(),
                               "link": item["link"],
