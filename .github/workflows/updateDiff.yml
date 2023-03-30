@@ -23,3 +23,11 @@ jobs:
       
       - name: Run script
         run: node diff.mjs
+        
+      - name: Commit changes
+        run: |
+          git config --global user.email "twhlynch@gmail.com"
+          git config --global user.name "twhlynch"
+          git add diff.json
+          git commit -m "Update diff"
+          git push
