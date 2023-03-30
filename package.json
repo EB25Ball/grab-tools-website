@@ -1,8 +1,0 @@
-{
-  "name": "grab-tools",
-  "version": "1.0.0",
-  "description": "",
-  "dependencies": {
-    "node-fetch": "^3.0.0"
-  }
-}
