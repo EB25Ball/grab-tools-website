@@ -50,10 +50,11 @@ function getLevels(stamp) {
                   levels.forEach(item => {
                       if (item != undefined) {
                         try {
+                          console.log(item+" - item");
                           var dataArray;
                           fs.readFile('diff.json', 'utf8', function(err, data) {
                             if (err) throw err;
-
+                            console.log(data+" - data");
                             dataArray = JSON.parse(data || "[]");
                             var newData = {
                               "plays": item["plays"].toString(),
@@ -67,7 +68,6 @@ function getLevels(stamp) {
                             if (err) throw err;
                             console.log(item["title"]+'appended!');
                           });
-                          console.log(item+" - item");
                         } catch (err) {console.log('err: '+err);}
                       }
                   });
