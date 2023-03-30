@@ -49,7 +49,6 @@ function getLevels(stamp) {
                   var hardest = levels.filter(level => level != undefined);
                   levels.forEach(item => {
                       if (item != undefined) {
-                        try {
                           console.log(item);
                           var dataArray;
                           fs.readFile('diff.json', 'utf8', function(err, data) {
@@ -68,7 +67,6 @@ function getLevels(stamp) {
                             if (err) throw err;
                             console.log(item["title"]+'appended!');
                           });
-                        } catch (err) {console.log('err: '+err);}
                       }
                   });
 
