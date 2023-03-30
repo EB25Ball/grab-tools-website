@@ -49,6 +49,7 @@ function getLevels(stamp) {
                   var hardest = levels.filter(level => level != undefined);
                   levels.forEach(item => {
                       if (item != undefined) {
+                        try {
                           fs.readFile('diff.json', 'utf8', function(err, data) {
                             if (err) throw err;
 
@@ -67,6 +68,7 @@ function getLevels(stamp) {
                             });
                           });
                           console.log(item+" - item");
+                        } catch {console.log('err');}
                       }
                   });
 
