@@ -80,7 +80,7 @@ function getLevels(stamp) {
       });
 }
 
-fs.writeFile('diff.json', '', function(err) {
+fs.writeFile('diff.json', '[]', function(err) {
   if (err) throw err;
   console.log('File is cleared!');
 });
