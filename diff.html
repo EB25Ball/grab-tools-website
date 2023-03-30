@@ -83,7 +83,7 @@
     */
         
         function getLevels() {
-            fetch('diff.json')
+            fetch('./diff.json')
             .then((response) => response.json())
             .then(data => {
                 data.forEach(item => {
