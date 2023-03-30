@@ -50,26 +50,13 @@ function getLevels(stamp) {
                   levels.forEach(item => {
                       if (item != undefined) {
                           console.log(item);
-                          var dataArray;
-                          fs.readFile('diff.json', 'utf8', function(err, data) {
-                            if (err) throw err;
-                            console.log(data+" - data");
-                            if (data == '' || data == "[]") {
-                              dataArray = [];
-                            } else {
-                              dataArray = JSON.parse(data);
-                            }
-                            console.log(dataArray);
                             var newData = {
                               "plays": item["plays"].toString(),
                               "link": item["link"],
                               "title": item["title"],
                               "age": item["age"]
                             };
-                            dataArray.push(newData);
-                            
-                          });
-                          fs.writeFile('diff.json', JSON.stringify(dataArray), function(err) {
+                          fs.writeFile('diff.json', JSON.stringify(newData), { flag: 'a' }, function(err) {
                             if (err) throw err;
                             console.log(item["title"]+'appended!');
                           });
