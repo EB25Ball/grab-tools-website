@@ -66,7 +66,7 @@ function getLevels(stamp) {
       });
 }
 
-OUTPUT = [];
+var OUTPUT = [];
 
 getLevels("");
 
