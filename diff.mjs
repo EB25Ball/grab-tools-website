@@ -1,5 +1,5 @@
 const fs = require('fs');
-const fetch = require('node-fetch');
+import fetch from 'node-fetch';
 
 function getLevels(stamp) {
   var arr = [];
