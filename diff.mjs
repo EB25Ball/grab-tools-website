@@ -61,11 +61,10 @@ function getLevels(stamp) {
                               "age": item["age"]
                             };
                             dataArray.push(newData);
-
-                            fs.writeFile('diff.json', JSON.stringify(dataArray), function(err) {
-                              if (err) throw err;
-                              console.log(item["title"]+'appended!');
-                            });
+                          });
+                          fs.writeFile('diff.json', JSON.stringify(dataArray), function(err) {
+                            if (err) throw err;
+                            console.log(item["title"]+'appended!');
                           });
                           console.log(item+" - item");
                         } catch {console.log('err');}
