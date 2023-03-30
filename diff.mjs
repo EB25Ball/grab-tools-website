@@ -63,10 +63,10 @@ function getLevels(stamp) {
 
                             fs.writeFile('diff.json', JSON.stringify(dataArray), function(err) {
                               if (err) throw err;
-                              console.log('Data is appended to file!');
+                              console.log(item["title"]+'appended!');
                             });
                           });
-                          console.log(item);
+                          console.log(item+" - item");
                       }
                   });
 
