@@ -61,7 +61,7 @@ function getLevels(stamp) {
                             arrayData.push(newData);
                       }
                   });
-                  fs.writeFileSync('diff.json', JSON.stringify(arrayData, 2));
+                  fs.writeFileSync('diff.json', JSON.stringify(arrayData, null, 2));
                   console.log({"data": arrayData});
                   if (arr[arr.length - 1]["page_timestamp"]) {
                       let newStamp = arr[arr.length - 1]["page_timestamp"];
