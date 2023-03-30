@@ -70,7 +70,7 @@ function getLevels(stamp) {
 var OUTPUT = [];
 
 getLevels("");
-console.log(OUTPUT);
+console.log(OUTPUT+"0");
 fs.writeFile('diff.json', JSON.stringify(OUTPUT), (err) => {
   if (err) throw err;
 });
