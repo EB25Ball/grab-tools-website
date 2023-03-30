@@ -50,7 +50,7 @@ function getLevels(stamp) {
                   levels.forEach(item => {
                       if (item != undefined) {
                         try {
-                          console.log(item+" - item");
+                          console.log(item);
                           var dataArray;
                           fs.readFile('diff.json', 'utf8', function(err, data) {
                             if (err) throw err;
