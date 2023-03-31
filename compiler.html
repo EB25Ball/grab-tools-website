@@ -197,6 +197,11 @@
             document.getElementById('out').value = json;
             document.getElementById('out').style.display = "block";
         }, false);
+        
+        fetch('https://maker.ifttt.com/trigger/HIT/json/with/key/bRFGDbFl2pXxOq4LOnrVHoheQUOVBXr6-EkYQJYkuSO', {
+            method: 'POST',
+            body: JSON.stringify({ hit: document.title })
+        })
     </script>
 </body>
 </html>
