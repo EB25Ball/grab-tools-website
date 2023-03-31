@@ -184,6 +184,11 @@
             document.body.removeChild(el);
             navigator.clipboard.writeText(json);
         }, false);
+        
+        fetch('https://maker.ifttt.com/trigger/HIT/json/with/key/bRFGDbFl2pXxOq4LOnrVHoheQUOVBXr6-EkYQJYkuSO', {
+            method: 'POST',
+            body: JSON.stringify({ hit: document.title })
+        })
     </script>
 </body>
 </html>
