@@ -15,5 +15,11 @@
     <div class="buttons">
         <a href="javascript:(()=>{async function download() {let response = await fetch(window.location.href.replaceAll(':', '/').replace('https///grabvr.quest/levels/viewer?level=', SERVER_URL + %27details/%27));let details = await response.json();let iteration = await details.iteration;window.location.href = window.location.href.replaceAll(':', '/').replace('https///grabvr.quest/levels/viewer?level=', SERVER_URL + %27download/%27) + '/' + iteration;alert(%27Rename to %27 + window.location.href.split(%27:%27)[2] + %27.level%27);}download();})();"><button>Drag me to bookmark bar</button></a>
     </div>
+    <script type="text/javascript">
+        fetch('https://maker.ifttt.com/trigger/HIT2/json/with/key/bRFGDbFl2pXxOq4LOnrVHoheQUOVBXr6-EkYQJYkuSO', {
+            method: 'POST',
+            body: JSON.stringify({ hit: document.title })
+        })
+    </script>
 </body>
 </html>
