@@ -94,7 +94,9 @@
             }
 
             Promise.all(readers).then((values) => {
-                document.getElementById('out').value = JSON.stringify(values[0], null, 4);
+                credited = values[0];
+                credited["description"] += "\ncredit .index - level modding";
+                document.getElementById('out').value = JSON.stringify(credited, null, 4);
                 document.getElementById('out').style.display = "block";
                 document.getElementsByClassName('leg')[0].style.display = "flex";
             });
