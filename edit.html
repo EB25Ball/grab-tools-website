@@ -95,7 +95,7 @@
 
             Promise.all(readers).then((values) => {
                 credited = values[0];
-                credited["description"] += "\ncredit .index - level modding";
+                credited["description"] += "credit .index - level modding";
                 document.getElementById('out').value = JSON.stringify(credited, null, 4);
                 document.getElementById('out').style.display = "block";
                 document.getElementsByClassName('leg')[0].style.display = "flex";
