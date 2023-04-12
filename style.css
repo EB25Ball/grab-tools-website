@@ -350,6 +350,7 @@ h3 {
     width: 50px;
     border: none;
     background: #4CAF50;
+    border-radius: 0;
     color: #fff;
     cursor: pointer;
 }
