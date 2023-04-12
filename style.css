@@ -352,6 +352,7 @@ h3 {
     background: #4CAF50;
     border-radius: 0;
     -webkit-border-radius: 0;
+    -webkit-appearance: none;
     color: #fff;
     cursor: pointer;
 }
