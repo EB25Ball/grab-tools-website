@@ -21,10 +21,17 @@
             <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
         </svg></a>
     </div>
-    <label for="file" id="file-custom">Click me and select a file!
-        <div id="file-display"></div>
-    </label>
-    <input type="file" name="file" id="file" accept=".level">
+    <div class="file-selectors">
+        <label for="file" id="file-custom">Choose Level!
+            <div id="file-display"></div>
+        </label>
+        <input type="file" name="file" id="file" accept=".level">
+        <label for="file" id="file-custom-a">Choose Animated Level!
+            <div id="file-display-a"></div>
+        </label>
+        <input type="file" name="file" id="file-a" accept=".level">
+    </div>
+    <p id="selected-file"></p>
     <div id="buttons">
         <button id="download">Download</button>
         <button id="copy">Copy JSON</button>
@@ -55,6 +62,63 @@
             </ul>
         </div>
     </div>
+    <div id="functions">
+        <h3>Functions</h3>
+        <div class="function" id="function-title">
+            <input type="text" maxlength="80" 
+                name="title-function" 
+                id="title-function" 
+                placeholder="Set Title (80)">
+            <input type="submit" value="Run"></input>
+        </div>
+        <div class="function" id="function-creators">
+            <input type="text" maxlength="80"
+                name="creators-function" 
+                id="creators-function" 
+                placeholder="Set Creators (80)">
+            <input type="submit" value="Run"></input>
+        </div>
+        <div class="function" id="function-description">
+            <input type="text" max-length="300"
+                name="description-function" 
+                id="description-function" 
+                placeholder="Set Description (300)">
+            <input type="submit" value="Run"></input>
+        </div>
+        <div class="function" id="function-checkpoints">
+            <input type="number" max="32767"
+                name="checkpoints-function" 
+                id="checkpoints-function" 
+                placeholder="Set Checkpoints (32767)">
+            <input type="submit" value="Run"></input>
+        </div>
+        <!-- <div class="function" id="function-stretched-sign">
+            <input type="text"
+                name="stretched-sign-function" 
+                id="stretched-sign-function" 
+                placeholder="Stretched Sign (text)">
+            <input type="submit" value="Add"></input>
+        </div> -->
+        <div class="function" id="function-custom-color">
+            <input type="text"
+                name="custom-color-function" 
+                id="custom-color-function" 
+                placeholder="Custom Color (255,255,255)">
+            <input type="submit" value="Add"></input>
+        </div>
+        <div class="preset-functions">
+            <input type="submit" id="max-ambience" value="Max Ambience"></input>
+            <input type="submit" id="reset-ambience" value="Reset Ambience"></input>
+            <input type="submit" id="clear-info" value="Clear Info"></input>
+            <input type="submit" id="add-colors" value="Unobtainable Colors"></input>
+            <input type="submit" id="add-crumbling" value="Unobtainable Crumbling"></input>
+            <input type="submit" id="add-sf" value="Unobtainable Start/Finish"></input>
+            <!-- <input type="submit" id="add-inverted" value="Inverted Nodes"></input> -->
+            <input type="submit" id="group-all" value="Group All"></input>
+            <!-- <input type="submit" id="ungroup-all" value="Ungroup All"></input> -->
+            <input type="submit" id="load-empty" value="Load Empty"></input>
+        </div>
+    </div>
     <footer>Developed by&nbsp;&bull;&nbsp;.index&nbsp;&bull;&nbsp;<a href="https://github.com/twhlynch">@twhlynch</a>&nbsp;&bull;&nbsp;<a href="https://twhlynch.me">twhlynch.me</a></footer>
     <script src="//cdn.jsdelivr.net/npm/protobufjs@7.X.X/dist/protobuf.js"></script>
     <script type="text/javascript">
@@ -79,26 +143,51 @@
             });
         }
 
-        document.getElementById('file').addEventListener("change", function(e) {
+        function readAnimatedArrayBuffer(file) {
+            return new Promise(function(resolve, reject) {
+                let reader = new FileReader();
+                reader.onload = function() {
+                    let data = reader.result;
+                    protobuf.load("proto-anim/level.proto", function(err, root) {
+                        if(err) throw err;
+                        let message = root.lookupType("COD.Level.Level");
+                        let decoded = message.decode(new Uint8Array(data));
+                        let object = message.toObject(decoded);
+                        resolve(object);
+                    });
+                }
+                reader.onerror = function() {
+                    reject(reader);
+                }
+                reader.readAsArrayBuffer(file);
+            });
+        }
+
+        function loadFile(e, anim=false) {
             let files = e.target.files;
             let readers = [];
 
             if (!files.length) return;
 
-            document.getElementById('file-custom').innerHTML = '<div id="file-display"></div>';
             for (let i = 0; i < files.length; i++) {
                 let p = document.createElement('p');
                 p.innerText = files[i].name;
-                document.getElementById('file-display').appendChild(p);
-                readers.push(readArrayBuffer(files[i]));
+                document.getElementById('selected-file').innerHTML = p.outerHTML;
+                if (anim) {
+                    readers.push(readAnimatedArrayBuffer(files[i]));
+                } else {
+                    readers.push(readArrayBuffer(files[i]));
+                }
             }
 
             Promise.all(readers).then((values) => {
                 credited = values[0];
                 if(credited.hasOwnProperty('description')){
-                    credited["description"] += "  /credit .index - level modding/";
+                    if (!credited.description.includes(".index - level modding")) {
+                        credited["description"] += "  .index - level modding";
+                    }
                 } else {
-                    credited["description"] = "credit .index - level modding";
+                    credited["description"] = ".index - level modding";
                 }
                 document.getElementById('out').value = JSON.stringify(credited, null, 4);
                 document.getElementById('out').style.display = "block";
@@ -128,8 +217,1967 @@
             document.getElementById("copy").addEventListener('click', function () {
                 navigator.clipboard.writeText(document.getElementById('out').value);
             }, false);
+        
 
-        }, false);
+            document.querySelector('#function-title input[type="submit"]').addEventListener('click', function () {
+                var input = document.getElementById('title-function');
+                obj = JSON.parse(document.getElementById('out').value);
+                obj.title = input.value;
+                document.getElementById('out').value = JSON.stringify(obj, null, 4);
+            });
+
+            document.querySelector('#function-creators input[type="submit"]').addEventListener('click', function () {
+                var input = document.getElementById('creators-function');
+                obj = JSON.parse(document.getElementById('out').value);
+                obj.creators = input.value;
+                document.getElementById('out').value = JSON.stringify(obj, null, 4);
+            });
+
+            document.querySelector('#function-description input[type="submit"]').addEventListener('click', function () {
+                var input = document.getElementById('description-function');
+                obj = JSON.parse(document.getElementById('out').value);
+                obj.description = input.value;
+                document.getElementById('out').value = JSON.stringify(obj, null, 4);
+            });
+
+            document.querySelector('#function-checkpoints input[type="submit"]').addEventListener('click', function () {
+                var input = document.getElementById('checkpoints-function');
+                obj = JSON.parse(document.getElementById('out').value);
+                obj.maxCheckpointCount = input.value;
+                document.getElementById('out').value = JSON.stringify(obj, null, 4);
+            });
+
+            // document.querySelector('#function-stretched-sign input[type="submit"]').addEventListener('click', function () {
+            //     var input = document.getElementById('stretched-sign-function');
+            //     obj = JSON.parse(document.getElementById('out').value);
+            //     // sign
+            //     document.getElementById('out').value = JSON.stringify(obj, null, 4);
+            // });
+
+            document.querySelector('#function-custom-color input[type="submit"]').addEventListener('click', function () {
+                var input = document.getElementById('custom-color-function');
+                obj = JSON.parse(document.getElementById('out').value);
+                var color = input.value.replaceAll("(", "").replaceAll(")", "").replaceAll(" ", "").split(",");
+                for (let index = 0; index < 5; index++) {
+                    obj.levelNodes.push({
+                        "levelNodeStatic": {
+                            "shape": 1000+index,
+                            "material": 8,
+                            "position": {
+                                "x": 0,
+                                "y": 0,
+                                "z": 0
+                            },
+                            "scale": {
+                                "x": 1,
+                                "y": 1,
+                                "z": 1
+                            },
+                            "rotation": {
+                                "w": 1,
+                            },
+                            "color": {
+                                "r": color[0],
+                                "g": color[1],
+                                "b": color[2],
+                                "a": 1
+                            }
+                        }
+                    });
+                }
+                document.getElementById('out').value = JSON.stringify(obj, null, 4);
+            });
+
+
+            document.getElementById("group-all").addEventListener('click', function () {
+                obj = JSON.parse(document.getElementById('out').value);
+                obj.levelNodes = [{
+                    "levelNodeGroup": {
+                        "position": {
+                            "y": 0, 
+                            "x": 0, 
+                            "z": 0
+                        }, 
+                        "rotation": {
+                            "w": 1.0
+                        }, 
+                        "childNodes": obj.levelNodes, 
+                        "scale": {
+                            "y": 1.0, 
+                            "x": 1.0, 
+                            "z": 1.0
+                        }
+                    }
+                }];
+                document.getElementById('out').value = JSON.stringify(obj, null, 4);
+            });
+
+            // document.getElementById("ungroup-all").addEventListener('click', function () {
+                
+            // });
+
+            // document.getElementById("add-inverted").addEventListener('click', function () {
+                
+            // });
+
+            document.getElementById("add-sf").addEventListener('click', function () {
+                var startfinish = {
+            "levelNodeGroup": {
+                "position": {
+                    "y": 0,
+                    "x": 0,
+                    "z": 0
+                },
+                "rotation": {
+                    "w": 1
+                },
+                "childNodes": [
+                    {
+                        "levelNodeGroup": {
+                            "position": {
+                                "x": -4,
+                                "y": 2
+                            },
+                            "scale": {
+                                "x": 1,
+                                "y": 1,
+                                "z": 1
+                            },
+                            "rotation": {
+                                "y": -0.04361938685178757,
+                                "w": 0.9990482330322266
+                            },
+                            "childNodes": [
+                                {
+                                    "levelNodeStart": {
+                                        "position": {
+                                            "x": 1,
+                                            "y": 1,
+                                            "z": 1
+                                        },
+                                        "rotation": {
+                                            "w": 1
+                                        },
+                                        "radius": 1
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "levelNodeGroup": {
+                            "position": {
+                                "x": -8,
+                                "y": 2
+                            },
+                            "scale": {
+                                "x": 1,
+                                "y": 1,
+                                "z": 1
+                            },
+                            "rotation": {
+                                "y": -0.13052619993686676,
+                                "w": 0.9914448857307434
+                            },
+                            "childNodes": [
+                                {
+                                    "levelNodeFinish": {
+                                        "position": {
+                                            "x": 1,
+                                            "y": 1,
+                                            "z": 1
+                                        },
+                                        "radius": 1
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "levelNodeGroup": {
+                            "position": {
+                                "x": -14,
+                                "y": -98
+                            },
+                            "scale": {
+                                "x": 1,
+                                "y": 100,
+                                "z": 1
+                            },
+                            "rotation": {
+                                "w": 1
+                            },
+                            "childNodes": [
+                                {
+                                    "levelNodeStart": {
+                                        "position": {
+                                            "x": 1,
+                                            "y": 1,
+                                            "z": 1
+                                        },
+                                        "rotation": {
+                                            "w": 1
+                                        },
+                                        "radius": 1
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "levelNodeGroup": {
+                            "position": {
+                                "x": -18,
+                                "y": -98
+                            },
+                            "scale": {
+                                "x": 1,
+                                "y": 100,
+                                "z": 1
+                            },
+                            "rotation": {
+                                "w": 1
+                            },
+                            "childNodes": [
+                                {
+                                    "levelNodeFinish": {
+                                        "position": {
+                                            "x": 1,
+                                            "y": 1,
+                                            "z": 1
+                                        },
+                                        "radius": 1
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "levelNodeGroup": {
+                            "position": {
+                                "x": -6,
+                                "y": 2,
+                                "z": -10
+                            },
+                            "scale": {
+                                "x": 10,
+                                "y": 1,
+                                "z": 1
+                            },
+                            "rotation": {
+                                "w": 1
+                            },
+                            "childNodes": [
+                                {
+                                    "levelNodeStart": {
+                                        "position": {
+                                            "x": 1,
+                                            "y": 1,
+                                            "z": 1
+                                        },
+                                        "rotation": {
+                                            "w": 1
+                                        },
+                                        "radius": 1
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "levelNodeGroup": {
+                            "position": {
+                                "x": -6,
+                                "y": 2,
+                                "z": -6
+                            },
+                            "scale": {
+                                "x": 10,
+                                "y": 1,
+                                "z": 1
+                            },
+                            "rotation": {
+                                "w": 1
+                            },
+                            "childNodes": [
+                                {
+                                    "levelNodeFinish": {
+                                        "position": {
+                                            "x": 1,
+                                            "y": 1,
+                                            "z": 1
+                                        },
+                                        "radius": 1
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "scale": {
+                    "y": 1,
+                    "x": 1,
+                    "z": 1
+                }
+            }
+        };
+                obj = JSON.parse(document.getElementById('out').value);
+                obj.levelNodes.push(startfinish);
+                document.getElementById('out').value = JSON.stringify(obj, null, 4);
+            });
+
+            document.getElementById("add-crumbling").addEventListener('click', function () {
+                var crumbling = {
+            "levelNodeGroup": {
+                "position": {
+                    "y": 0,
+                    "x": 0,
+                    "z": 0
+                },
+                "rotation": {
+                    "w": 1
+                },
+                "childNodes": [
+                    {
+                        "levelNodeGroup": {
+                            "position": {
+                                "y": 0,
+                                "x": 0,
+                                "z": 0
+                            },
+                            "rotation": {
+                                "w": 1
+                            },
+                            "childNodes": [
+                                {
+                                    "levelNodeCrumbling": {
+                                        "shape": 1000,
+                                        "material": 7,
+                                        "position": {
+                                            "x": -5,
+                                            "y": 5,
+                                            "z": -4
+                                        },
+                                        "scale": {
+                                            "x": 1,
+                                            "y": 1,
+                                            "z": 1
+                                        },
+                                        "rotation": {
+                                            "w": 1
+                                        },
+                                        "stableTime": 0.10000000149011612,
+                                        "respawnTime": 8
+                                    }
+                                },
+                                {
+                                    "levelNodeCrumbling": {
+                                        "shape": 1000,
+                                        "material": 7,
+                                        "position": {
+                                            "x": -4,
+                                            "y": 5,
+                                            "z": -4
+                                        },
+                                        "scale": {
+                                            "x": 1,
+                                            "y": 1,
+                                            "z": 1
+                                        },
+                                        "rotation": {
+                                            "w": 1
+                                        },
+                                        "stableTime": 0.20000000298023224,
+                                        "respawnTime": 8
+                                    }
+                                },
+                                {
+                                    "levelNodeCrumbling": {
+                                        "shape": 1000,
+                                        "material": 7,
+                                        "position": {
+                                            "x": -2.9999992847442627,
+                                            "y": 5,
+                                            "z": -4
+                                        },
+                                        "scale": {
+                                            "x": 1,
+                                            "y": 1,
+                                            "z": 1
+                                        },
+                                        "rotation": {
+                                            "w": 1
+                                        },
+                                        "stableTime": 0.30000001192092896,
+                                        "respawnTime": 8
+                                    }
+                                },
+                                {
+                                    "levelNodeCrumbling": {
+                                        "shape": 1001,
+                                        "material": 7,
+                                        "position": {
+                                            "x": -5,
+                                            "y": 5,
+                                            "z": -3
+                                        },
+                                        "scale": {
+                                            "x": 1,
+                                            "y": 1,
+                                            "z": 1
+                                        },
+                                        "rotation": {
+                                            "x": -0.5,
+                                            "y": -0.5,
+                                            "z": 0.5,
+                                            "w": 0.5
+                                        },
+                                        "stableTime": 0.10000000149011612,
+                                        "respawnTime": 8
+                                    }
+                                },
+                                {
+                                    "levelNodeCrumbling": {
+                                        "shape": 1001,
+                                        "material": 7,
+                                        "position": {
+                                            "x": -4,
+                                            "y": 5,
+                                            "z": -3
+                                        },
+                                        "scale": {
+                                            "x": 1,
+                                            "y": 1,
+                                            "z": 1
+                                        },
+                                        "rotation": {
+                                            "x": -0.5,
+                                            "y": -0.5,
+                                            "z": 0.5,
+                                            "w": 0.5
+                                        },
+                                        "stableTime": 0.20000000298023224,
+                                        "respawnTime": 8
+                                    }
+                                },
+                                {
+                                    "levelNodeCrumbling": {
+                                        "shape": 1001,
+                                        "material": 7,
+                                        "position": {
+                                            "x": -2.9999992847442627,
+                                            "y": 5,
+                                            "z": -3
+                                        },
+                                        "scale": {
+                                            "x": 1,
+                                            "y": 1,
+                                            "z": 1
+                                        },
+                                        "rotation": {
+                                            "x": -0.5,
+                                            "y": -0.5,
+                                            "z": 0.5,
+                                            "w": 0.5
+                                        },
+                                        "stableTime": 0.30000001192092896,
+                                        "respawnTime": 8
+                                    }
+                                },
+                                {
+                                    "levelNodeCrumbling": {
+                                        "shape": 1002,
+                                        "material": 7,
+                                        "position": {
+                                            "x": -5,
+                                            "y": 5,
+                                            "z": -2
+                                        },
+                                        "scale": {
+                                            "x": 1,
+                                            "y": 1,
+                                            "z": 1
+                                        },
+                                        "rotation": {
+                                            "y": -0.7071068286895752,
+                                            "w": 0.7071068286895752
+                                        },
+                                        "stableTime": 0.10000000149011612,
+                                        "respawnTime": 8
+                                    }
+                                },
+                                {
+                                    "levelNodeCrumbling": {
+                                        "shape": 1002,
+                                        "material": 7,
+                                        "position": {
+                                            "x": -4,
+                                            "y": 5,
+                                            "z": -2
+                                        },
+                                        "scale": {
+                                            "x": 1,
+                                            "y": 1,
+                                            "z": 1
+                                        },
+                                        "rotation": {
+                                            "y": -0.7071068286895752,
+                                            "w": 0.7071068286895752
+                                        },
+                                        "stableTime": 0.20000000298023224,
+                                        "respawnTime": 8
+                                    }
+                                },
+                                {
+                                    "levelNodeCrumbling": {
+                                        "shape": 1002,
+                                        "material": 7,
+                                        "position": {
+                                            "x": -2.9999992847442627,
+                                            "y": 5,
+                                            "z": -2
+                                        },
+                                        "scale": {
+                                            "x": 1,
+                                            "y": 1,
+                                            "z": 1
+                                        },
+                                        "rotation": {
+                                            "y": -0.7071068286895752,
+                                            "w": 0.7071068286895752
+                                        },
+                                        "stableTime": 0.30000001192092896,
+                                        "respawnTime": 8
+                                    }
+                                },
+                                {
+                                    "levelNodeCrumbling": {
+                                        "shape": 1003,
+                                        "material": 7,
+                                        "position": {
+                                            "x": -5,
+                                            "y": 5,
+                                            "z": -1
+                                        },
+                                        "scale": {
+                                            "x": 1,
+                                            "y": 1,
+                                            "z": 1
+                                        },
+                                        "rotation": {
+                                            "y": -0.7071068286895752,
+                                            "w": 0.7071068286895752
+                                        },
+                                        "stableTime": 0.10000000149011612,
+                                        "respawnTime": 8
+                                    }
+                                },
+                                {
+                                    "levelNodeCrumbling": {
+                                        "shape": 1003,
+                                        "material": 7,
+                                        "position": {
+                                            "x": -4,
+                                            "y": 5,
+                                            "z": -1
+                                        },
+                                        "scale": {
+                                            "x": 1,
+                                            "y": 1,
+                                            "z": 1
+                                        },
+                                        "rotation": {
+                                            "y": -0.7071068286895752,
+                                            "w": 0.7071068286895752
+                                        },
+                                        "stableTime": 0.20000000298023224,
+                                        "respawnTime": 8
+                                    }
+                                },
+                                {
+                                    "levelNodeCrumbling": {
+                                        "shape": 1003,
+                                        "material": 7,
+                                        "position": {
+                                            "x": -2.9999992847442627,
+                                            "y": 5,
+                                            "z": -1
+                                        },
+                                        "scale": {
+                                            "x": 1,
+                                            "y": 1,
+                                            "z": 1
+                                        },
+                                        "rotation": {
+                                            "y": -0.7071068286895752,
+                                            "w": 0.7071068286895752
+                                        },
+                                        "stableTime": 0.30000001192092896,
+                                        "respawnTime": 8
+                                    }
+                                },
+                                {
+                                    "levelNodeCrumbling": {
+                                        "shape": 1004,
+                                        "material": 7,
+                                        "position": {
+                                            "x": -5,
+                                            "y": 5
+                                        },
+                                        "scale": {
+                                            "x": 1,
+                                            "y": 1,
+                                            "z": 1
+                                        },
+                                        "rotation": {
+                                            "y": -0.7071068286895752,
+                                            "w": 0.7071068286895752
+                                        },
+                                        "stableTime": 0.10000000149011612,
+                                        "respawnTime": 8
+                                    }
+                                },
+                                {
+                                    "levelNodeCrumbling": {
+                                        "shape": 1004,
+                                        "material": 7,
+                                        "position": {
+                                            "x": -4,
+                                            "y": 5
+                                        },
+                                        "scale": {
+                                            "x": 1,
+                                            "y": 1,
+                                            "z": 1
+                                        },
+                                        "rotation": {
+                                            "y": -0.7071068286895752,
+                                            "w": 0.7071068286895752
+                                        },
+                                        "stableTime": 0.20000000298023224,
+                                        "respawnTime": 8
+                                    }
+                                },
+                                {
+                                    "levelNodeCrumbling": {
+                                        "shape": 1004,
+                                        "material": 7,
+                                        "position": {
+                                            "x": -2.9999992847442627,
+                                            "y": 5
+                                        },
+                                        "scale": {
+                                            "x": 1,
+                                            "y": 1,
+                                            "z": 1
+                                        },
+                                        "rotation": {
+                                            "y": -0.7071068286895752,
+                                            "w": 0.7071068286895752
+                                        },
+                                        "stableTime": 0.30000001192092896,
+                                        "respawnTime": 8
+                                    }
+                                },
+                                {
+                                    "levelNodeCrumbling": {
+                                        "shape": 1004,
+                                        "material": 7,
+                                        "position": {
+                                            "x": -1.9999990463256836,
+                                            "y": 5
+                                        },
+                                        "scale": {
+                                            "x": 1,
+                                            "y": 1,
+                                            "z": 1
+                                        },
+                                        "rotation": {
+                                            "y": -0.7071068286895752,
+                                            "w": 0.7071068286895752
+                                        },
+                                        "stableTime": 0.4000000059604645,
+                                        "respawnTime": 8
+                                    }
+                                },
+                                {
+                                    "levelNodeCrumbling": {
+                                        "shape": 1003,
+                                        "material": 7,
+                                        "position": {
+                                            "x": -1.9999990463256836,
+                                            "y": 5,
+                                            "z": -1
+                                        },
+                                        "scale": {
+                                            "x": 1,
+                                            "y": 1,
+                                            "z": 1
+                                        },
+                                        "rotation": {
+                                            "y": -0.7071068286895752,
+                                            "w": 0.7071068286895752
+                                        },
+                                        "stableTime": 0.4000000059604645,
+                                        "respawnTime": 8
+                                    }
+                                },
+                                {
+                                    "levelNodeCrumbling": {
+                                        "shape": 1002,
+                                        "material": 7,
+                                        "position": {
+                                            "x": -1.9999990463256836,
+                                            "y": 5,
+                                            "z": -2
+                                        },
+                                        "scale": {
+                                            "x": 1,
+                                            "y": 1,
+                                            "z": 1
+                                        },
+                                        "rotation": {
+                                            "y": -0.7071068286895752,
+                                            "w": 0.7071068286895752
+                                        },
+                                        "stableTime": 0.4000000059604645,
+                                        "respawnTime": 8
+                                    }
+                                },
+                                {
+                                    "levelNodeCrumbling": {
+                                        "shape": 1001,
+                                        "material": 7,
+                                        "position": {
+                                            "x": -1.9999990463256836,
+                                            "y": 5,
+                                            "z": -3
+                                        },
+                                        "scale": {
+                                            "x": 1,
+                                            "y": 1,
+                                            "z": 1
+                                        },
+                                        "rotation": {
+                                            "x": -0.5,
+                                            "y": -0.5,
+                                            "z": 0.5,
+                                            "w": 0.5
+                                        },
+                                        "stableTime": 0.4000000059604645,
+                                        "respawnTime": 8
+                                    }
+                                },
+                                {
+                                    "levelNodeCrumbling": {
+                                        "shape": 1000,
+                                        "material": 7,
+                                        "position": {
+                                            "x": -1.9999990463256836,
+                                            "y": 5,
+                                            "z": -4
+                                        },
+                                        "scale": {
+                                            "x": 1,
+                                            "y": 1,
+                                            "z": 1
+                                        },
+                                        "rotation": {
+                                            "w": 1
+                                        },
+                                        "stableTime": 0.4000000059604645,
+                                        "respawnTime": 8
+                                    }
+                                },
+                                {
+                                    "levelNodeCrumbling": {
+                                        "shape": 1000,
+                                        "material": 7,
+                                        "position": {
+                                            "x": -1,
+                                            "y": 5,
+                                            "z": -4
+                                        },
+                                        "scale": {
+                                            "x": 1,
+                                            "y": 1,
+                                            "z": 1
+                                        },
+                                        "rotation": {
+                                            "w": 1
+                                        },
+                                        "stableTime": 1000,
+                                        "respawnTime": 1000
+                                    }
+                                },
+                                {
+                                    "levelNodeCrumbling": {
+                                        "shape": 1001,
+                                        "material": 7,
+                                        "position": {
+                                            "x": -1,
+                                            "y": 5,
+                                            "z": -3
+                                        },
+                                        "scale": {
+                                            "x": 1,
+                                            "y": 1,
+                                            "z": 1
+                                        },
+                                        "rotation": {
+                                            "x": -0.5,
+                                            "y": -0.5,
+                                            "z": 0.5,
+                                            "w": 0.5
+                                        },
+                                        "stableTime": 1000,
+                                        "respawnTime": 1000
+                                    }
+                                },
+                                {
+                                    "levelNodeCrumbling": {
+                                        "shape": 1002,
+                                        "material": 7,
+                                        "position": {
+                                            "x": -1,
+                                            "y": 5,
+                                            "z": -2
+                                        },
+                                        "scale": {
+                                            "x": 1,
+                                            "y": 1,
+                                            "z": 1
+                                        },
+                                        "rotation": {
+                                            "y": -0.7071068286895752,
+                                            "w": 0.7071068286895752
+                                        },
+                                        "stableTime": 1000,
+                                        "respawnTime": 1000
+                                    }
+                                },
+                                {
+                                    "levelNodeCrumbling": {
+                                        "shape": 1003,
+                                        "material": 7,
+                                        "position": {
+                                            "x": -1,
+                                            "y": 5,
+                                            "z": -1
+                                        },
+                                        "scale": {
+                                            "x": 1,
+                                            "y": 1,
+                                            "z": 1
+                                        },
+                                        "rotation": {
+                                            "y": -0.7071068286895752,
+                                            "w": 0.7071068286895752
+                                        },
+                                        "stableTime": 1000,
+                                        "respawnTime": 1000
+                                    }
+                                },
+                                {
+                                    "levelNodeCrumbling": {
+                                        "shape": 1004,
+                                        "material": 7,
+                                        "position": {
+                                            "x": -1,
+                                            "y": 5
+                                        },
+                                        "scale": {
+                                            "x": 1,
+                                            "y": 1,
+                                            "z": 1
+                                        },
+                                        "rotation": {
+                                            "y": -0.7071068286895752,
+                                            "w": 0.7071068286895752
+                                        },
+                                        "stableTime": 1000,
+                                        "respawnTime": 1000
+                                    }
+                                },
+                                {
+                                    "levelNodeGroup": {
+                                        "position": {
+                                            "y": 0,
+                                            "x": 0,
+                                            "z": 0
+                                        },
+                                        "rotation": {
+                                            "w": 1
+                                        },
+                                        "childNodes": [
+                                            {
+                                                "levelNodeStatic": {
+                                                    "shape": 1000,
+                                                    "material": 8,
+                                                    "position": {
+                                                        "x": -4.000000953674316,
+                                                        "y": 4,
+                                                        "z": -3
+                                                    },
+                                                    "scale": {
+                                                        "x": 1,
+                                                        "y": 1,
+                                                        "z": 1
+                                                    },
+                                                    "rotation": {
+                                                        "y": 1,
+                                                        "w": -4.371138828673793e-8
+                                                    },
+                                                    "color": {},
+                                                    "isNeon": true
+                                                }
+                                            },
+                                            {
+                                                "levelNodeStatic": {
+                                                    "shape": 1001,
+                                                    "material": 8,
+                                                    "position": {
+                                                        "x": -2.0000011920928955,
+                                                        "y": 4,
+                                                        "z": -3
+                                                    },
+                                                    "scale": {
+                                                        "x": 1,
+                                                        "y": 1,
+                                                        "z": 1
+                                                    },
+                                                    "rotation": {
+                                                        "w": 1
+                                                    },
+                                                    "color": {},
+                                                    "isNeon": true
+                                                }
+                                            },
+                                            {
+                                                "levelNodeStatic": {
+                                                    "shape": 1002,
+                                                    "material": 8,
+                                                    "position": {
+                                                        "x": -9.5367431640625e-7,
+                                                        "y": 4,
+                                                        "z": -3
+                                                    },
+                                                    "scale": {
+                                                        "x": 1,
+                                                        "y": 1,
+                                                        "z": 1
+                                                    },
+                                                    "rotation": {
+                                                        "w": 1
+                                                    },
+                                                    "color": {},
+                                                    "isNeon": true
+                                                }
+                                            },
+                                            {
+                                                "levelNodeStatic": {
+                                                    "shape": 1003,
+                                                    "material": 8,
+                                                    "position": {
+                                                        "x": 3.9999990463256836,
+                                                        "y": 4,
+                                                        "z": -3
+                                                    },
+                                                    "scale": {
+                                                        "x": 1,
+                                                        "y": 1,
+                                                        "z": 1
+                                                    },
+                                                    "rotation": {
+                                                        "y": 0.7071068286895752,
+                                                        "w": 0.7071068286895752
+                                                    },
+                                                    "color": {},
+                                                    "isNeon": true
+                                                }
+                                            },
+                                            {
+                                                "levelNodeStatic": {
+                                                    "shape": 1004,
+                                                    "material": 8,
+                                                    "position": {
+                                                        "x": 1.9999990463256836,
+                                                        "y": 4,
+                                                        "z": -3
+                                                    },
+                                                    "scale": {
+                                                        "x": 1,
+                                                        "y": 1,
+                                                        "z": 1
+                                                    },
+                                                    "rotation": {
+                                                        "y": -0.7071068286895752,
+                                                        "w": 0.7071068286895752
+                                                    },
+                                                    "color": {},
+                                                    "isNeon": true
+                                                }
+                                            },
+                                            {
+                                                "levelNodeStatic": {
+                                                    "shape": 1000,
+                                                    "material": 8,
+                                                    "position": {
+                                                        "x": -4.000000953674316,
+                                                        "y": 4,
+                                                        "z": -1.0000001192092896
+                                                    },
+                                                    "scale": {
+                                                        "x": 1,
+                                                        "y": 1,
+                                                        "z": 1
+                                                    },
+                                                    "rotation": {
+                                                        "y": 1,
+                                                        "w": -4.371138828673793e-8
+                                                    },
+                                                    "color": {
+                                                        "r": 1
+                                                    },
+                                                    "isNeon": true
+                                                }
+                                            },
+                                            {
+                                                "levelNodeStatic": {
+                                                    "shape": 1001,
+                                                    "material": 8,
+                                                    "position": {
+                                                        "x": -2.0000009536743164,
+                                                        "y": 4,
+                                                        "z": -1.0000001192092896
+                                                    },
+                                                    "scale": {
+                                                        "x": 1,
+                                                        "y": 1,
+                                                        "z": 1
+                                                    },
+                                                    "rotation": {
+                                                        "w": 1
+                                                    },
+                                                    "color": {
+                                                        "r": 1
+                                                    },
+                                                    "isNeon": true
+                                                }
+                                            },
+                                            {
+                                                "levelNodeStatic": {
+                                                    "shape": 1002,
+                                                    "material": 8,
+                                                    "position": {
+                                                        "x": -9.5367431640625e-7,
+                                                        "y": 4,
+                                                        "z": -1.0000001192092896
+                                                    },
+                                                    "scale": {
+                                                        "x": 1,
+                                                        "y": 1,
+                                                        "z": 1
+                                                    },
+                                                    "rotation": {
+                                                        "y": 0.7071068286895752,
+                                                        "w": 0.7071068286895752
+                                                    },
+                                                    "color": {
+                                                        "r": 1
+                                                    },
+                                                    "isNeon": true
+                                                }
+                                            },
+                                            {
+                                                "levelNodeStatic": {
+                                                    "shape": 1003,
+                                                    "material": 8,
+                                                    "position": {
+                                                        "x": 3.9999990463256836,
+                                                        "y": 4,
+                                                        "z": -1.0000001192092896
+                                                    },
+                                                    "scale": {
+                                                        "x": 1,
+                                                        "y": 1,
+                                                        "z": 1
+                                                    },
+                                                    "rotation": {
+                                                        "y": 0.7071068286895752,
+                                                        "w": 0.7071068286895752
+                                                    },
+                                                    "color": {
+                                                        "r": 1
+                                                    },
+                                                    "isNeon": true
+                                                }
+                                            },
+                                            {
+                                                "levelNodeStatic": {
+                                                    "shape": 1004,
+                                                    "material": 8,
+                                                    "position": {
+                                                        "x": 1.9999990463256836,
+                                                        "y": 4,
+                                                        "z": -1.0000001192092896
+                                                    },
+                                                    "scale": {
+                                                        "x": 1,
+                                                        "y": 1,
+                                                        "z": 1
+                                                    },
+                                                    "rotation": {
+                                                        "y": -0.7071068286895752,
+                                                        "w": 0.7071068286895752
+                                                    },
+                                                    "color": {
+                                                        "r": 1
+                                                    },
+                                                    "isNeon": true
+                                                }
+                                            },
+                                            {
+                                                "levelNodeStatic": {
+                                                    "shape": 1000,
+                                                    "material": 8,
+                                                    "position": {
+                                                        "x": -4.000000953674316,
+                                                        "y": 4,
+                                                        "z": 0.9999998807907104
+                                                    },
+                                                    "scale": {
+                                                        "x": 1,
+                                                        "y": 1,
+                                                        "z": 1
+                                                    },
+                                                    "rotation": {
+                                                        "y": -1,
+                                                        "w": -4.371138828673793e-8
+                                                    },
+                                                    "color": {
+                                                        "g": 1
+                                                    },
+                                                    "isNeon": true
+                                                }
+                                            },
+                                            {
+                                                "levelNodeStatic": {
+                                                    "shape": 1001,
+                                                    "material": 8,
+                                                    "position": {
+                                                        "x": -2.0000009536743164,
+                                                        "y": 4,
+                                                        "z": 0.9999996423721313
+                                                    },
+                                                    "scale": {
+                                                        "x": 1,
+                                                        "y": 1,
+                                                        "z": 1
+                                                    },
+                                                    "rotation": {
+                                                        "w": 1
+                                                    },
+                                                    "color": {
+                                                        "g": 1
+                                                    },
+                                                    "isNeon": true
+                                                }
+                                            },
+                                            {
+                                                "levelNodeStatic": {
+                                                    "shape": 1002,
+                                                    "material": 8,
+                                                    "position": {
+                                                        "x": -9.5367431640625e-7,
+                                                        "y": 4,
+                                                        "z": 0.9999998807907104
+                                                    },
+                                                    "scale": {
+                                                        "x": 1,
+                                                        "y": 1,
+                                                        "z": 1
+                                                    },
+                                                    "rotation": {
+                                                        "y": 0.7071068286895752,
+                                                        "w": 0.7071068286895752
+                                                    },
+                                                    "color": {
+                                                        "g": 1
+                                                    },
+                                                    "isNeon": true
+                                                }
+                                            },
+                                            {
+                                                "levelNodeStatic": {
+                                                    "shape": 1003,
+                                                    "material": 8,
+                                                    "position": {
+                                                        "x": 3.9999990463256836,
+                                                        "y": 4,
+                                                        "z": 0.9999997615814209
+                                                    },
+                                                    "scale": {
+                                                        "x": 1,
+                                                        "y": 1,
+                                                        "z": 1
+                                                    },
+                                                    "rotation": {
+                                                        "y": 0.7071068286895752,
+                                                        "w": 0.7071068286895752
+                                                    },
+                                                    "color": {
+                                                        "g": 1
+                                                    },
+                                                    "isNeon": true
+                                                }
+                                            },
+                                            {
+                                                "levelNodeStatic": {
+                                                    "shape": 1004,
+                                                    "material": 8,
+                                                    "position": {
+                                                        "x": 1.9999990463256836,
+                                                        "y": 4,
+                                                        "z": 0.9999998807907104
+                                                    },
+                                                    "scale": {
+                                                        "x": 1,
+                                                        "y": 1,
+                                                        "z": 1
+                                                    },
+                                                    "rotation": {
+                                                        "y": -0.7071068286895752,
+                                                        "w": 0.7071068286895752
+                                                    },
+                                                    "color": {
+                                                        "g": 1
+                                                    },
+                                                    "isNeon": true
+                                                }
+                                            },
+                                            {
+                                                "levelNodeStatic": {
+                                                    "shape": 1000,
+                                                    "material": 8,
+                                                    "position": {
+                                                        "x": -4.000000953674316,
+                                                        "y": 4,
+                                                        "z": 3
+                                                    },
+                                                    "scale": {
+                                                        "x": 1,
+                                                        "y": 1,
+                                                        "z": 1
+                                                    },
+                                                    "rotation": {
+                                                        "y": -1,
+                                                        "w": -4.371138828673793e-8
+                                                    },
+                                                    "color": {
+                                                        "b": 1
+                                                    },
+                                                    "isNeon": true
+                                                }
+                                            },
+                                            {
+                                                "levelNodeStatic": {
+                                                    "shape": 1001,
+                                                    "material": 8,
+                                                    "position": {
+                                                        "x": -2.0000009536743164,
+                                                        "y": 4,
+                                                        "z": 3
+                                                    },
+                                                    "scale": {
+                                                        "x": 1,
+                                                        "y": 1,
+                                                        "z": 1
+                                                    },
+                                                    "rotation": {
+                                                        "w": 1
+                                                    },
+                                                    "color": {
+                                                        "b": 1
+                                                    },
+                                                    "isNeon": true
+                                                }
+                                            },
+                                            {
+                                                "levelNodeStatic": {
+                                                    "shape": 1002,
+                                                    "material": 8,
+                                                    "position": {
+                                                        "x": -9.5367431640625e-7,
+                                                        "y": 4,
+                                                        "z": 2.999999523162842
+                                                    },
+                                                    "scale": {
+                                                        "x": 1,
+                                                        "y": 1,
+                                                        "z": 1
+                                                    },
+                                                    "rotation": {
+                                                        "w": 1
+                                                    },
+                                                    "color": {
+                                                        "b": 1
+                                                    },
+                                                    "isNeon": true
+                                                }
+                                            },
+                                            {
+                                                "levelNodeStatic": {
+                                                    "shape": 1003,
+                                                    "material": 8,
+                                                    "position": {
+                                                        "x": 3.9999990463256836,
+                                                        "y": 4,
+                                                        "z": 3
+                                                    },
+                                                    "scale": {
+                                                        "x": 1,
+                                                        "y": 1,
+                                                        "z": 1
+                                                    },
+                                                    "rotation": {
+                                                        "y": 0.7071068286895752,
+                                                        "w": 0.7071068286895752
+                                                    },
+                                                    "color": {
+                                                        "b": 1
+                                                    },
+                                                    "isNeon": true
+                                                }
+                                            },
+                                            {
+                                                "levelNodeStatic": {
+                                                    "shape": 1004,
+                                                    "material": 8,
+                                                    "position": {
+                                                        "x": 1.9999990463256836,
+                                                        "y": 4,
+                                                        "z": 3
+                                                    },
+                                                    "scale": {
+                                                        "x": 1,
+                                                        "y": 1,
+                                                        "z": 1
+                                                    },
+                                                    "rotation": {
+                                                        "y": -0.7071068286895752,
+                                                        "w": 0.7071068286895752
+                                                    },
+                                                    "color": {
+                                                        "b": 1
+                                                    },
+                                                    "isNeon": true
+                                                }
+                                            }
+                                        ],
+                                        "scale": {
+                                            "y": 1,
+                                            "x": 1,
+                                            "z": 1
+                                        }
+                                    }
+                                }
+                            ],
+                            "scale": {
+                                "y": 1,
+                                "x": 1,
+                                "z": 1
+                            }
+                        }
+                    }
+                ],
+                "scale": {
+                    "y": 1,
+                    "x": 1,
+                    "z": 1
+                }
+            }
+        };
+                obj = JSON.parse(document.getElementById('out').value);
+                obj.levelNodes.push(crumbling);
+                document.getElementById('out').value = JSON.stringify(obj, null, 4);
+            });
+
+            document.getElementById("add-colors").addEventListener('click', function () {
+                var colors = {
+                    "levelNodeGroup": {
+                        "position": {
+                            "y": 0,
+                            "x": 0,
+                            "z": 0
+                        },
+                        "rotation": {
+                            "w": 1
+                        },
+                        "childNodes": [
+                            {
+                                "levelNodeStatic": {
+                                    "shape": 1000,
+                                    "material": 8,
+                                    "position": {
+                                        "x": -4.000000953674316,
+                                        "y": 4,
+                                        "z": -3
+                                    },
+                                    "scale": {
+                                        "x": 1,
+                                        "y": 1,
+                                        "z": 1
+                                    },
+                                    "rotation": {
+                                        "y": 1,
+                                        "w": -4.371138828673793e-8
+                                    },
+                                    "color": {},
+                                    "isNeon": true
+                                }
+                            },
+                            {
+                                "levelNodeStatic": {
+                                    "shape": 1001,
+                                    "material": 8,
+                                    "position": {
+                                        "x": -2.0000011920928955,
+                                        "y": 4,
+                                        "z": -3
+                                    },
+                                    "scale": {
+                                        "x": 1,
+                                        "y": 1,
+                                        "z": 1
+                                    },
+                                    "rotation": {
+                                        "w": 1
+                                    },
+                                    "color": {},
+                                    "isNeon": true
+                                }
+                            },
+                            {
+                                "levelNodeStatic": {
+                                    "shape": 1002,
+                                    "material": 8,
+                                    "position": {
+                                        "x": -9.5367431640625e-7,
+                                        "y": 4,
+                                        "z": -3
+                                    },
+                                    "scale": {
+                                        "x": 1,
+                                        "y": 1,
+                                        "z": 1
+                                    },
+                                    "rotation": {
+                                        "w": 1
+                                    },
+                                    "color": {},
+                                    "isNeon": true
+                                }
+                            },
+                            {
+                                "levelNodeStatic": {
+                                    "shape": 1003,
+                                    "material": 8,
+                                    "position": {
+                                        "x": 3.9999990463256836,
+                                        "y": 4,
+                                        "z": -3
+                                    },
+                                    "scale": {
+                                        "x": 1,
+                                        "y": 1,
+                                        "z": 1
+                                    },
+                                    "rotation": {
+                                        "y": 0.7071068286895752,
+                                        "w": 0.7071068286895752
+                                    },
+                                    "color": {},
+                                    "isNeon": true
+                                }
+                            },
+                            {
+                                "levelNodeStatic": {
+                                    "shape": 1004,
+                                    "material": 8,
+                                    "position": {
+                                        "x": 1.9999990463256836,
+                                        "y": 4,
+                                        "z": -3
+                                    },
+                                    "scale": {
+                                        "x": 1,
+                                        "y": 1,
+                                        "z": 1
+                                    },
+                                    "rotation": {
+                                        "y": -0.7071068286895752,
+                                        "w": 0.7071068286895752
+                                    },
+                                    "color": {},
+                                    "isNeon": true
+                                }
+                            },
+                            {
+                                "levelNodeStatic": {
+                                    "shape": 1000,
+                                    "material": 8,
+                                    "position": {
+                                        "x": -4.000000953674316,
+                                        "y": 4,
+                                        "z": -1.0000001192092896
+                                    },
+                                    "scale": {
+                                        "x": 1,
+                                        "y": 1,
+                                        "z": 1
+                                    },
+                                    "rotation": {
+                                        "y": 1,
+                                        "w": -4.371138828673793e-8
+                                    },
+                                    "color": {
+                                        "r": 1
+                                    },
+                                    "isNeon": true
+                                }
+                            },
+                            {
+                                "levelNodeStatic": {
+                                    "shape": 1001,
+                                    "material": 8,
+                                    "position": {
+                                        "x": -2.0000009536743164,
+                                        "y": 4,
+                                        "z": -1.0000001192092896
+                                    },
+                                    "scale": {
+                                        "x": 1,
+                                        "y": 1,
+                                        "z": 1
+                                    },
+                                    "rotation": {
+                                        "w": 1
+                                    },
+                                    "color": {
+                                        "r": 1
+                                    },
+                                    "isNeon": true
+                                }
+                            },
+                            {
+                                "levelNodeStatic": {
+                                    "shape": 1002,
+                                    "material": 8,
+                                    "position": {
+                                        "x": -9.5367431640625e-7,
+                                        "y": 4,
+                                        "z": -1.0000001192092896
+                                    },
+                                    "scale": {
+                                        "x": 1,
+                                        "y": 1,
+                                        "z": 1
+                                    },
+                                    "rotation": {
+                                        "y": 0.7071068286895752,
+                                        "w": 0.7071068286895752
+                                    },
+                                    "color": {
+                                        "r": 1
+                                    },
+                                    "isNeon": true
+                                }
+                            },
+                            {
+                                "levelNodeStatic": {
+                                    "shape": 1003,
+                                    "material": 8,
+                                    "position": {
+                                        "x": 3.9999990463256836,
+                                        "y": 4,
+                                        "z": -1.0000001192092896
+                                    },
+                                    "scale": {
+                                        "x": 1,
+                                        "y": 1,
+                                        "z": 1
+                                    },
+                                    "rotation": {
+                                        "y": 0.7071068286895752,
+                                        "w": 0.7071068286895752
+                                    },
+                                    "color": {
+                                        "r": 1
+                                    },
+                                    "isNeon": true
+                                }
+                            },
+                            {
+                                "levelNodeStatic": {
+                                    "shape": 1004,
+                                    "material": 8,
+                                    "position": {
+                                        "x": 1.9999990463256836,
+                                        "y": 4,
+                                        "z": -1.0000001192092896
+                                    },
+                                    "scale": {
+                                        "x": 1,
+                                        "y": 1,
+                                        "z": 1
+                                    },
+                                    "rotation": {
+                                        "y": -0.7071068286895752,
+                                        "w": 0.7071068286895752
+                                    },
+                                    "color": {
+                                        "r": 1
+                                    },
+                                    "isNeon": true
+                                }
+                            },
+                            {
+                                "levelNodeStatic": {
+                                    "shape": 1000,
+                                    "material": 8,
+                                    "position": {
+                                        "x": -4.000000953674316,
+                                        "y": 4,
+                                        "z": 0.9999998807907104
+                                    },
+                                    "scale": {
+                                        "x": 1,
+                                        "y": 1,
+                                        "z": 1
+                                    },
+                                    "rotation": {
+                                        "y": -1,
+                                        "w": -4.371138828673793e-8
+                                    },
+                                    "color": {
+                                        "g": 1
+                                    },
+                                    "isNeon": true
+                                }
+                            },
+                            {
+                                "levelNodeStatic": {
+                                    "shape": 1001,
+                                    "material": 8,
+                                    "position": {
+                                        "x": -2.0000009536743164,
+                                        "y": 4,
+                                        "z": 0.9999996423721313
+                                    },
+                                    "scale": {
+                                        "x": 1,
+                                        "y": 1,
+                                        "z": 1
+                                    },
+                                    "rotation": {
+                                        "w": 1
+                                    },
+                                    "color": {
+                                        "g": 1
+                                    },
+                                    "isNeon": true
+                                }
+                            },
+                            {
+                                "levelNodeStatic": {
+                                    "shape": 1002,
+                                    "material": 8,
+                                    "position": {
+                                        "x": -9.5367431640625e-7,
+                                        "y": 4,
+                                        "z": 0.9999998807907104
+                                    },
+                                    "scale": {
+                                        "x": 1,
+                                        "y": 1,
+                                        "z": 1
+                                    },
+                                    "rotation": {
+                                        "y": 0.7071068286895752,
+                                        "w": 0.7071068286895752
+                                    },
+                                    "color": {
+                                        "g": 1
+                                    },
+                                    "isNeon": true
+                                }
+                            },
+                            {
+                                "levelNodeStatic": {
+                                    "shape": 1003,
+                                    "material": 8,
+                                    "position": {
+                                        "x": 3.9999990463256836,
+                                        "y": 4,
+                                        "z": 0.9999997615814209
+                                    },
+                                    "scale": {
+                                        "x": 1,
+                                        "y": 1,
+                                        "z": 1
+                                    },
+                                    "rotation": {
+                                        "y": 0.7071068286895752,
+                                        "w": 0.7071068286895752
+                                    },
+                                    "color": {
+                                        "g": 1
+                                    },
+                                    "isNeon": true
+                                }
+                            },
+                            {
+                                "levelNodeStatic": {
+                                    "shape": 1004,
+                                    "material": 8,
+                                    "position": {
+                                        "x": 1.9999990463256836,
+                                        "y": 4,
+                                        "z": 0.9999998807907104
+                                    },
+                                    "scale": {
+                                        "x": 1,
+                                        "y": 1,
+                                        "z": 1
+                                    },
+                                    "rotation": {
+                                        "y": -0.7071068286895752,
+                                        "w": 0.7071068286895752
+                                    },
+                                    "color": {
+                                        "g": 1
+                                    },
+                                    "isNeon": true
+                                }
+                            },
+                            {
+                                "levelNodeStatic": {
+                                    "shape": 1000,
+                                    "material": 8,
+                                    "position": {
+                                        "x": -4.000000953674316,
+                                        "y": 4,
+                                        "z": 3
+                                    },
+                                    "scale": {
+                                        "x": 1,
+                                        "y": 1,
+                                        "z": 1
+                                    },
+                                    "rotation": {
+                                        "y": -1,
+                                        "w": -4.371138828673793e-8
+                                    },
+                                    "color": {
+                                        "b": 1
+                                    },
+                                    "isNeon": true
+                                }
+                            },
+                            {
+                                "levelNodeStatic": {
+                                    "shape": 1001,
+                                    "material": 8,
+                                    "position": {
+                                        "x": -2.0000009536743164,
+                                        "y": 4,
+                                        "z": 3
+                                    },
+                                    "scale": {
+                                        "x": 1,
+                                        "y": 1,
+                                        "z": 1
+                                    },
+                                    "rotation": {
+                                        "w": 1
+                                    },
+                                    "color": {
+                                        "b": 1
+                                    },
+                                    "isNeon": true
+                                }
+                            },
+                            {
+                                "levelNodeStatic": {
+                                    "shape": 1002,
+                                    "material": 8,
+                                    "position": {
+                                        "x": -9.5367431640625e-7,
+                                        "y": 4,
+                                        "z": 2.999999523162842
+                                    },
+                                    "scale": {
+                                        "x": 1,
+                                        "y": 1,
+                                        "z": 1
+                                    },
+                                    "rotation": {
+                                        "w": 1
+                                    },
+                                    "color": {
+                                        "b": 1
+                                    },
+                                    "isNeon": true
+                                }
+                            },
+                            {
+                                "levelNodeStatic": {
+                                    "shape": 1003,
+                                    "material": 8,
+                                    "position": {
+                                        "x": 3.9999990463256836,
+                                        "y": 4,
+                                        "z": 3
+                                    },
+                                    "scale": {
+                                        "x": 1,
+                                        "y": 1,
+                                        "z": 1
+                                    },
+                                    "rotation": {
+                                        "y": 0.7071068286895752,
+                                        "w": 0.7071068286895752
+                                    },
+                                    "color": {
+                                        "b": 1
+                                    },
+                                    "isNeon": true
+                                }
+                            },
+                            {
+                                "levelNodeStatic": {
+                                    "shape": 1004,
+                                    "material": 8,
+                                    "position": {
+                                        "x": 1.9999990463256836,
+                                        "y": 4,
+                                        "z": 3
+                                    },
+                                    "scale": {
+                                        "x": 1,
+                                        "y": 1,
+                                        "z": 1
+                                    },
+                                    "rotation": {
+                                        "y": -0.7071068286895752,
+                                        "w": 0.7071068286895752
+                                    },
+                                    "color": {
+                                        "b": 1
+                                    },
+                                    "isNeon": true
+                                }
+                            }
+                        ],
+                        "scale": {
+                            "y": 1,
+                            "x": 1,
+                            "z": 1
+                        }
+                    }
+                };
+                obj = JSON.parse(document.getElementById('out').value);
+                obj.levelNodes.push(colors);
+                document.getElementById('out').value = JSON.stringify(obj, null, 4);
+            });
+
+            document.getElementById("clear-info").addEventListener('click', function () {
+                obj = JSON.parse(document.getElementById('out').value);
+                obj.title = "";
+                obj.description = "";
+                obj.creators = "";
+                document.getElementById('out').value = JSON.stringify(obj, null, 4);
+            });
+
+            document.getElementById("reset-ambience").addEventListener('click', function () {
+                obj = JSON.parse(document.getElementById('out').value);
+                obj.ambienceSettings = {
+                            "skyZenithColor": {
+                                "r": 0,
+                                "g": 0,
+                                "b": 0,
+                                "a": 1
+                            },
+                            "skyHorizonColor": {
+                                "r": 0,
+                                "g": 0,
+                                "b": 0,
+                                "a": 1
+                            },
+                            "sunAltitude": 0,
+                            "sunAzimuth": 0,
+                            "sunSize": 1,
+                            "fogDDensity": 0
+                        };
+                document.getElementById('out').value = JSON.stringify(obj, null, 4);
+            });
+
+            document.getElementById("max-ambience").addEventListener('click', function () {
+                obj = JSON.parse(document.getElementById('out').value);
+                obj.ambienceSettings = {
+                            "skyZenithColor": {
+                                "r": 32000,
+                                "g": 32000,
+                                "b": 32000,
+                                "a": 1
+                            },
+                            "skyHorizonColor": {
+                                "r": 32000,
+                                "g": 32000,
+                                "b": 32000,
+                                "a": 1
+                            },
+                            "sunAltitude": 32000,
+                            "sunAzimuth": 32000,
+                            "sunSize": 32000,
+                            "fogDDensity": 32000
+                        };
+                document.getElementById('out').value = JSON.stringify(obj, null, 4);
+            });
+            
+            document.getElementById("load-empty").addEventListener('click', function () {
+                obj = {
+                        "formatVersion": 6,
+                        "title": "",
+                        "creators": "",
+                        "description": "",
+                        "levelNodes": [],
+                        "maxCheckpointCount": 0,
+                        "ambienceSettings": {
+                            "skyZenithColor": {
+                                "r": 0,
+                                "g": 0,
+                                "b": 0,
+                                "a": 1
+                            },
+                            "skyHorizonColor": {
+                                "r": 0,
+                                "g": 0,
+                                "b": 0,
+                                "a": 1
+                            },
+                            "sunAltitude": 0,
+                            "sunAzimuth": 0,
+                            "sunSize": 1,
+                            "fogDDensity": 0
+                        }
+                    }
+                    document.getElementById('out').value = JSON.stringify(obj, null, 4);
+            });
+        }
+        document.getElementById('file').addEventListener("change", function (e) {loadFile(e)}, false);
+        document.getElementById('file-a').addEventListener("change", function (e) {loadFile(e, true)}, false);
     </script>
 </body>
 </html>
