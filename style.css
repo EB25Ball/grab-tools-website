@@ -351,6 +351,7 @@ h3 {
     border: none;
     background: #4CAF50;
     border-radius: 0;
+    -webkit-border-radius: 0;
     color: #fff;
     cursor: pointer;
 }
