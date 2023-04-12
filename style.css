@@ -37,10 +37,10 @@ footer a {
     color: #4CAF50;
     pointer-events: all;
 }
-#file{
+#file, #file-a{
     display: none;
 }
-#file-custom {
+#file-custom, #file-custom-a {
     height: fit-content;
     border: 2px dashed #aaa;
     border-radius: 5px;
@@ -50,9 +50,14 @@ footer a {
     font-size: 20px;
     color: #aaa;
 }
-#file-custom:hover {
+#file-custom:hover, #file-custom-a:hover {
     border: 2px dashed #777;
     color: #777;
+}
+.file-selectors {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
 }
 button, #compile, #copy, #download, #pixelate {
     background-color: #4CAF50;
@@ -118,7 +123,7 @@ button, #compile, #copy, #download, #pixelate {
     display: none;
 }
 #out::-webkit-scrollbar {
-    width: 3px;
+    width: 6px;
     height: 3px;
 }
 #out::-webkit-scrollbar-track {
@@ -318,4 +323,37 @@ h3 {
     color: #163b17;
     background-color: #d1e7d1;
     padding: 0 5px;
+}
+#functions, .preset-functions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding-bottom: 2rem;
+}
+.preset-functions {
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-width: 800px;
+}
+.function {
+    display: flex;
+    flex-direction: row;
+}
+.function input, .preset-functions input {
+    width: 200px;
+    padding: 0.5rem;
+    border: 2px solid #4CAF50;
+}
+.function input[type="submit"], .preset-functions input {
+    width: 50px;
+    border: none;
+    background: #4CAF50;
+    color: #fff;
+    cursor: pointer;
+}
+.preset-functions input {
+    width: auto;
+    padding-inline: 1rem;
 }
