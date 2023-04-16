@@ -360,3 +360,8 @@ h3 {
     width: auto;
     padding-inline: 1rem;
 }
+#spindex {
+    position: fixed;
+    top: 0;
+    right: 0;
+}
