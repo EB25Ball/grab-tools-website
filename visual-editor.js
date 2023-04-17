@@ -3,7 +3,7 @@ import { TransformControls } from 'https://unpkg.com/three@0.145.0/examples/jsm/
 import { OrbitControls } from 'https://unpkg.com/three@0.145.0/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'https://cdn.skypack.dev/three@v0.132.0/examples/jsm/loaders/GLTFLoader.js';
 
-let camera, scene, renderer, light, controls, transforms, loader;
+let camera, scene, renderer, light, controls, transforms, loader, materials, shapes;
 let objects = [];
 
 loader = new GLTFLoader();
@@ -22,7 +22,29 @@ addEventListener('resize', () => {
     camera.updateProjectionMatrix();
     renderer.setSize( window.innerWidth * .8, window.innerWidth * .6 );
 });
-
+function initAttributes() {
+    let texture;
+    [
+    'textures/grabbable.png',
+    'textures/ice.png',
+    'textures/lava.png',
+    'textures/wood.png',
+    'textures/grapplable.png',
+    'textures/grapplable_lava.png',
+    'textures/grabbable_crumbling.png',
+    'textures/default_colored.png',
+    'textures/bouncing.png',
+    'textures/default.png'
+    ].forEach(path => {
+        texture = new THREE.TextureLoader().load(path, function( texture ) {
+            texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+            texture.offset.set( 0, 0 );
+            texture.repeat.set( 2, 2 );
+        });
+        let material = new THREE.MeshBasicMaterial({ map: texture });
+        materials.push(material);
+    });    
+}
 function loadLevelNode(node, parent) {
     if (node.levelNodeGroup) {
         // let cube = new THREE.Object3D()
@@ -45,77 +67,7 @@ function loadLevelNode(node, parent) {
     } else if (node.levelNodeStatic) { 
         node = node.levelNodeStatic;
         var geometry = new THREE.BoxGeometry(1, 1, 1);
-        let texture;
-        
-        switch (node.material) {
-        case 1:
-            texture = new THREE.TextureLoader().load('textures/GRABBABLE.png', function( texture ) {
-                texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-                texture.offset.set( 0, 0 );
-                texture.repeat.set( 2, 2 );
-            });
-            break;
-        case 2:
-            texture = new THREE.TextureLoader().load('textures/ice.png', function( texture ) {
-                texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-                texture.offset.set( 0, 0 );
-                texture.repeat.set( 2, 2 );
-            });
-            break;
-        case 3:
-            texture = new THREE.TextureLoader().load('textures/lava.png', function( texture ) {
-                texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-                texture.offset.set( 0, 0 );
-                texture.repeat.set( 2, 2 );
-            });
-            break;
-        case 4:
-            texture = new THREE.TextureLoader().load('textures/wood.png', function( texture ) {
-                texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-                texture.offset.set( 0, 0 );
-                texture.repeat.set( 2, 2 );
-            });
-            break;
-        case 5:
-            texture = new THREE.TextureLoader().load('textures/grapplable.png', function( texture ) {
-                texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-                texture.offset.set( 0, 0 );
-                texture.repeat.set( 2, 2 );
-            });
-            break;
-        case 6:
-            texture = new THREE.TextureLoader().load('textures/grapplable_lava.png', function( texture ) {
-                texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-                texture.offset.set( 0, 0 );
-                texture.repeat.set( 2, 2 );
-            });
-            break;
-        case 8:
-            texture = new THREE.TextureLoader().load('textures/default_colored.png', function( texture ) {
-                texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-                texture.offset.set( 0, 0 );
-                texture.repeat.set( 2, 2 );
-            });
-            break;
-        case 9:
-            texture = new THREE.TextureLoader().load('textures/bouncing.png', function( texture ) {
-                texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-                texture.offset.set( 0, 0 );
-                texture.repeat.set( 2, 2 );
-            });
-            break;
-        case 0:
-        default:
-            texture = new THREE.TextureLoader().load('textures/default.png', function( texture ) {
-                texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-                texture.offset.set( 0, 0 );
-                texture.repeat.set( 2, 2 );
-            });
-            break;
-        }
-
-        let material = new THREE.MeshBasicMaterial({ map: texture });
-        var cube = new THREE.Mesh(geometry, material);
+        var cube = new THREE.Mesh(geometry, materials[node.material]);
         node.position.x ? cube.position.x = node.position.x : cube.position.x = 0;
         node.position.y ? cube.position.y = node.position.y : cube.position.y = 0;
         node.position.z ? cube.position.z = node.position.z : cube.position.z = 0;
