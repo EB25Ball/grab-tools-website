@@ -353,6 +353,7 @@ h3 {
     border-radius: 0;
     -webkit-border-radius: 0;
     -webkit-appearance: none;
+    appearance: none;
     color: #fff;
     cursor: pointer;
 }

@@ -8,7 +8,7 @@ let objects = [];
 
 loader = new GLTFLoader();
 scene = new THREE.Scene();
-camera = new THREE.PerspectiveCamera( 75, window.innerWidth * .8 / window.innerWidth * .8, 0.1, 1000 );
+camera = new THREE.PerspectiveCamera( 75, window.innerWidth * .8 / window.innerWidth * .8, 0.1, 10000 );
 renderer = new THREE.WebGLRenderer({ alpha: true });
 renderer.setSize( window.innerWidth * .8, window.innerWidth * .8 );
 document.getElementById('visual').appendChild( renderer.domElement );
@@ -45,8 +45,76 @@ function loadLevelNode(node, parent) {
     } else if (node.levelNodeStatic) { 
         node = node.levelNodeStatic;
         var geometry = new THREE.BoxGeometry(1, 1, 1);
-        let texture = new THREE.TextureLoader().load( 'textures/default.png' );
-        let material = new THREE.MeshBasicMaterial( { map: texture } );
+        let texture;
+        
+        switch (node.material) {
+        case 1:
+            texture = new THREE.TextureLoader().load('textures/GRABBABLE.png', function( texture ) {
+                texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+                texture.offset.set( 0, 0 );
+                texture.repeat.set( 2, 2 );
+            });
+            break;
+        case 2:
+            texture = new THREE.TextureLoader().load('textures/ice.png', function( texture ) {
+                texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+                texture.offset.set( 0, 0 );
+                texture.repeat.set( 2, 2 );
+            });
+            break;
+        case 3:
+            texture = new THREE.TextureLoader().load('textures/lava.png', function( texture ) {
+                texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+                texture.offset.set( 0, 0 );
+                texture.repeat.set( 2, 2 );
+            });
+            break;
+        case 4:
+            texture = new THREE.TextureLoader().load('textures/wood.png', function( texture ) {
+                texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+                texture.offset.set( 0, 0 );
+                texture.repeat.set( 2, 2 );
+            });
+            break;
+        case 5:
+            texture = new THREE.TextureLoader().load('textures/grapplable.png', function( texture ) {
+                texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+                texture.offset.set( 0, 0 );
+                texture.repeat.set( 2, 2 );
+            });
+            break;
+        case 6:
+            texture = new THREE.TextureLoader().load('textures/grapplable_lava.png', function( texture ) {
+                texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+                texture.offset.set( 0, 0 );
+                texture.repeat.set( 2, 2 );
+            });
+            break;
+        case 8:
+            texture = new THREE.TextureLoader().load('textures/default_colored.png', function( texture ) {
+                texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+                texture.offset.set( 0, 0 );
+                texture.repeat.set( 2, 2 );
+            });
+            break;
+        case 9:
+            texture = new THREE.TextureLoader().load('textures/bouncing.png', function( texture ) {
+                texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+                texture.offset.set( 0, 0 );
+                texture.repeat.set( 2, 2 );
+            });
+            break;
+        case 0:
+        default:
+            texture = new THREE.TextureLoader().load('textures/default.png', function( texture ) {
+                texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+                texture.offset.set( 0, 0 );
+                texture.repeat.set( 2, 2 );
+            });
+            break;
+        }
+
+        let material = new THREE.MeshBasicMaterial({ map: texture });
         var cube = new THREE.Mesh(geometry, material);
         node.position.x ? cube.position.x = node.position.x : cube.position.x = 0;
         node.position.y ? cube.position.y = node.position.y : cube.position.y = 0;
