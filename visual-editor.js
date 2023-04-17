@@ -118,6 +118,7 @@ function loadScene() {
     console.log(levelNodes);
 
     objects = [];
+    scene.clear();
 
     levelNodes.forEach((node) => {
         loadLevelNode(node, scene);
