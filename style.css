@@ -91,12 +91,30 @@ button, #compile, #copy, #download, #pixelate {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 180px;
+    width: 10px;
     margin: 20px;
     padding: 5px;
     margin-right: 0;
     background-color: #4caf5077;
     border-radius: 5px;
+    overflow: hidden;
+    color: transparent;
+}
+.leg::before {
+    content: "Hover for help";
+    position: absolute;
+    color: #fffa;
+    font-weight: bold;
+    transform: rotate(90deg);
+    letter-spacing: 2px;
+    width: 110px;
+}
+.leg:hover::before {
+    display: none;
+}
+.leg:hover {
+    width: 180px;
+    color: #000;
 }
 .leg ul{
     list-style-type: none;
@@ -109,18 +127,24 @@ button, #compile, #copy, #download, #pixelate {
 .leg h3{
     font-size: 1.2rem;
     font-weight: 700;
-    color: rgb(0, 0, 0);
+    color: transparent;
     margin: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+.leg:hover h3 {
+    color: #000;
+}
 #out{
-    width: calc(100% - 120px);
+    width: calc(100% - 10px);
     height: 100%;
     padding: 12px 20px;
     margin: 8px 0;
     box-sizing: border-box;
     font-size: 12px;
     display: none;
+}
+#out:has(+.leg:hover) {
+    width: calc(100% - 200px);
 }
 #out::-webkit-scrollbar {
     width: 6px;
