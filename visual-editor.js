@@ -62,22 +62,22 @@ function initAttributes() {
 }
 function loadLevelNode(node, parent) {
     if (node.levelNodeGroup) {
-        // let cube = new THREE.Object3D()
-        // objects.push( cube );
-        // parent.add( cube );
-        // cube.position.x = node.levelNodeGroup.position.x
-        // cube.position.y = node.levelNodeGroup.position.y
-        // cube.position.z = node.levelNodeGroup.position.z
-        // cube.scale.x = node.levelNodeGroup.scale.x
-        // cube.scale.y = node.levelNodeGroup.scale.y
-        // cube.scale.z = node.levelNodeGroup.scale.z
-        // cube.quaternion.x = node.levelNodeGroup.rotation.x
-        // cube.quaternion.y = node.levelNodeGroup.rotation.y
-        // cube.quaternion.z = node.levelNodeGroup.rotation.z
-        // cube.quaternion.w = node.levelNodeGroup.rotation.w
-        // console.log(node.levelNodeGroup.childNodes);
+        let cube = new THREE.Object3D()
+        objects.push( cube );
+        parent.add( cube );
+        node.levelNodeGroup.position.x ? cube.position.x = node.levelNodeGroup.position.x : cube.position.x = 0;
+        node.levelNodeGroup.position.y ? cube.position.y = node.levelNodeGroup.position.y : cube.position.y = 0;
+        node.levelNodeGroup.position.z ? cube.position.z = node.levelNodeGroup.position.z : cube.position.z = 0;
+        node.levelNodeGroup.scale.x ? cube.scale.x = node.levelNodeGroup.scale.x : cube.scale.x = 0;
+        node.levelNodeGroup.scale.y ? cube.scale.y = node.levelNodeGroup.scale.y : cube.scale.y = 0;
+        node.levelNodeGroup.scale.z ? cube.scale.z = node.levelNodeGroup.scale.z : cube.scale.z = 0;
+        node.levelNodeGroup.rotation.x ? cube.quaternion.x = node.levelNodeGroup.rotation.x : cube.quaternion.x = 0;
+        node.levelNodeGroup.rotation.y ? cube.quaternion.y = node.levelNodeGroup.rotation.y : cube.quaternion.y = 0;
+        node.levelNodeGroup.rotation.z ? cube.quaternion.z = node.levelNodeGroup.rotation.z : cube.quaternion.z = 0;
+        node.levelNodeGroup.rotation.w ? cube.quaternion.w = node.levelNodeGroup.rotation.w : cube.quaternion.w = 0;
+        console.log(node.levelNodeGroup.childNodes);
         node.levelNodeGroup.childNodes.forEach(node => {
-            loadLevelNode(node, scene/*cube*/)
+            loadLevelNode(node, cube);
         });
     } else if (node.levelNodeStatic) { 
         node = node.levelNodeStatic;
