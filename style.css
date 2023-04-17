@@ -397,3 +397,40 @@ h3 {
     position: absolute;
     padding: 5px;
 }
+#templates {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+#templates input, #add-template {
+    padding: 5px;
+    border: none;
+    background: #4CAF50;
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    -webkit-appearance: none;
+    appearance: none;
+    color: #fff;
+    cursor: pointer;
+    width: fit-content;
+}
+#template {
+    width: 80%;
+    min-height: 300px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    font-size: 12px;
+}
+#template::-webkit-scrollbar {
+    width: 6px;
+    height: 3px;
+}
+#template::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+#template::-webkit-scrollbar-thumb {
+    background: #888;
+}
