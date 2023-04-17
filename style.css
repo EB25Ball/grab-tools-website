@@ -37,10 +37,10 @@ footer a {
     color: #4CAF50;
     pointer-events: all;
 }
-#file, #file-a{
+#file, #file-a, #file-append{
     display: none;
 }
-#file-custom, #file-custom-a {
+#file-custom, #file-custom-a, #file-custom-append {
     height: fit-content;
     border: 2px dashed #aaa;
     border-radius: 5px;
@@ -50,7 +50,7 @@ footer a {
     font-size: 20px;
     color: #aaa;
 }
-#file-custom:hover, #file-custom-a:hover {
+#file-custom:hover, #file-custom-a:hover, #file-custom-append:hover {
     border: 2px dashed #777;
     color: #777;
 }
@@ -364,4 +364,11 @@ h3 {
     position: fixed;
     top: 0;
     right: 0;
+}
+#visual {
+    outline: #444 solid 3px;
+}
+#refresh {
+    position: absolute;
+    padding: 5px;
 }
