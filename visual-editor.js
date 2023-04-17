@@ -3,8 +3,10 @@ import { TransformControls } from 'https://unpkg.com/three@0.145.0/examples/jsm/
 import { OrbitControls } from 'https://unpkg.com/three@0.145.0/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'https://cdn.skypack.dev/three@v0.132.0/examples/jsm/loaders/GLTFLoader.js';
 
-let camera, scene, renderer, light, controls, transforms, loader, materials, shapes;
+let camera, scene, renderer, light, controls, transforms, loader;
 let objects = [];
+let materials = [];
+let shapes = [];
 
 loader = new GLTFLoader();
 scene = new THREE.Scene();
@@ -43,7 +45,20 @@ function initAttributes() {
         });
         let material = new THREE.MeshBasicMaterial({ map: texture });
         materials.push(material);
-    });    
+    });
+    let shape;
+    [
+        'models/cube.glb',
+        'models/sphere.glb',
+        'models/cylinder.glb',
+        'models/pyramid.glb',
+        'models/prism.glb'
+    ].forEach(path => {
+        loader.load(path, function( gltf ) {
+            let glftScene = gltf.scene;
+            shapes.push(glftScene.children[0].geometry);
+        });
+    });
 }
 function loadLevelNode(node, parent) {
     if (node.levelNodeGroup) {
@@ -66,8 +81,7 @@ function loadLevelNode(node, parent) {
         });
     } else if (node.levelNodeStatic) { 
         node = node.levelNodeStatic;
-        var geometry = new THREE.BoxGeometry(1, 1, 1);
-        var cube = new THREE.Mesh(geometry, materials[node.material]);
+        var cube = new THREE.Mesh(shapes[node.shape-1000], materials[node.material]);
         node.position.x ? cube.position.x = node.position.x : cube.position.x = 0;
         node.position.y ? cube.position.y = node.position.y : cube.position.y = 0;
         node.position.z ? cube.position.z = node.position.z : cube.position.z = 0;
@@ -82,10 +96,7 @@ function loadLevelNode(node, parent) {
         objects.push(cube);
     } else if (node.levelNodeCrumbling) {
         node = node.levelNodeCrumbling;
-        var geometry = new THREE.BoxGeometry(1, 1, 1);
-        let texture = new THREE.TextureLoader().load( 'textures/grabbable_crumbling.png' );
-        let material = new THREE.MeshBasicMaterial( { map: texture } );
-        var cube = new THREE.Mesh(geometry, material);
+        var cube = new THREE.Mesh(shapes[node.shape-1000], materials[node.material]);
         node.position.x ? cube.position.x = node.position.x : cube.position.x = 0;
         node.position.y ? cube.position.y = node.position.y : cube.position.y = 0;
         node.position.z ? cube.position.z = node.position.z : cube.position.z = 0;
@@ -113,6 +124,7 @@ function loadScene() {
     });
     renderer.render( scene, camera );
 }
+initAttributes();
 loadScene();
 document.getElementById('out').addEventListener('change', loadScene);
 document.getElementById('refresh').addEventListener('click', loadScene);
