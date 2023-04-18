@@ -81,7 +81,7 @@ function loadLevelNode(node, parent) {
     } else if (node.levelNodeStatic) { 
         node = node.levelNodeStatic;
         var cube = shapes[node.shape-1000].clone();
-        cube.material = materials[node.material];
+        node.material ? cube.material = materials[node.material] : cube.material = materials[0];
         // var cube = new THREE.Mesh(shapes[node.shape-1000], materials[node.material]);
         node.position.x ? cube.position.x = node.position.x : cube.position.x = 0;
         node.position.y ? cube.position.y = node.position.y : cube.position.y = 0;
@@ -98,7 +98,7 @@ function loadLevelNode(node, parent) {
     } else if (node.levelNodeCrumbling) {
         node = node.levelNodeCrumbling;
         var cube = shapes[node.shape-1000].clone();
-        cube.material = materials[node.material];
+        node.material ? cube.material = materials[node.material] : cube.material = materials[0];
         // var cube = new THREE.Mesh(shapes[node.shape-1000], materials[node.material]);
         node.position.x ? cube.position.x = node.position.x : cube.position.x = 0;
         node.position.y ? cube.position.y = node.position.y : cube.position.y = 0;
