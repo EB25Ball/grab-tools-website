@@ -91,7 +91,12 @@ function loadLevelNode(node, parent) {
             // material.transparent = true;
             // material.opacity = 0.5;
             // material = [ colorMaterial, material ];
+            let r, g, b;
+            node.color.r ? null : node.color.r = 0;
+            node.color.g ? null : node.color.g = 0;
+            node.color.b ? null : node.color.b = 0;
             material.color = new THREE.Color(node.color.r, node.color.g, node.color.b);
+            console.log(material.color);
         }
         cube.material = material;
         // var cube = new THREE.Mesh(shapes[node.shape-1000], materials[node.material]);
