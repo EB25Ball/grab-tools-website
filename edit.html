@@ -75,15 +75,18 @@
             </ul>
         </div>
     </div>
-    <div id="templates">
-        <input type="submit" id="temp-static" value="static">
-        <input type="submit" id="temp-crumbling" value="crumbling">
-        <input type="submit" id="temp-colored" value="colored">
-        <input type="submit" id="temp-sign" value="sign">
-        <input type="submit" id="temp-start" value="start">
-        <input type="submit" id="temp-finish" value="finish">
-    </div>
-    <textarea type="text" id="template">
+    <div class="tools-wrapper">
+        <div class="template-wrapper">
+            <h3>Templates</h3>
+            <div id="templates">
+                <input type="submit" id="temp-static" value="static">
+                <input type="submit" id="temp-crumbling" value="crumbling">
+                <input type="submit" id="temp-colored" value="colored">
+                <input type="submit" id="temp-sign" value="sign">
+                <input type="submit" id="temp-start" value="start">
+                <input type="submit" id="temp-finish" value="finish">
+            </div>
+            <textarea type="text" id="template">
 {
     "levelNodeStatic": {
         "shape": 1000,
@@ -106,66 +109,68 @@
         }
     }
 }
-    </textarea>
-    <input type="submit" id="add-template" value="Append">
-    <div id="visual"><button id="refresh">refresh</button></div>
-    <div id="functions">
-        <h3>Functions</h3>
-        <div class="function" id="function-title">
-            <input type="text" maxlength="80" 
-                name="title-function" 
-                id="title-function" 
-                placeholder="Set Title (80)">
-            <input type="submit" value="Run"></input>
+            </textarea>
+            <input type="submit" id="add-template" value="Append">
         </div>
-        <div class="function" id="function-creators">
-            <input type="text" maxlength="80"
-                name="creators-function" 
-                id="creators-function" 
-                placeholder="Set Creators (80)">
-            <input type="submit" value="Run"></input>
-        </div>
-        <div class="function" id="function-description">
-            <input type="text" max-length="300"
-                name="description-function" 
-                id="description-function" 
-                placeholder="Set Description (300)">
-            <input type="submit" value="Run"></input>
-        </div>
-        <div class="function" id="function-checkpoints">
-            <input type="number" max="32767"
-                name="checkpoints-function" 
-                id="checkpoints-function" 
-                placeholder="Set Checkpoints (32767)">
-            <input type="submit" value="Run"></input>
-        </div>
-        <!-- <div class="function" id="function-stretched-sign">
-            <input type="text"
-                name="stretched-sign-function" 
-                id="stretched-sign-function" 
-                placeholder="Stretched Sign (text)">
-            <input type="submit" value="Add"></input>
-        </div> -->
-        <div class="function" id="function-custom-color">
-            <input type="text"
-                name="custom-color-function" 
-                id="custom-color-function" 
-                placeholder="Custom Color (255,255,255)">
-            <input type="submit" value="Add"></input>
-        </div>
-        <div class="preset-functions">
-            <input type="submit" id="max-ambience" value="Max Ambience"></input>
-            <input type="submit" id="reset-ambience" value="Reset Ambience"></input>
-            <input type="submit" id="clear-info" value="Clear Info"></input>
-            <input type="submit" id="add-colors" value="Unobtainable Colors"></input>
-            <input type="submit" id="add-crumbling" value="Unobtainable Crumbling"></input>
-            <input type="submit" id="add-sf" value="Unobtainable Start/Finish"></input>
-            <!-- <input type="submit" id="add-inverted" value="Inverted Nodes"></input> -->
-            <input type="submit" id="group-all" value="Group All"></input>
-            <!-- <input type="submit" id="ungroup-all" value="Ungroup All"></input> -->
-            <input type="submit" id="load-empty" value="Load Empty"></input>
+        <div id="functions">
+            <h3>Functions</h3>
+            <div class="function" id="function-title">
+                <input type="text" maxlength="80" 
+                    name="title-function" 
+                    id="title-function" 
+                    placeholder="Set Title (80)">
+                <input type="submit" value="Run"></input>
+            </div>
+            <div class="function" id="function-creators">
+                <input type="text" maxlength="80"
+                    name="creators-function" 
+                    id="creators-function" 
+                    placeholder="Set Creators (80)">
+                <input type="submit" value="Run"></input>
+            </div>
+            <div class="function" id="function-description">
+                <input type="text" max-length="300"
+                    name="description-function" 
+                    id="description-function" 
+                    placeholder="Set Description (300)">
+                <input type="submit" value="Run"></input>
+            </div>
+            <div class="function" id="function-checkpoints">
+                <input type="number" max="32767"
+                    name="checkpoints-function" 
+                    id="checkpoints-function" 
+                    placeholder="Set Checkpoints (32767)">
+                <input type="submit" value="Run"></input>
+            </div>
+            <!-- <div class="function" id="function-stretched-sign">
+                <input type="text"
+                    name="stretched-sign-function" 
+                    id="stretched-sign-function" 
+                    placeholder="Stretched Sign (text)">
+                <input type="submit" value="Add"></input>
+            </div> -->
+            <div class="function" id="function-custom-color">
+                <input type="text"
+                    name="custom-color-function" 
+                    id="custom-color-function" 
+                    placeholder="Custom Color (255,255,255)">
+                <input type="submit" value="Add"></input>
+            </div>
+            <div class="preset-functions">
+                <input type="submit" id="max-ambience" value="Max Ambience"></input>
+                <input type="submit" id="reset-ambience" value="Reset Ambience"></input>
+                <input type="submit" id="clear-info" value="Clear Info"></input>
+                <input type="submit" id="add-colors" value="Unobtainable Colors"></input>
+                <input type="submit" id="add-crumbling" value="Unobtainable Crumbling"></input>
+                <input type="submit" id="add-sf" value="Unobtainable Start/Finish"></input>
+                <!-- <input type="submit" id="add-inverted" value="Inverted Nodes"></input> -->
+                <input type="submit" id="group-all" value="Group All"></input>
+                <!-- <input type="submit" id="ungroup-all" value="Ungroup All"></input> -->
+                <input type="submit" id="load-empty" value="Load Empty"></input>
+            </div>
         </div>
     </div>
+    <div id="visual"><button id="refresh">refresh</button></div>
     <footer>Developed by&nbsp;&bull;&nbsp;.index&nbsp;&bull;&nbsp;<a href="https://github.com/twhlynch">@twhlynch</a>&nbsp;&bull;&nbsp;<a href="https://twhlynch.me">twhlynch.me</a></footer>
     <script src="//cdn.jsdelivr.net/npm/protobufjs@7.X.X/dist/protobuf.js"></script>
     <script type="text/javascript">
