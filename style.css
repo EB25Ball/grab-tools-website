@@ -458,3 +458,6 @@ h3 {
         align-items: start;
     }
 }
+.gap {
+    padding: 2rem;
+}
