@@ -1743,7 +1743,7 @@
                     };
             document.getElementById('out').value = JSON.stringify(obj, null, 4);
         });
-        document.getElementById("randomize").addEventListener('click', function () {
+        document.getElementById("randomize").addEventListener('click', function () { // terrible
             obj = JSON.parse(document.getElementById('out').value);
             obj.levelNodes.forEach(node => {
                 if (node.levelNodeStatic) {
