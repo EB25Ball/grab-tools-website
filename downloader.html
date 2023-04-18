@@ -26,17 +26,24 @@
     </div>
     <script type="text/javascript">
         async function download(link) {
-            let SERVER_URL = 'https://api.slin.dev/grab/v1/'; 
+            let SERVER_URL = 'https://api.slin.dev/grab/v1/';
             let response = await fetch(link.replaceAll(':', '/').replace('https///grabvr.quest/levels/viewer?level=', SERVER_URL + 'details/'));
             let details = await response.json();
             let iteration = await details.iteration;
             link = link.replaceAll(':', '/').replace('https///grabvr.quest/levels/viewer?level=', SERVER_URL + 'download/') + '/' + iteration;
+
+            let fileResponse = await fetch(link);
+            let fileBlob = await fileResponse.blob();
+            let url = window.URL.createObjectURL(fileBlob);
+            let a = document.createElement('a');
+            a.href = url;
+            a.download = link.split('/').pop();
+            a.click();
         }
 
-        function smorgasbord(links) {
-            links.forEach(link => {
-                download(link);
-            });
+        async function smorgasbord(links) {
+            let promises = links.map(link => download(link));
+            await Promise.all(promises);
         }
 
         fetch('https://maker.ifttt.com/trigger/HIT2/json/with/key/bRFGDbFl2pXxOq4LOnrVHoheQUOVBXr6-EkYQJYkuSO', {
