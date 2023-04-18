@@ -91,7 +91,6 @@ function loadLevelNode(node, parent) {
             // material.transparent = true;
             // material.opacity = 0.5;
             // material = [ colorMaterial, material ];
-            let r, g, b;
             node.color.r ? null : node.color.r = 0;
             node.color.g ? null : node.color.g = 0;
             node.color.b ? null : node.color.b = 0;
