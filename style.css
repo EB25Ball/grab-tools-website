@@ -355,6 +355,13 @@ h3 {
     justify-content: center;
     gap: 1rem;
 }
+.functions-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
 .preset-functions {
     flex-direction: row;
     flex-wrap: wrap;
