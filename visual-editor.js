@@ -81,7 +81,16 @@ function loadLevelNode(node, parent) {
     } else if (node.levelNodeStatic) { 
         node = node.levelNodeStatic;
         var cube = shapes[node.shape-1000].clone();
-        node.material ? cube.material = materials[node.material] : cube.material = materials[0];
+        let material;
+        node.material ? material = materials[node.material].clone() : material = materials[0].clone();
+        if (node.material == 8) {
+            // let colorMaterial = new THREE.MeshBasicMaterial({ color: new THREE.Color(node.color.r, node.color.g, node.color.b) });
+            // material.transparent = true;
+            // material.opacity = 0.5;
+            // material = [ colorMaterial, material ];
+            material.color = new THREE.Color(node.color.r, node.color.g, node.color.b);
+        }
+        cube.material = material;
         // var cube = new THREE.Mesh(shapes[node.shape-1000], materials[node.material]);
         node.position.x ? cube.position.x = node.position.x : cube.position.x = 0;
         node.position.y ? cube.position.y = node.position.y : cube.position.y = 0;
