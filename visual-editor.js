@@ -3,7 +3,7 @@ import { TransformControls } from 'https://unpkg.com/three@0.145.0/examples/jsm/
 import { OrbitControls } from 'https://unpkg.com/three@0.145.0/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'https://cdn.skypack.dev/three@v0.132.0/examples/jsm/loaders/GLTFLoader.js';
 
-let camera, scene, renderer, light, controls, transforms, loader;
+let camera, scene, renderer, light, controls, transforms, loader, sun;
 let objects = [];
 let materials = [];
 let shapes = [];
@@ -16,6 +16,8 @@ renderer.setSize( window.innerWidth * .8, window.innerWidth * .8 );
 document.getElementById('visual').appendChild( renderer.domElement );
 light = new THREE.AmbientLight(0xffffff);
 scene.add(light);
+sun = new THREE.DirectionalLight( 0xffffff, 0.5 );
+scene.add( sun );
 controls = new OrbitControls( camera, renderer.domElement );
 controls.mouseButtons = {LEFT: 2, MIDDLE: 1, RIGHT: 0}
 
@@ -141,6 +143,21 @@ initAttributes();
 loadScene();
 document.getElementById('out').addEventListener('change', loadScene);
 document.getElementById('refresh').addEventListener('click', loadScene);
+document.getElementById('goto-start').addEventListener('click', () => {
+    let data = JSON.parse(document.getElementById('out').value);
+    data["levelNodes"].forEach(node => {
+        if (node.levelNodeStart) {
+            let x, y, z;
+            node.levelNodeStart.x ? x = node.levelNodeStart.x : x = 0;
+            node.levelNodeStart.y ? y = node.levelNodeStart.y : y = 0;
+            node.levelNodeStart.z ? z = node.levelNodeStart.z : z = 0;
+            camera.position.x = x;
+            camera.position.y = y;
+            camera.position.z = z;
+            // camera.zoom = 1;
+        }
+    });
+});
 document.getElementById('functions').addEventListener('click', (e) => {
     if (e.target.nodeName == 'INPUT') {
         loadScene();

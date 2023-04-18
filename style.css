@@ -396,9 +396,12 @@ h3 {
     max-height: 600px;
     max-width: 600px
 }
-#refresh {
+#refresh, #goto-start {
     position: absolute;
     padding: 5px;
+}
+#goto-start {
+    transform: translateY(calc(100% + 3px));
 }
 #templates {
     display: flex;
