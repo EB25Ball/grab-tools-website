@@ -1,9 +1,10 @@
 import * as THREE from 'https://unpkg.com/three@0.145.0/build/three.module.js';
 import { TransformControls } from 'https://unpkg.com/three@0.145.0/examples/jsm/controls/TransformControls.js';
+import { TrackballControls } from 'https://unpkg.com/three@0.145.0/examples/jsm/controls/TrackballControls.js';
 import { OrbitControls } from 'https://unpkg.com/three@0.145.0/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'https://cdn.skypack.dev/three@v0.132.0/examples/jsm/loaders/GLTFLoader.js';
 
-let camera, scene, renderer, light, controls, transforms, loader, sun;
+let camera, scene, renderer, light, controls, transforms, trackball, loader, sun;
 let objects = [];
 let materials = [];
 let shapes = [];
