@@ -11,7 +11,7 @@ let shapes = [];
 loader = new GLTFLoader();
 scene = new THREE.Scene();
 camera = new THREE.PerspectiveCamera( 75, window.innerWidth * .8 / window.innerWidth * .8, 0.1, 10000 );
-renderer = new THREE.WebGLRenderer({ alpha: true });
+renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
 renderer.setSize( window.innerWidth * .8, window.innerWidth * .8 );
 document.getElementById('visual').appendChild( renderer.domElement );
 light = new THREE.AmbientLight(0xffffff);
