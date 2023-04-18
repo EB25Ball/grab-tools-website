@@ -27,6 +27,7 @@ addEventListener('resize', () => {
 function initAttributes() {
     let texture;
     [
+    'textures/default.png',
     'textures/grabbable.png',
     'textures/ice.png',
     'textures/lava.png',
@@ -35,12 +36,10 @@ function initAttributes() {
     'textures/grapplable_lava.png',
     'textures/grabbable_crumbling.png',
     'textures/default_colored.png',
-    'textures/bouncing.png',
-    'textures/default.png'
+    'textures/bouncing.png'
     ].forEach(path => {
         texture = new THREE.TextureLoader().load(path, function( texture ) {
             texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-            texture.offset.set( 0, 0 );
             texture.repeat.set( 2, 2 );
         });
         let material = new THREE.MeshBasicMaterial({ map: texture });
@@ -56,7 +55,7 @@ function initAttributes() {
     ].forEach(path => {
         loader.load(path, function( gltf ) {
             let glftScene = gltf.scene;
-            shapes.push(glftScene.children[0].geometry);
+            shapes.push(glftScene.children[0]);
         });
     });
 }
@@ -81,7 +80,9 @@ function loadLevelNode(node, parent) {
         });
     } else if (node.levelNodeStatic) { 
         node = node.levelNodeStatic;
-        var cube = new THREE.Mesh(shapes[node.shape-1000], materials[node.material]);
+        var cube = shapes[node.shape-1000].clone();
+        cube.material = materials[node.material];
+        // var cube = new THREE.Mesh(shapes[node.shape-1000], materials[node.material]);
         node.position.x ? cube.position.x = node.position.x : cube.position.x = 0;
         node.position.y ? cube.position.y = node.position.y : cube.position.y = 0;
         node.position.z ? cube.position.z = node.position.z : cube.position.z = 0;
@@ -96,7 +97,9 @@ function loadLevelNode(node, parent) {
         objects.push(cube);
     } else if (node.levelNodeCrumbling) {
         node = node.levelNodeCrumbling;
-        var cube = new THREE.Mesh(shapes[node.shape-1000], materials[node.material]);
+        var cube = shapes[node.shape-1000].clone();
+        cube.material = materials[node.material];
+        // var cube = new THREE.Mesh(shapes[node.shape-1000], materials[node.material]);
         node.position.x ? cube.position.x = node.position.x : cube.position.x = 0;
         node.position.y ? cube.position.y = node.position.y : cube.position.y = 0;
         node.position.z ? cube.position.z = node.position.z : cube.position.z = 0;
