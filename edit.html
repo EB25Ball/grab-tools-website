@@ -169,6 +169,7 @@
                 <input type="submit" id="group-all" value="Group All"></input>
                 <!-- <input type="submit" id="ungroup-all" value="Ungroup All"></input> -->
                 <input type="submit" id="load-empty" value="Load Empty"></input>
+                <input type="submit" id="randomize" value="randomize"></input>
             </div>
         </div>
     </div>
@@ -1742,7 +1743,33 @@
                     };
             document.getElementById('out').value = JSON.stringify(obj, null, 4);
         });
-        
+        document.getElementById("randomize").addEventListener('click', function () {
+            obj = JSON.parse(document.getElementById('out').value);
+            obj.levelNodes.forEach(node => {
+                if (node.levelNodeStatic) {
+                    node.levelNodeStatic.position.x ? node.levelNodeStatic.position.x *= (Math.random()-.5)*4 : node.levelNodeStatic.position.x = (Math.random()-.5)*4;
+                    node.levelNodeStatic.position.y ? node.levelNodeStatic.position.y *= (Math.random()-.5)*4 : node.levelNodeStatic.position.y = (Math.random()-.5)*4;
+                    node.levelNodeStatic.position.z ? node.levelNodeStatic.position.z *= (Math.random()-.5)*4 : node.levelNodeStatic.position.z = (Math.random()-.5)*4;
+                } else if (node.levelNodeCrumbling) {
+                    node.levelNodeCrumbling.position.x ? node.levelNodeCrumbling.position.x *= (Math.random()-.5)*4 : node.levelNodeCrumbling.position.x = (Math.random()-.5)*4;
+                    node.levelNodeCrumbling.position.y ? node.levelNodeCrumbling.position.y *= (Math.random()-.5)*4 : node.levelNodeCrumbling.position.y = (Math.random()-.5)*4;
+                    node.levelNodeCrumbling.position.z ? node.levelNodeCrumbling.position.z *= (Math.random()-.5)*4 : node.levelNodeCrumbling.position.z = (Math.random()-.5)*4;
+                } else if (node.levelNodeGroup) {
+                    node.levelNodeGroup.childNodes.forEach(cNode => {
+                        if (cNode.levelNodeStatic) {
+                            cNode.levelNodeStatic.position.x ? cNode.levelNodeStatic.position.x *= (Math.random()-.5)*4 : cNode.levelNodeStatic.position.x = (Math.random()-.5)*4;
+                            cNode.levelNodeStatic.position.y ? cNode.levelNodeStatic.position.y *= (Math.random()-.5)*4 : cNode.levelNodeStatic.position.y = (Math.random()-.5)*4;
+                            cNode.levelNodeStatic.position.z ? cNode.levelNodeStatic.position.z *= (Math.random()-.5)*4 : cNode.levelNodeStatic.position.z = (Math.random()-.5)*4;
+                        } else if (cNode.levelNodeCrumbling) {
+                            cNode.levelNodeCrumbling.position.x ? cNode.levelNodeCrumbling.position.x *= (Math.random()-.5)*4 : cNode.levelNodeCrumbling.position.x = (Math.random()-.5)*4;
+                            cNode.levelNodeCrumbling.position.y ? cNode.levelNodeCrumbling.position.y *= (Math.random()-.5)*4 : cNode.levelNodeCrumbling.position.y = (Math.random()-.5)*4;
+                            cNode.levelNodeCrumbling.position.z ? cNode.levelNodeCrumbling.position.z *= (Math.random()-.5)*4 : cNode.levelNodeCrumbling.position.z = (Math.random()-.5)*4;
+                        }
+                    });
+                }
+            });
+            document.getElementById('out').value = JSON.stringify(obj, null, 4);
+        });        
         document.getElementById("load-empty").addEventListener('click', function () {
             obj = {
                     "formatVersion": 6,
