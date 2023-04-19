@@ -77,10 +77,11 @@ function loadLevelNode(node, parent) {
         node.levelNodeGroup.rotation.y ? cube.quaternion.y = node.levelNodeGroup.rotation.y : cube.quaternion.y = 0;
         node.levelNodeGroup.rotation.z ? cube.quaternion.z = node.levelNodeGroup.rotation.z : cube.quaternion.z = 0;
         node.levelNodeGroup.rotation.w ? cube.quaternion.w = node.levelNodeGroup.rotation.w : cube.quaternion.w = 0;
-        console.log(node.levelNodeGroup.childNodes);
+        let groupComplexity = 0;
         node.levelNodeGroup.childNodes.forEach(node => {
-            loadLevelNode(node, cube);
+            groupComplexity += loadLevelNode(node, cube);
         });
+        return groupComplexity;
     } else if (node.levelNodeStatic) { 
         node = node.levelNodeStatic;
         var cube = shapes[node.shape-1000].clone();
@@ -95,7 +96,6 @@ function loadLevelNode(node, parent) {
             node.color.g ? null : node.color.g = 0;
             node.color.b ? null : node.color.b = 0;
             material.color = new THREE.Color(node.color.r, node.color.g, node.color.b);
-            console.log(material.color);
         }
         cube.material = material;
         // var cube = new THREE.Mesh(shapes[node.shape-1000], materials[node.material]);
@@ -111,6 +111,7 @@ function loadLevelNode(node, parent) {
         node.scale.z ? cube.scale.z = node.scale.z : cube.scale.z = 1;
         parent.add(cube);
         objects.push(cube);
+        return 2;
     } else if (node.levelNodeCrumbling) {
         node = node.levelNodeCrumbling;
         var cube = shapes[node.shape-1000].clone();
@@ -128,20 +129,26 @@ function loadLevelNode(node, parent) {
         node.scale.z ? cube.scale.z = node.scale.z : cube.scale.z = 1;
         parent.add(cube);
         objects.push(cube);
+        return 3;
+    } else if (node.levelNodeSign) {
+        return 5;
     }
 }
 
 function loadScene() {
     let data = JSON.parse(document.getElementById('out').value);
     let levelNodes = data["levelNodes"];
-    console.log(levelNodes);
 
+    let complexity = 0;
     objects = [];
     scene.clear();
 
     levelNodes.forEach((node) => {
-        loadLevelNode(node, scene);
+        complexity += loadLevelNode(node, scene);
     });
+
+    console.log(complexity);
+
     renderer.render( scene, camera );
 }
 initAttributes();

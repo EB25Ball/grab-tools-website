@@ -278,7 +278,6 @@
         }
         document.getElementById('download').addEventListener("click", function () {
             obj = JSON.parse(document.getElementById('out').value);
-            console.log(obj);
             protobuf.load("proto/level.proto", function(err, root) {
                 if(err) throw err;
 
