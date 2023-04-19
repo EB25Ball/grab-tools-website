@@ -23,7 +23,7 @@
     </div>
     <div id="details">
         <input type="text" id="user-input" placeholder="USER">
-        <input type="text" id="key-input" placeholder="KEY">
+        <input type="text" id="key-input" placeholder="KEY (split '|')">
         <button id="submit-btn">Submit</button>
         <p id="stats-out"></p>
     </div>
@@ -45,7 +45,7 @@
                 
             }
         }
-        const key = keyInput.value.toLowerCase();
+        const keys = keyInput.value.toLowerCase().split("|");
 
         const promises = [
             fetch('stats-data/data1.json'),
@@ -60,7 +60,14 @@
         const array = json_data.flat();
 
         var levels = array.filter(level => {
-            return level["identifier"].split(":")[0].toLowerCase().includes(id) && level["title"].toLowerCase().includes(key);
+            keys.forEach(key => {
+                if (level["title"].toLowerCase().includes(key)) {
+                    if (level["identifier"].split(":")[0].toLowerCase().includes(id)) {
+                        return true; 
+                    }
+                }
+            });
+            return false;
         });
 
         levels.sort((a, b) => b.statistics.total_played - a.statistics.total_played);
