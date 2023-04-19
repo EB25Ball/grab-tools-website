@@ -69,7 +69,7 @@
         output.innerHTML = "";
         levels.forEach(level => {
             total += level["statistics"]["total_played"];
-            output.innerHTML += `${level["title"]}: ${level["statistics"]["total_played"]}<br>`;
+            output.innerHTML += `${level["title"]}: <b>${level["statistics"]["total_played"]}</b><br>`;
         });
 
         output.innerHTML += `<b>Total plays: ${total}</b><br>`;
