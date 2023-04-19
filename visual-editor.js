@@ -132,6 +132,8 @@ function loadLevelNode(node, parent) {
         return 3;
     } else if (node.levelNodeSign) {
         return 5;
+    } else {
+        return 0;
     }
 }
 
