@@ -60,13 +60,13 @@
         const array = json_data.flat();
 
         var levels = array.filter(level => {
-            keys.forEach(key => {
+            for (var key of keys) {
                 if (level["title"].toLowerCase().includes(key)) {
                     if (level["identifier"].split(":")[0].toLowerCase().includes(id)) {
                         return true; 
                     }
                 }
-            });
+            }
             return false;
         });
 
