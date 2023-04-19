@@ -170,6 +170,7 @@
                 <!-- <input type="submit" id="ungroup-all" value="Ungroup All"></input> -->
                 <input type="submit" id="load-empty" value="Load Empty"></input>
                 <input type="submit" id="randomize" value="randomize"></input>
+                <input type="submit" id="duplicate" value="duplicate"></input>
             </div>
         </div>
     </div>
@@ -2032,7 +2033,12 @@
                 }
             });
             document.getElementById('out').value = JSON.stringify(obj, null, 4);
-        });        
+        });
+        document.getElementById("duplicate").addEventListener('click', function () {
+            obj = JSON.parse(document.getElementById('out').value);
+            obj.levelNodes = obj.levelNodes.concat(obj.levelNodes);
+            document.getElementById('out').value = JSON.stringify(obj, null, 4);
+        });
         document.getElementById("load-empty").addEventListener('click', function () {
             obj = {
                     "formatVersion": 6,
