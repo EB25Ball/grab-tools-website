@@ -410,6 +410,11 @@ h3 {
 #goto-start {
     transform: translateY(calc(100% + 3px));
 }
+#complexity {
+    transform: translateY(calc(200% + 25px));
+    font-size: 15px;
+    padding-inline: 3px;
+}
 #templates {
     display: flex;
     flex-direction: row;
