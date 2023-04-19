@@ -35,11 +35,17 @@
     
         submitBtn.addEventListener("click", async () => {
         const user = idInput.value;
-        const userDataResponse = await fetch(`https://api.slin.dev/grab/v1/list?type=user_name&search_term=${user}`);
-        const userData = await userDataResponse.json();
-        const id = userData[0].user_id;
-
-        const key = keyInput.value;
+        var id = user;
+        if (user) {
+            try {
+                const userDataResponse = await fetch(`https://api.slin.dev/grab/v1/list?type=user_name&search_term=${user}`);
+                const userData = await userDataResponse.json();
+                id = userData[0].user_id.toLowerCase();
+            } catch {
+                
+            }
+        }
+        const key = keyInput.value.toLowerCase();
 
         const promises = [
             fetch('stats-data/data1.json'),
@@ -53,9 +59,11 @@
 
         const array = json_data.flat();
 
-        const levels = array.filter(level => {
-            return level["identifier"].split(":")[0] === id && level["title"].includes(key);
+        var levels = array.filter(level => {
+            return level["identifier"].split(":")[0].toLowerCase().includes(id) && level["title"].toLowerCase().includes(key);
         });
+
+        levels.sort((a, b) => b.statistics.total_played - a.statistics.total_played);
 
         let total = 0;
         output.innerHTML = "";
