@@ -2245,6 +2245,88 @@
                     }, null, 4);
         document.getElementById('out').style.display = "block";
         document.getElementsByClassName('leg')[0].style.display = "flex";
+    
+        let cArr = [
+            [0, 0, 0],
+            [255, 0, 0],
+            [0, 255, 0],
+            [0, 0, 255],
+            [0, 255, 255],
+            [255, 0, 255],
+            [255, 255, 0],
+            [200, 0, 0],
+            [0, 200, 0],
+            [0, 0, 200],
+            [0, 200, 200],
+            [200, 0, 200],
+            [200, 200, 0],
+            [127.5, 0, 0],
+            [0, 127.5, 0],
+            [0, 0, 127.5],
+            [0, 127.5, 127.5],
+            [127.5, 0, 127.5],
+            [127.5, 127.5, 0],
+            [100, 0, 0],
+            [0, 100, 0],
+            [0, 0, 100],
+            [0, 100, 100],
+            [100, 0, 100],
+            [100, 100, 0],
+            [50, 0, 0],
+            [0, 50, 0],
+            [0, 0, 50],
+            [0, 50, 50],
+            [50, 0, 50],
+            [50, 50, 0],
+            [-255, -255, -255],
+            [255, -255, -255],
+            [-255, 255, -255],
+            [-255, -255, 255],
+            [-255, 255, 255],
+            [255, -255, 255],
+            [255, 255, -255]
+        ];
+        function addColorArray(arr) {
+            var cNodes = [];
+            for (let i = 0; i < arr.length; i++) {
+                const el = arr[i];
+                for (let j = 0; j < 5; j++) {
+                    cNode = {
+                        "levelNodeStatic": {
+                            "shape": 1000 + j,
+                            "material": 8,
+                            "position": {
+                                "x": j,
+                                "y": 0,
+                                "z": i
+                            },
+                            "scale": {
+                                "x": 1,
+                                "y": 1,
+                                "z": 1
+                            },
+                            "rotation": {
+                                "w": 1,
+                                "x": 0,
+                                "y": 0,
+                                "z": 0
+                            },
+                            "color": {
+                                "r": el[0]/255,
+                                "g": el[1]/255,
+                                "b": el[2]/255,
+                                "a": 1
+                            },
+                            "isNeon": true
+                        }
+                    }
+                    cNodes.push(cNode);
+                }
+            }
+            obj = JSON.parse(document.getElementById('out').value);
+            obj.levelNodes = cNodes;
+            document.getElementById('out').value = JSON.stringify(obj, null, 4);
+        }
     </script>
     <script src="visual-editor.js" type="module"></script>
 </body>
