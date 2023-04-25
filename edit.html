@@ -171,8 +171,9 @@
                 <input type="submit" id="group-all" value="Group All"></input>
                 <!-- <input type="submit" id="ungroup-all" value="Ungroup All"></input> -->
                 <input type="submit" id="load-empty" value="Load Empty"></input>
-                <input type="submit" id="randomize" value="randomize"></input>
-                <input type="submit" id="duplicate" value="duplicate"></input>
+                <input type="submit" id="randomize" value="Randomize"></input>
+                <input type="submit" id="duplicate" value="Duplicate"></input>
+                <input type="submit" id="parallelograms" value="Parallelograms"></input>
             </div>
         </div>
     </div>
@@ -2042,6 +2043,297 @@
         document.getElementById("duplicate").addEventListener('click', function () {
             obj = JSON.parse(document.getElementById('out').value);
             obj.levelNodes = obj.levelNodes.concat(obj.levelNodes);
+            document.getElementById('out').value = JSON.stringify(obj, null, 4);
+        });
+        document.getElementById("parallelograms").addEventListener('click', function () {
+            var parallelograms = 
+        {
+            "levelNodeGroup": {
+                "position": {
+                    "y": 0,
+                    "x": 0,
+                    "z": 0
+                },
+                "rotation": {
+                    "w": 1
+                },
+                "childNodes": [
+                    {
+                        "levelNodeGroup": {
+                            "position": {
+                                "y": 0,
+                                "x": 0,
+                                "z": 0
+                            },
+                            "rotation": {
+                                "w": 1
+                            },
+                            "childNodes": [
+                                {
+                                    "levelNodeGroup": {
+                                        "position": {
+                                            "y": 0,
+                                            "x": 0,
+                                            "z": 0
+                                        },
+                                        "rotation": {
+                                            "w": 1
+                                        },
+                                        "childNodes": [
+                                            {
+                                                "levelNodeStatic": {
+                                                    "shape": 1000,
+                                                    "material": 0,
+                                                    "position": {
+                                                        "x": 0,
+                                                        "y": 0,
+                                                        "z": 0
+                                                    },
+                                                    "scale": {
+                                                        "x": 2,
+                                                        "y": 1,
+                                                        "z": 1
+                                                    },
+                                                    "rotation": {
+                                                        "w": 0.924,
+                                                        "x": 0,
+                                                        "y": 0.383,
+                                                        "z": 0
+                                                    }
+                                                }
+                                            },
+                                            {
+                                                "levelNodeCrumbling": {
+                                                    "shape": 1000,
+                                                    "material": 7,
+                                                    "position": {
+                                                        "x": 2,
+                                                        "y": 0,
+                                                        "z": 0
+                                                    },
+                                                    "scale": {
+                                                        "x": 2,
+                                                        "y": 1,
+                                                        "z": 1
+                                                    },
+                                                    "rotation": {
+                                                        "w": 0.924,
+                                                        "x": 0,
+                                                        "y": 0.383,
+                                                        "z": 0
+                                                    },
+                                                    "stableTime": 0.5,
+                                                    "respawnTime": 0.5
+                                                }
+                                            },
+                                            {
+                                                "levelNodeStatic": {
+                                                    "shape": 1000,
+                                                    "material": 9,
+                                                    "position": {
+                                                        "x": 4,
+                                                        "y": 0,
+                                                        "z": 0
+                                                    },
+                                                    "scale": {
+                                                        "x": 2,
+                                                        "y": 1,
+                                                        "z": 1
+                                                    },
+                                                    "rotation": {
+                                                        "w": 0.924,
+                                                        "x": 0,
+                                                        "y": 0.383,
+                                                        "z": 0
+                                                    }
+                                                }
+                                            },
+                                            {
+                                                "levelNodeStatic": {
+                                                    "shape": 1000,
+                                                    "material": 8,
+                                                    "position": {
+                                                        "x": 6,
+                                                        "y": 0,
+                                                        "z": 0
+                                                    },
+                                                    "scale": {
+                                                        "x": 2,
+                                                        "y": 1,
+                                                        "z": 1
+                                                    },
+                                                    "rotation": {
+                                                        "w": 0.924,
+                                                        "x": 0,
+                                                        "y": 0.383,
+                                                        "z": 0
+                                                    },
+                                                    "color": {
+                                                        "r": 0,
+                                                        "g": 1,
+                                                        "b": 1,
+                                                        "a": 1
+                                                    }
+                                                }
+                                            },
+                                            {
+                                                "levelNodeStatic": {
+                                                    "shape": 1000,
+                                                    "material": 6,
+                                                    "position": {
+                                                        "x": 8,
+                                                        "y": 0,
+                                                        "z": 0
+                                                    },
+                                                    "scale": {
+                                                        "x": 2,
+                                                        "y": 1,
+                                                        "z": 1
+                                                    },
+                                                    "rotation": {
+                                                        "w": 0.924,
+                                                        "x": 0,
+                                                        "y": 0.383,
+                                                        "z": 0
+                                                    }
+                                                }
+                                            },
+                                            {
+                                                "levelNodeStatic": {
+                                                    "shape": 1000,
+                                                    "material": 5,
+                                                    "position": {
+                                                        "x": 10,
+                                                        "y": 0,
+                                                        "z": 0
+                                                    },
+                                                    "scale": {
+                                                        "x": 2,
+                                                        "y": 1,
+                                                        "z": 1
+                                                    },
+                                                    "rotation": {
+                                                        "w": 0.924,
+                                                        "x": 0,
+                                                        "y": 0.383,
+                                                        "z": 0
+                                                    }
+                                                }
+                                            },
+                                            {
+                                                "levelNodeStatic": {
+                                                    "shape": 1000,
+                                                    "material": 4,
+                                                    "position": {
+                                                        "x": 12,
+                                                        "y": 0,
+                                                        "z": 0
+                                                    },
+                                                    "scale": {
+                                                        "x": 2,
+                                                        "y": 1,
+                                                        "z": 1
+                                                    },
+                                                    "rotation": {
+                                                        "w": 0.924,
+                                                        "x": 0,
+                                                        "y": 0.383,
+                                                        "z": 0
+                                                    }
+                                                }
+                                            },
+                                            {
+                                                "levelNodeStatic": {
+                                                    "shape": 1000,
+                                                    "material": 3,
+                                                    "position": {
+                                                        "x": 14,
+                                                        "y": 0,
+                                                        "z": 0
+                                                    },
+                                                    "scale": {
+                                                        "x": 2,
+                                                        "y": 1,
+                                                        "z": 1
+                                                    },
+                                                    "rotation": {
+                                                        "w": 0.924,
+                                                        "x": 0,
+                                                        "y": 0.383,
+                                                        "z": 0
+                                                    }
+                                                }
+                                            },
+                                            {
+                                                "levelNodeStatic": {
+                                                    "shape": 1000,
+                                                    "material": 2,
+                                                    "position": {
+                                                        "x": 16,
+                                                        "y": 0,
+                                                        "z": 0
+                                                    },
+                                                    "scale": {
+                                                        "x": 2,
+                                                        "y": 1,
+                                                        "z": 1
+                                                    },
+                                                    "rotation": {
+                                                        "w": 0.924,
+                                                        "x": 0,
+                                                        "y": 0.383,
+                                                        "z": 0
+                                                    }
+                                                }
+                                            },
+                                            {
+                                                "levelNodeStatic": {
+                                                    "shape": 1000,
+                                                    "material": 1,
+                                                    "position": {
+                                                        "x": 18,
+                                                        "y": 0,
+                                                        "z": 0
+                                                    },
+                                                    "scale": {
+                                                        "x": 2,
+                                                        "y": 1,
+                                                        "z": 1
+                                                    },
+                                                    "rotation": {
+                                                        "w": 0.924,
+                                                        "x": 0,
+                                                        "y": 0.383,
+                                                        "z": 0
+                                                    }
+                                                }
+                                            }
+                                        ],
+                                        "scale": {
+                                            "y": 1,
+                                            "x": 1,
+                                            "z": 4
+                                        }
+                                    }
+                                }
+                            ],
+                            "scale": {
+                                "y": 1,
+                                "x": 1,
+                                "z": 0.5
+                            }
+                        }
+                    }
+                ],
+                "scale": {
+                    "y": 1,
+                    "x": 1,
+                    "z": 1
+                }
+            }
+        };
+            obj = JSON.parse(document.getElementById('out').value);
+            obj.levelNodes.push(parallelograms);
             document.getElementById('out').value = JSON.stringify(obj, null, 4);
         });
         document.getElementById("load-empty").addEventListener('click', function () {
