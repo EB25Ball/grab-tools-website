@@ -54,7 +54,9 @@ function initAttributes() {
         'models/sphere.glb',
         'models/cylinder.glb',
         'models/pyramid.glb',
-        'models/prism.glb'
+        'models/prism.glb',
+        'models/sign.glb',
+        'models/start_end.glb'
     ].forEach(path => {
         loader.load(path, function( gltf ) {
             let glftScene = gltf.scene;
@@ -131,7 +133,47 @@ function loadLevelNode(node, parent) {
         objects.push(cube);
         return 3;
     } else if (node.levelNodeSign) {
+        node = node.levelNodeSign;
+        var cube = shapes[5].clone();
+        cube.material = materials[4];
+        node.position.x ? cube.position.x = node.position.x : cube.position.x = 0;
+        node.position.y ? cube.position.y = node.position.y : cube.position.y = 0;
+        node.position.z ? cube.position.z = node.position.z : cube.position.z = 0;
+        node.rotation.w ? cube.quaternion.w = node.rotation.w : cube.quaternion.w = 1;
+        node.rotation.x ? cube.quaternion.x = node.rotation.x : cube.quaternion.x = 0;
+        node.rotation.y ? cube.quaternion.y = node.rotation.y : cube.quaternion.y = 0;
+        node.rotation.z ? cube.quaternion.z = node.rotation.z : cube.quaternion.z = 0;
+        parent.add(cube);
+        objects.push(cube);
         return 5;
+    } else if (node.levelNodeStart) {
+        node = node.levelNodeStart;
+        var cube = shapes[6].clone();
+        cube.material = new THREE.MeshBasicMaterial({ color: 0x00ff00, transparent: true, opacity: 0.5 });
+        node.position.x ? cube.position.x = node.position.x : cube.position.x = 0;
+        node.position.y ? cube.position.y = node.position.y : cube.position.y = 0;
+        node.position.z ? cube.position.z = node.position.z : cube.position.z = 0;
+        node.rotation.w ? cube.quaternion.w = node.rotation.w : cube.quaternion.w = 1;
+        node.rotation.x ? cube.quaternion.x = node.rotation.x : cube.quaternion.x = 0;
+        node.rotation.y ? cube.quaternion.y = node.rotation.y : cube.quaternion.y = 0;
+        node.rotation.z ? cube.quaternion.z = node.rotation.z : cube.quaternion.z = 0;
+        node.radius ? cube.scale.x = node.radius : cube.scale.x = 1;
+        node.radius ? cube.scale.z = node.radius : cube.scale.z = 1;
+        parent.add(cube);
+        objects.push(cube);
+        return 0;
+    } else if (node.levelNodeFinish) {
+        node = node.levelNodeFinish;
+        var cube = shapes[6].clone();
+        cube.material = new THREE.MeshBasicMaterial({ color: 0xff0000, transparent: true, opacity: 0.5 });
+        node.position.x ? cube.position.x = node.position.x : cube.position.x = 0;
+        node.position.y ? cube.position.y = node.position.y : cube.position.y = 0;
+        node.position.z ? cube.position.z = node.position.z : cube.position.z = 0;
+        node.radius ? cube.scale.x = node.radius : cube.scale.x = 1;
+        node.radius ? cube.scale.z = node.radius : cube.scale.z = 1;
+        parent.add(cube);
+        objects.push(cube);
+        return 0;
     } else {
         return 0;
     }
