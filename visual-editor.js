@@ -28,6 +28,7 @@ addEventListener('resize', () => {
     renderer.setSize( window.innerWidth * .8, window.innerWidth * .6 );
 });
 function initAttributes() {
+    const attribPromises = [];
     let texture;
     [
     'textures/default.png',
@@ -41,14 +42,17 @@ function initAttributes() {
     'textures/default_colored.png',
     'textures/bouncing.png'
     ].forEach(path => {
-        texture = new THREE.TextureLoader().load(path, function( texture ) {
-            texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-            texture.repeat.set( 2, 2 );
+        const attribPromise = new Promise((resolve) => {
+            texture = new THREE.TextureLoader().load(path, function( texture ) {
+                texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+                texture.repeat.set( 2, 2 );
+            });
+            let material = new THREE.MeshBasicMaterial({ map: texture });
+            materials.push(material);
+            resolve();
         });
-        let material = new THREE.MeshBasicMaterial({ map: texture });
-        materials.push(material);
+        attribPromises.push(attribPromise);
     });
-    let shape;
     [
         'models/cube.glb',
         'models/sphere.glb',
@@ -58,10 +62,17 @@ function initAttributes() {
         'models/sign.glb',
         'models/start_end.glb'
     ].forEach(path => {
-        loader.load(path, function( gltf ) {
-            let glftScene = gltf.scene;
-            shapes.push(glftScene.children[0]);
+        const attribPromise = new Promise((resolve) => {
+            loader.load(path, function( gltf ) {
+                let glftScene = gltf.scene;
+                shapes.push(glftScene.children[0]);
+                resolve();
+            });
         });
+        attribPromises.push(attribPromise);
+    });
+    Promise.all(attribPromises).then(() => {
+        console.log('Ready');
     });
 }
 function loadLevelNode(node, parent) {
