@@ -331,7 +331,7 @@
         document.querySelector('#function-checkpoints input[type="submit"]').addEventListener('click', function () {
             var input = document.getElementById('checkpoints-function');
             obj = JSON.parse(document.getElementById('out').value);
-            obj.maxCheckpointCount = input.value;
+            obj.maxCheckpointCount = parseInt(input.value);
             document.getElementById('out').value = JSON.stringify(obj, null, 4);
         });
 
