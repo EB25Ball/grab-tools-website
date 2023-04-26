@@ -21,7 +21,12 @@ sun = new THREE.DirectionalLight( 0xffffff, 0.5 );
 scene.add( sun );
 controls = new OrbitControls( camera, renderer.domElement );
 controls.mouseButtons = {LEFT: 2, MIDDLE: 1, RIGHT: 0}
-
+controls.keys = {
+	LEFT: 65,
+	UP: 87,
+	RIGHT: 68,
+	BOTTOM: 83
+}
 addEventListener('resize', () => {
     camera.aspect = window.innerWidth * .8 / window.innerWidth * .6;
     camera.updateProjectionMatrix();
@@ -226,6 +231,18 @@ document.getElementById('goto-start').addEventListener('click', () => {
         }
     });
 });
+document.querySelector('#fullscreenButton').addEventListener('click', () => {
+    var canvas = renderer.domElement;
+    if (canvas.requestFullscreen) {
+      canvas.requestFullscreen();
+    } else if (canvas.mozRequestFullScreen) { /* Firefox */
+      canvas.mozRequestFullScreen();
+    } else if (canvas.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+      canvas.webkitRequestFullscreen();
+    } else if (canvas.msRequestFullscreen) { /* IE/Edge */
+      canvas.msRequestFullscreen();
+    }
+});
 document.getElementById('functions').addEventListener('click', (e) => {
     if (e.target.nodeName == 'INPUT') {
         loadScene();
@@ -235,7 +252,7 @@ camera.position.set(0, 10, 10);
 
 function animate() {
 	requestAnimationFrame( animate );
-
+    controls.update();
 	renderer.render( scene, camera );
 }
 

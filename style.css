@@ -403,15 +403,18 @@ h3 {
     max-height: 600px;
     max-width: 600px
 }
-#refresh, #goto-start {
+#refresh, #goto-start, #fullscreenButton {
     position: absolute;
     padding: 5px;
 }
 #goto-start {
     transform: translateY(calc(100% + 3px));
 }
+#fullscreenButton {
+    transform: translateY(calc(200% + 6px));
+}
 #complexity {
-    transform: translateY(calc(200% + 25px));
+    transform: translateY(calc(300% + 40px));
     font-size: 15px;
     padding-inline: 3px;
 }
