@@ -37,10 +37,10 @@ footer a {
     color: #4CAF50;
     pointer-events: all;
 }
-#file, #file-a, #file-append{
+#file, #file-a, #file-append, #file-append-a {
     display: none;
 }
-#file-custom, #file-custom-a, #file-custom-append {
+#file-custom, #file-custom-a, #file-custom-append, #file-custom-append-a {
     height: fit-content;
     border: 2px dashed #aaa;
     border-radius: 5px;
@@ -50,7 +50,7 @@ footer a {
     font-size: 20px;
     color: #aaa;
 }
-#file-custom:hover, #file-custom-a:hover, #file-custom-append:hover {
+#file-custom:hover, #file-custom-a:hover, #file-custom-append:hover, #file-custom-append-a:hover {
     border: 2px dashed #777;
     color: #777;
 }

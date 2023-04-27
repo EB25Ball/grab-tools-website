@@ -45,6 +45,10 @@
             <div id="file-display-append"></div>
         </label>
         <input type="file" name="file" id="file-append" accept=".level">
+        <label for="file" id="file-custom-append-a">Append Animated level!
+            <div id="file-display-append-a"></div>
+        </label>
+        <input type="file" name="file" id="file-append-a" accept=".level">
     </div>
     <p id="selected-file">Find .levels in <code>Android/data/com.slindev.grab_demo/levels/user</code> on your Quest headset!</p>
     <div id="buttons">
@@ -2854,6 +2858,7 @@
         document.getElementById('file').addEventListener("change", function (e) {loadFile(e)}, false);
         document.getElementById('file-a').addEventListener("change", function (e) {loadFile(e, true)}, false);
         document.getElementById('file-append').addEventListener("change", function (e) {appendFile(e)}, false);
+        document.getElementById('file-append-a').addEventListener("change", function (e) {appendFile(e, true)}, false);
         document.getElementById('out').value = JSON.stringify({
                         "formatVersion": 6,
                         "title": "",
