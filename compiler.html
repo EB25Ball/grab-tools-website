@@ -142,7 +142,7 @@
             //document.getElementById('out').innerText = json;
             //console.log(obj);
             
-            protobuf.load("proto/level.proto", function(err, root) {
+            protobuf.load("proto-anim/level.proto", function(err, root) {
                 if(err) throw err;
 
                 let message = root.lookupType("COD.Level.Level");

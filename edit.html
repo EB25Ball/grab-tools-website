@@ -37,10 +37,10 @@
             <div id="file-display"></div>
         </label>
         <input type="file" name="file" id="file" accept=".level">
-        <label for="file" id="file-custom-a">Choose Animated Level!
+        <!-- <label for="file" id="file-custom-a">Choose Animated Level!
             <div id="file-display-a"></div>
         </label>
-        <input type="file" name="file" id="file-a" accept=".level">
+        <input type="file" name="file" id="file-a" accept=".level"> -->
         <label for="file" id="file-custom-append">Append level!
             <div id="file-display-append"></div>
         </label>
@@ -200,7 +200,7 @@
                 let reader = new FileReader();
                 reader.onload = function() {
                     let data = reader.result;
-                    protobuf.load("proto/level.proto", function(err, root) {
+                    protobuf.load("proto-anim/level.proto", function(err, root) {
                         if(err) throw err;
                         let message = root.lookupType("COD.Level.Level");
                         let decoded = message.decode(new Uint8Array(data));
@@ -293,7 +293,7 @@
         }
         document.getElementById('download').addEventListener("click", function () {
             obj = JSON.parse(document.getElementById('out').value);
-            protobuf.load("proto/level.proto", function(err, root) {
+            protobuf.load("proto-anim/level.proto", function(err, root) {
                 if(err) throw err;
 
                 let message = root.lookupType("COD.Level.Level");
@@ -2855,10 +2855,10 @@
             }
             document.getElementById('template').value = JSON.stringify(obj, null, 4);
         });
-        document.getElementById('file').addEventListener("change", function (e) {loadFile(e)}, false);
-        document.getElementById('file-a').addEventListener("change", function (e) {loadFile(e, true)}, false);
-        document.getElementById('file-append').addEventListener("change", function (e) {appendFile(e)}, false);
-        document.getElementById('file-append-a').addEventListener("change", function (e) {appendFile(e, true)}, false);
+        document.getElementById('file').addEventListener("change", function (e) {loadFile(e, true)}, false);
+        // document.getElementById('file-a').addEventListener("change", function (e) {loadFile(e, true)}, false);
+        document.getElementById('file-append').addEventListener("change", function (e) {appendFile(e, true)}, false);
+        // document.getElementById('file-append-a').addEventListener("change", function (e) {appendFile(e, true)}, false);
         document.getElementById('out').value = JSON.stringify({
                         "formatVersion": 6,
                         "title": "",
