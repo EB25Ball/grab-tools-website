@@ -3,8 +3,9 @@ import { TransformControls } from 'https://unpkg.com/three@0.145.0/examples/jsm/
 import { TrackballControls } from 'https://unpkg.com/three@0.145.0/examples/jsm/controls/TrackballControls.js';
 import { OrbitControls } from 'https://unpkg.com/three@0.145.0/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'https://cdn.skypack.dev/three@v0.132.0/examples/jsm/loaders/GLTFLoader.js';
+import { FlyControls } from 'https://unpkg.com/three@0.145.0/examples/jsm/controls/FlyControls.js';
 
-let camera, scene, renderer, light, controls, transforms, trackball, loader, sun;
+let camera, scene, renderer, light, controls, fly, transforms, trackball, loader, sun;
 let objects = [];
 let materials = [];
 let shapes = [];
@@ -21,12 +22,12 @@ sun = new THREE.DirectionalLight( 0xffffff, 0.5 );
 scene.add( sun );
 controls = new OrbitControls( camera, renderer.domElement );
 controls.mouseButtons = {LEFT: 2, MIDDLE: 1, RIGHT: 0}
-controls.keys = {
-	LEFT: 65,
-	UP: 87,
-	RIGHT: 68,
-	BOTTOM: 83
-}
+fly = new FlyControls( camera, renderer.domElement );
+fly.pointerdown = fly.pointerup = fly.pointermove = () => {};
+fly.dragToLook = false;
+fly.rollSpeed = 0;
+fly.movementSpeed = 0.2;
+console.log(fly);
 addEventListener('resize', () => {
     camera.aspect = window.innerWidth * .8 / window.innerWidth * .6;
     camera.updateProjectionMatrix();
@@ -252,7 +253,7 @@ camera.position.set(0, 10, 10);
 
 function animate() {
 	requestAnimationFrame( animate );
-    controls.update();
+    document.getElementById('fly').checked && fly.update( 1 );
 	renderer.render( scene, camera );
 }
 

@@ -107,7 +107,7 @@ button, #compile, #copy, #download, #pixelate {
     font-weight: bold;
     transform: rotate(90deg);
     letter-spacing: 2px;
-    width: 110px;
+    width: 130px;
 }
 .leg:hover::before {
     display: none;
@@ -353,14 +353,14 @@ h3 {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 1rem;
+    gap: .5rem;
 }
 .functions-main {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 1rem;
+    gap: .5rem;
 }
 .preset-functions {
     flex-direction: row;
@@ -413,8 +413,19 @@ h3 {
 #fullscreenButton {
     transform: translateY(calc(200% + 6px));
 }
+#wasd {
+    display: flex;
+    flex-direction: row;
+    transform: translateY(calc(300% + 5px));
+    position: absolute;
+}
+#fly, #fly-label {
+    font-size: 15px;
+    padding: 5px;
+}
 #complexity {
-    transform: translateY(calc(300% + 40px));
+    transform: translateY(calc(400% + 40px));
+    position: absolute;
     font-size: 15px;
     padding-inline: 3px;
 }
