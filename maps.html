@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Maps | Grab Tools | twhlynch </title>
+    <link rel="stylesheet" href="style.css">
+    <!-- favicon gif -->
+    <link rel="icon" href="spindex-small.gif" type="image/gif">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BDS57RBQ3Q"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-BDS57RBQ3Q');
+    </script>
+</head>
+<body>
+    <div class="title">Download Maps
+        <a href="index.html" class="home"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+        </svg></a>
+    </div>
+    <div id="maps">
+        
+    </div>
+    <footer>Developed by&nbsp;&bull;&nbsp;.index&nbsp;&bull;&nbsp;<a href="https://github.com/twhlynch">@twhlynch</a>&nbsp;&bull;&nbsp;<a href="https://twhlynch.me">twhlynch.me</a></footer>
+    <script src="//cdn.jsdelivr.net/npm/protobufjs@7.X.X/dist/protobuf.js"></script>
+    <script type="text/javascript">
+        const templateDomElement = document.createElement('div');
+        const templateCanvasElement = document.createElement('canvas');
+        const templateTitle = document.createElement('h2');
+        const templateButton = document.createElement('button');
+        templateButton.innerText = 'Download';
+        templateDomElement.appendChild(templateTitle);
+        templateDomElement.appendChild(templateButton);
+        templateDomElement.appendChild(templateCanvasElement);
+
+        async function processMaps() {
+
+            const maps = {
+
+                "OG Lobby": "lobbies/lobby.level",
+                "Cave Lobby": "lobbies/lobby-cave.level",
+                "Beach Lobby": "lobbies/lobby-beach.level",
+                "Dojo Lobby": "lobbies/lobby-dojo.level",
+                "Christmas Lobby": "lobbies/lobby-christmas.level",
+                "Temple Lobby": "lobbies/lobby-temple.level",
+                "Treehouse Lobby": "lobbies/lobby-treehouse.level"
+            
+            }
+
+            for (let i = 0; i < Object.keys(maps).length; i++) {
+                
+                const name = Object.keys(maps)[i];
+                const path = Object.values(maps)[i];
+                const data = await getLevelData(path);
+                console.log(data);
+                const { levelNodes } = data;
+                var { skyHorizonColor, skyZenithColor } = {
+                    "skyZenithColor": {
+                        "r": 0.28,
+                        "g": 0.476,
+                        "b": 0.73,
+                        "a": 1
+                    },
+                    "skyHorizonColor": {
+                        "r": 0.916,
+                        "g": 0.9574,
+                        "b": 0.9574,
+                        "a": 1
+                    }
+                };
+                if (data.ambienceSettings) {
+                    console.log(data.ambienceSettings.skyHorizonColor);
+                    skyHorizonColor = data.ambienceSettings.skyHorizonColor;
+                    skyZenithColor = data.ambienceSettings.skyZenithColor;
+                
+                }
+
+                const domElement = templateDomElement.cloneNode(true);
+                domElement.id = path.split('/')[1].replace('.level', "");
+                domElement.style.setProperty('--H', `${skyHorizonColor.r*255}, ${skyHorizonColor.g*255}, ${skyHorizonColor.b*255}`)
+                domElement.style.setProperty('--Z', `${skyZenithColor.r*255}, ${skyZenithColor.g*255}, ${skyZenithColor.b*255}`)
+
+                document.getElementById('maps').appendChild(domElement);
+
+            }
+
+        }
+
+        async function getLevelData(path) {
+
+            const response = await fetch(path);
+            const buffer = await response.arrayBuffer();
+            
+            const message = await protobuf.load("proto-anim/level.proto").then(root => {
+                
+                return root.lookupType("COD.Level.Level");
+
+            });
+
+            const decoded = message.decode(new Uint8Array(buffer));
+            
+            return message.toObject(decoded);
+
+        }
+
+        processMaps();
+
+    </script>
+</body>
+</html>
