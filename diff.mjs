@@ -75,3 +75,4 @@ function getLevels(stamp) {
 
 getLevels("");
 fs.writeFileSync('stats-data.json', JSON.stringify(fullData, null, 2));
+console.log({"data": fullData});
