@@ -38,7 +38,42 @@
         submitBtn.addEventListener("click", async () => {
         const user = idInput.value;
         if (user == '' || user == null) {
-            user = 'NSKC7';
+            var rand = Math.floor(Math.random() * 11);
+            switch (rand) {
+                case 1:
+                    user = 'NSKC7';
+                    break;
+                case 2:
+                    user = 'BLUDUK';
+                    break;
+                case 3:
+                    user = 'SLIN';
+                    break;
+                case 4:
+                    user = 'JEFFBOBDUDE';
+                    break;
+                case 5:
+                    user = 'KOOKOOKRAZY';
+                    break;
+                case 6:
+                    user = 'CHOOCHOOISCCOOL';
+                    break;
+                case 7:
+                    user = 'FROSTYCROSS';
+                    break;
+                case 8:
+                    user = 'D2WHIPLASH';
+                    break;
+                case 9:
+                    user = 'CURSEDPHANTOM';
+                    break;
+                case 10:
+                    user = 'MILOJENSOPHA';
+                    break;
+                default:
+                    user = 'NSKC7';
+                    break;
+            }
         }
         var id = user;
         if (user) {
@@ -47,7 +82,8 @@
                 const userData = await userDataResponse.json();
                 id = userData[0].user_id.toLowerCase();
             } catch {
-                
+                var rand = Math.floor(Math.random() * 11);
+                id = '29sgp24f1uorbc6vq8d2k';
             }
         }
         const keys = keyInput.value.toLowerCase().split("|");
