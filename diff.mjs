@@ -11,7 +11,7 @@ function getLevels(stamp) {
       .then((response) => response.json())
       .then(data => {
           arr.push(...data);
-          fullData.push(...data);
+          fullData = fullData.concat(data);
           console.log(data);
           console.log(fullData);
           var promises = [];
@@ -73,8 +73,9 @@ function getLevels(stamp) {
                   }
             });
       });
+    fs.writeFileSync('stats-data.json', JSON.stringify(fullData, null, 2));
 }
 
 getLevels("");
-fs.writeFileSync('stats-data.json', JSON.stringify(fullData, null, 2));
-console.log({"data": fullData});
+
+
