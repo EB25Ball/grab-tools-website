@@ -12,6 +12,8 @@ function getLevels(stamp) {
       .then(data => {
           arr.push(...data);
           fullData.push(...data);
+          console.log(data);
+          console.log(fullData);
           var promises = [];
           arr.forEach(item => {
               if (item["statistics"]["difficulty"] == 0) {
