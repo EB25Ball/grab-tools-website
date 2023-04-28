@@ -37,44 +37,7 @@
     
         submitBtn.addEventListener("click", async () => {
         var user = idInput.value;
-        if (user == '' || user == null) {
-            var rand = Math.floor(Math.random() * 11);
-            switch (rand) {
-                case 1:
-                    user = 'NSKC7';
-                    break;
-                case 2:
-                    user = 'BLUDUK';
-                    break;
-                case 3:
-                    user = 'SLIN';
-                    break;
-                case 4:
-                    user = 'JEFFBOBDUDE';
-                    break;
-                case 5:
-                    user = 'KOOKOOKRAZY';
-                    break;
-                case 6:
-                    user = 'CHOOCHOOISCCOOL';
-                    break;
-                case 7:
-                    user = 'FROSTYCROSS';
-                    break;
-                case 8:
-                    user = 'D2WHIPLASH';
-                    break;
-                case 9:
-                    user = 'CURSEDPHANTOM';
-                    break;
-                case 10:
-                    user = 'MILOJENSOPHA';
-                    break;
-                default:
-                    user = 'NSKC7';
-                    break;
-            }
-        }
+        
         var id = user;
         if (user) {
             try {
@@ -91,19 +54,28 @@
         const promises2 = [
             fetch('stats-data.json'),
         ];
-        const promises1 = [
-            fetch(`https://api.slin.dev/grab/v1/list?max_format_version=7&user_id=${id}`)
-        ];
+        var promise1 = [[]];
+        if (user == '' || user == null) {
+            promises1 = [[]];
+        } else {
+            promises1 = [
+                fetch(`https://api.slin.dev/grab/v1/list?max_format_version=7&user_id=${id}`)
+            ];
+        }
         
         const responses2 = await Promise.all(promises2);
         const json_data2 = await Promise.all(responses2.map(res => res.json()));
         const array2 = json_data2.flat();
+        var array1 = [];
+        if (user == '' || user == null) {
+            var array1 = [];
+        } else {
+            const responses1 = await Promise.all(promises1);
+            const json_data1 = await Promise.all(responses1.map(res => res.json()));
         
-        const responses1 = await Promise.all(promises1);
-        const json_data1 = await Promise.all(responses1.map(res => res.json()));
-    
-        const array1 = json_data1.flat().filter(level => !level.tags || level.tags.ok);
-    
+            var array1 = json_data1.flat().filter(level => !level.tags || level.tags.ok);
+
+        }
         array = array1.concat(array2);
         
 
