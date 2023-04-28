@@ -36,7 +36,7 @@
         const output = document.getElementById("stats-out");
     
         submitBtn.addEventListener("click", async () => {
-        const user = idInput.value;
+        var user = idInput.value;
         if (user == '' || user == null) {
             var rand = Math.floor(Math.random() * 11);
             switch (rand) {
