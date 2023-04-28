@@ -37,6 +37,9 @@
     
         submitBtn.addEventListener("click", async () => {
         const user = idInput.value;
+        if (user == '' || user == null) {
+            user = 'NSKC7';
+        }
         var id = user;
         if (user) {
             try {
@@ -52,24 +55,21 @@
         const promises2 = [
             fetch('stats-data.json'),
         ];
-        if (user) {
-            const promises1 = [
-                fetch(`https://api.slin.dev/grab/v1/list?max_format_version=7&user_id=${id}`)
-            ];
-        }
+        const promises1 = [
+            fetch(`https://api.slin.dev/grab/v1/list?max_format_version=7&user_id=${id}`)
+        ];
+        
         const responses2 = await Promise.all(promises2);
         const json_data2 = await Promise.all(responses2.map(res => res.json()));
         const array2 = json_data2.flat();
-        if (user) {
-            const responses1 = await Promise.all(promises1);
-            const json_data1 = await Promise.all(responses1.map(res => res.json()));
         
-            const array1 = json_data1.flat().filter(level => !level.tags || level.tags.ok);
-        }
-        var array= array2;
-        if (user) {
-            array = array1.concat(array2);
-        }
+        const responses1 = await Promise.all(promises1);
+        const json_data1 = await Promise.all(responses1.map(res => res.json()));
+    
+        const array1 = json_data1.flat().filter(level => !level.tags || level.tags.ok);
+    
+        array = array1.concat(array2);
+        
 
         var levels = array.filter(level => {
             for (var key of keys) {
