@@ -50,10 +50,7 @@
         const keys = keyInput.value.toLowerCase().split("|");
 
         const promises = [
-            fetch('stats-data/data1.json'),
-            fetch('stats-data/data2.json'),
-            fetch('stats-data/data3.json'),
-            fetch('stats-data/data4.json')
+            fetch('stats-data.json')
         ];
 
         const responses = await Promise.all(promises);
