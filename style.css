@@ -37,10 +37,10 @@ footer a {
     color: #4CAF50;
     pointer-events: all;
 }
-#file, #file-a, #file-append{
+#file, #file-a, #file-append, #file-append-a {
     display: none;
 }
-#file-custom, #file-custom-a, #file-custom-append {
+#file-custom, #file-custom-a, #file-custom-append, #file-custom-append-a {
     height: fit-content;
     border: 2px dashed #aaa;
     border-radius: 5px;
@@ -50,7 +50,7 @@ footer a {
     font-size: 20px;
     color: #aaa;
 }
-#file-custom:hover, #file-custom-a:hover, #file-custom-append:hover {
+#file-custom:hover, #file-custom-a:hover, #file-custom-append:hover, #file-custom-append-a:hover {
     border: 2px dashed #777;
     color: #777;
 }
@@ -107,7 +107,7 @@ button, #compile, #copy, #download, #pixelate {
     font-weight: bold;
     transform: rotate(90deg);
     letter-spacing: 2px;
-    width: 110px;
+    width: 130px;
 }
 .leg:hover::before {
     display: none;
@@ -353,14 +353,14 @@ h3 {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 1rem;
+    gap: .5rem;
 }
 .functions-main {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 1rem;
+    gap: .5rem;
 }
 .preset-functions {
     flex-direction: row;
@@ -403,15 +403,29 @@ h3 {
     max-height: 600px;
     max-width: 600px
 }
-#refresh, #goto-start {
+#refresh, #goto-start, #fullscreenButton {
     position: absolute;
     padding: 5px;
 }
 #goto-start {
     transform: translateY(calc(100% + 3px));
 }
+#fullscreenButton {
+    transform: translateY(calc(200% + 6px));
+}
+#wasd {
+    display: flex;
+    flex-direction: row;
+    transform: translateY(calc(300% + 5px));
+    position: absolute;
+}
+#fly, #fly-label {
+    font-size: 15px;
+    padding: 5px;
+}
 #complexity {
-    transform: translateY(calc(200% + 25px));
+    transform: translateY(calc(400% + 40px));
+    position: absolute;
     font-size: 15px;
     padding-inline: 3px;
 }
@@ -478,4 +492,30 @@ h3 {
 }
 #stats-out {
     padding: 1rem;
+}
+#maps {
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+#maps > div {
+    width: 300px;
+    height: 200px;
+    background-image: linear-gradient(rgb(var(--Z)), rgb(var(--H)), rgb(var(--Z)));
+}
+#maps > div canvas {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+#maps > div button {
+    position: relative;
+    padding: 5px;
+    margin-inline: auto;
+}
+#maps > div h2 {
+    position: relative;
 }

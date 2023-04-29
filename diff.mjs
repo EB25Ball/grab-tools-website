@@ -1,6 +1,8 @@
 import fs from 'fs';
 import fetch from 'node-fetch';
 
+var fullData = [];
+
 var arrayData = [];
 
 function getLevels(stamp) {
@@ -9,7 +11,10 @@ function getLevels(stamp) {
       .then((response) => response.json())
       .then(data => {
           arr.push(...data);
-
+          fullData = fullData.concat(data);
+          fs.writeFileSync('stats-data.json', JSON.stringify(fullData, null, 2));
+          console.log(data);
+          console.log(fullData);
           var promises = [];
           arr.forEach(item => {
               if (item["statistics"]["difficulty"] == 0) {
@@ -72,3 +77,5 @@ function getLevels(stamp) {
 }
 
 getLevels("");
+
+

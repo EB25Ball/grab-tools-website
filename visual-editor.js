@@ -3,8 +3,9 @@ import { TransformControls } from 'https://unpkg.com/three@0.145.0/examples/jsm/
 import { TrackballControls } from 'https://unpkg.com/three@0.145.0/examples/jsm/controls/TrackballControls.js';
 import { OrbitControls } from 'https://unpkg.com/three@0.145.0/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'https://cdn.skypack.dev/three@v0.132.0/examples/jsm/loaders/GLTFLoader.js';
+import { FlyControls } from 'https://unpkg.com/three@0.145.0/examples/jsm/controls/FlyControls.js';
 
-let camera, scene, renderer, light, controls, transforms, trackball, loader, sun;
+let camera, scene, renderer, light, controls, fly, transforms, trackball, loader, sun;
 let objects = [];
 let materials = [];
 let shapes = [];
@@ -21,13 +22,19 @@ sun = new THREE.DirectionalLight( 0xffffff, 0.5 );
 scene.add( sun );
 controls = new OrbitControls( camera, renderer.domElement );
 controls.mouseButtons = {LEFT: 2, MIDDLE: 1, RIGHT: 0}
-
+fly = new FlyControls( camera, renderer.domElement );
+fly.pointerdown = fly.pointerup = fly.pointermove = () => {};
+fly.dragToLook = false;
+fly.rollSpeed = 0;
+fly.movementSpeed = 0.2;
+console.log(fly);
 addEventListener('resize', () => {
     camera.aspect = window.innerWidth * .8 / window.innerWidth * .6;
     camera.updateProjectionMatrix();
     renderer.setSize( window.innerWidth * .8, window.innerWidth * .6 );
 });
 function initAttributes() {
+    const attribPromises = [];
     let texture;
     [
     'textures/default.png',
@@ -41,25 +48,37 @@ function initAttributes() {
     'textures/default_colored.png',
     'textures/bouncing.png'
     ].forEach(path => {
-        texture = new THREE.TextureLoader().load(path, function( texture ) {
-            texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-            texture.repeat.set( 2, 2 );
+        const attribPromise = new Promise((resolve) => {
+            texture = new THREE.TextureLoader().load(path, function( texture ) {
+                texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+                texture.repeat.set( 2, 2 );
+            });
+            let material = new THREE.MeshBasicMaterial({ map: texture });
+            materials.push(material);
+            resolve();
         });
-        let material = new THREE.MeshBasicMaterial({ map: texture });
-        materials.push(material);
+        attribPromises.push(attribPromise);
     });
-    let shape;
     [
         'models/cube.glb',
         'models/sphere.glb',
         'models/cylinder.glb',
         'models/pyramid.glb',
-        'models/prism.glb'
+        'models/prism.glb',
+        'models/sign.glb',
+        'models/start_end.glb'
     ].forEach(path => {
-        loader.load(path, function( gltf ) {
-            let glftScene = gltf.scene;
-            shapes.push(glftScene.children[0]);
+        const attribPromise = new Promise((resolve) => {
+            loader.load(path, function( gltf ) {
+                let glftScene = gltf.scene;
+                shapes.push(glftScene.children[0]);
+                resolve();
+            });
         });
+        attribPromises.push(attribPromise);
+    });
+    Promise.all(attribPromises).then(() => {
+        console.log('Ready');
     });
 }
 function loadLevelNode(node, parent) {
@@ -131,7 +150,47 @@ function loadLevelNode(node, parent) {
         objects.push(cube);
         return 3;
     } else if (node.levelNodeSign) {
+        node = node.levelNodeSign;
+        var cube = shapes[5].clone();
+        cube.material = materials[4];
+        node.position.x ? cube.position.x = node.position.x : cube.position.x = 0;
+        node.position.y ? cube.position.y = node.position.y : cube.position.y = 0;
+        node.position.z ? cube.position.z = node.position.z : cube.position.z = 0;
+        node.rotation.w ? cube.quaternion.w = node.rotation.w : cube.quaternion.w = 1;
+        node.rotation.x ? cube.quaternion.x = node.rotation.x : cube.quaternion.x = 0;
+        node.rotation.y ? cube.quaternion.y = node.rotation.y : cube.quaternion.y = 0;
+        node.rotation.z ? cube.quaternion.z = node.rotation.z : cube.quaternion.z = 0;
+        parent.add(cube);
+        objects.push(cube);
         return 5;
+    } else if (node.levelNodeStart) {
+        node = node.levelNodeStart;
+        var cube = shapes[6].clone();
+        cube.material = new THREE.MeshBasicMaterial({ color: 0x00ff00, transparent: true, opacity: 0.5 });
+        node.position.x ? cube.position.x = node.position.x : cube.position.x = 0;
+        node.position.y ? cube.position.y = node.position.y : cube.position.y = 0;
+        node.position.z ? cube.position.z = node.position.z : cube.position.z = 0;
+        node.rotation.w ? cube.quaternion.w = node.rotation.w : cube.quaternion.w = 1;
+        node.rotation.x ? cube.quaternion.x = node.rotation.x : cube.quaternion.x = 0;
+        node.rotation.y ? cube.quaternion.y = node.rotation.y : cube.quaternion.y = 0;
+        node.rotation.z ? cube.quaternion.z = node.rotation.z : cube.quaternion.z = 0;
+        node.radius ? cube.scale.x = node.radius : cube.scale.x = 1;
+        node.radius ? cube.scale.z = node.radius : cube.scale.z = 1;
+        parent.add(cube);
+        objects.push(cube);
+        return 0;
+    } else if (node.levelNodeFinish) {
+        node = node.levelNodeFinish;
+        var cube = shapes[6].clone();
+        cube.material = new THREE.MeshBasicMaterial({ color: 0xff0000, transparent: true, opacity: 0.5 });
+        node.position.x ? cube.position.x = node.position.x : cube.position.x = 0;
+        node.position.y ? cube.position.y = node.position.y : cube.position.y = 0;
+        node.position.z ? cube.position.z = node.position.z : cube.position.z = 0;
+        node.radius ? cube.scale.x = node.radius : cube.scale.x = 1;
+        node.radius ? cube.scale.z = node.radius : cube.scale.z = 1;
+        parent.add(cube);
+        objects.push(cube);
+        return 0;
     } else {
         return 0;
     }
@@ -173,6 +232,18 @@ document.getElementById('goto-start').addEventListener('click', () => {
         }
     });
 });
+document.querySelector('#fullscreenButton').addEventListener('click', () => {
+    var canvas = renderer.domElement;
+    if (canvas.requestFullscreen) {
+      canvas.requestFullscreen();
+    } else if (canvas.mozRequestFullScreen) { /* Firefox */
+      canvas.mozRequestFullScreen();
+    } else if (canvas.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+      canvas.webkitRequestFullscreen();
+    } else if (canvas.msRequestFullscreen) { /* IE/Edge */
+      canvas.msRequestFullscreen();
+    }
+});
 document.getElementById('functions').addEventListener('click', (e) => {
     if (e.target.nodeName == 'INPUT') {
         loadScene();
@@ -182,7 +253,7 @@ camera.position.set(0, 10, 10);
 
 function animate() {
 	requestAnimationFrame( animate );
-
+    document.getElementById('fly').checked && fly.update( 1 );
 	renderer.render( scene, camera );
 }
 

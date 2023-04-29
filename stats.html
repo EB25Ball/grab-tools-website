@@ -18,7 +18,7 @@
     </script>
 </head>
 <body>
-    <div class="title">Stats - April 19 2023 3:47am UTC
+    <div class="title">Stats - Updated daily
         <a href="index.html" class="home"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
         </svg></a>
@@ -36,7 +36,8 @@
         const output = document.getElementById("stats-out");
     
         submitBtn.addEventListener("click", async () => {
-        const user = idInput.value;
+        var user = idInput.value;
+        
         var id = user;
         if (user) {
             try {
@@ -44,22 +45,39 @@
                 const userData = await userDataResponse.json();
                 id = userData[0].user_id.toLowerCase();
             } catch {
-                
+                var rand = Math.floor(Math.random() * 11);
+                id = '29sgp24f1uorbc6vq8d2k';
             }
         }
         const keys = keyInput.value.toLowerCase().split("|");
 
-        const promises = [
-            fetch('stats-data/data1.json'),
-            fetch('stats-data/data2.json'),
-            fetch('stats-data/data3.json'),
-            fetch('stats-data/data4.json')
+        const promises2 = [
+            fetch('stats-data.json'),
         ];
+        var promise1 = [[]];
+        if (user == '' || user == null) {
+            promises1 = [[]];
+        } else {
+            promises1 = [
+                fetch(`https://api.slin.dev/grab/v1/list?max_format_version=7&user_id=${id}`)
+            ];
+        }
+        
+        const responses2 = await Promise.all(promises2);
+        const json_data2 = await Promise.all(responses2.map(res => res.json()));
+        const array2 = json_data2.flat();
+        var array1 = [];
+        if (user == '' || user == null) {
+            var array1 = [];
+        } else {
+            const responses1 = await Promise.all(promises1);
+            const json_data1 = await Promise.all(responses1.map(res => res.json()));
+        
+            var array1 = json_data1.flat().filter(level => !level.tags || level.tags.ok);
 
-        const responses = await Promise.all(promises);
-        const json_data = await Promise.all(responses.map(res => res.json()));
-
-        const array = json_data.flat();
+        }
+        array = array1.concat(array2);
+        
 
         var levels = array.filter(level => {
             for (var key of keys) {

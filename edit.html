@@ -37,14 +37,18 @@
             <div id="file-display"></div>
         </label>
         <input type="file" name="file" id="file" accept=".level">
-        <label for="file" id="file-custom-a">Choose Animated Level!
+        <!-- <label for="file" id="file-custom-a">Choose Animated Level!
             <div id="file-display-a"></div>
         </label>
-        <input type="file" name="file" id="file-a" accept=".level">
+        <input type="file" name="file" id="file-a" accept=".level"> -->
         <label for="file" id="file-custom-append">Append level!
             <div id="file-display-append"></div>
         </label>
         <input type="file" name="file" id="file-append" accept=".level">
+        <!-- <label for="file" id="file-custom-append-a">Append Animated level!
+            <div id="file-display-append-a"></div>
+        </label>
+        <input type="file" name="file" id="file-append-a" accept=".level"> -->
     </div>
     <p id="selected-file">Find .levels in <code>Android/data/com.slindev.grab_demo/levels/user</code> on your Quest headset!</p>
     <div id="buttons">
@@ -171,14 +175,19 @@
                 <input type="submit" id="group-all" value="Group All"></input>
                 <!-- <input type="submit" id="ungroup-all" value="Ungroup All"></input> -->
                 <input type="submit" id="load-empty" value="Load Empty"></input>
-                <input type="submit" id="randomize" value="randomize"></input>
-                <input type="submit" id="duplicate" value="duplicate"></input>
+                <input type="submit" id="randomize" value="Randomize"></input>
+                <input type="submit" id="duplicate" value="Duplicate"></input>
+                <input type="submit" id="parallelograms" value="Parallelograms"></input>
             </div>
         </div>
     </div>
     <div id="visual">
         <button id="refresh">refresh</button>
         <button id="goto-start">goto start</button>
+        <button id="fullscreenButton">fullscreen</button>
+        <div id="wasd">
+            <p id="fly-label">WASD</p><input type="checkbox" name="fly" id="fly">
+        </div>
         <p id="complexity">Complexity: 0</p>
     </div>
     <div class="gap"></div>
@@ -330,7 +339,7 @@
         document.querySelector('#function-checkpoints input[type="submit"]').addEventListener('click', function () {
             var input = document.getElementById('checkpoints-function');
             obj = JSON.parse(document.getElementById('out').value);
-            obj.maxCheckpointCount = input.value;
+            obj.maxCheckpointCount = parseInt(input.value);
             document.getElementById('out').value = JSON.stringify(obj, null, 4);
         });
 
@@ -2044,6 +2053,638 @@
             obj.levelNodes = obj.levelNodes.concat(obj.levelNodes);
             document.getElementById('out').value = JSON.stringify(obj, null, 4);
         });
+        document.getElementById("parallelograms").addEventListener('click', function () {
+            var parallelograms = {
+            "levelNodeGroup": {
+                "position": {
+                    "y": 0,
+                    "x": 0,
+                    "z": 0
+                },
+                "rotation": {
+                    "w": 1
+                },
+                "childNodes": [
+                    {
+                        "levelNodeGroup": {
+                            "position": {
+                                "y": 0,
+                                "x": 0,
+                                "z": 0
+                            },
+                            "rotation": {
+                                "w": 1
+                            },
+                            "childNodes": [
+                                {
+                                    "levelNodeGroup": {
+                                        "position": {
+                                            "y": 0,
+                                            "x": 0,
+                                            "z": 0
+                                        },
+                                        "rotation": {
+                                            "w": 1
+                                        },
+                                        "childNodes": [
+                                            {
+                                                "levelNodeStatic": {
+                                                    "shape": 1000,
+                                                    "material": 0,
+                                                    "position": {
+                                                        "x": 0,
+                                                        "y": 0,
+                                                        "z": 0
+                                                    },
+                                                    "scale": {
+                                                        "x": 2,
+                                                        "y": 1,
+                                                        "z": 1
+                                                    },
+                                                    "rotation": {
+                                                        "w": 0.924,
+                                                        "x": 0,
+                                                        "y": 0.383,
+                                                        "z": 0
+                                                    }
+                                                }
+                                            }
+                                        ],
+                                        "scale": {
+                                            "y": 1,
+                                            "x": 1,
+                                            "z": 4
+                                        }
+                                    }
+                                }
+                            ],
+                            "scale": {
+                                "y": 1,
+                                "x": 1,
+                                "z": 0.5
+                            }
+                        }
+                    },
+                    {
+                        "levelNodeGroup": {
+                            "position": {
+                                "y": 0,
+                                "x": 0,
+                                "z": 0
+                            },
+                            "rotation": {
+                                "w": 1
+                            },
+                            "childNodes": [
+                                {
+                                    "levelNodeGroup": {
+                                        "position": {
+                                            "y": 0,
+                                            "x": 0,
+                                            "z": 0
+                                        },
+                                        "rotation": {
+                                            "w": 1
+                                        },
+                                        "childNodes": [
+                                            {
+                                                "levelNodeCrumbling": {
+                                                    "shape": 1000,
+                                                    "material": 7,
+                                                    "position": {
+                                                        "x": 2,
+                                                        "y": 0,
+                                                        "z": 0
+                                                    },
+                                                    "scale": {
+                                                        "x": 2,
+                                                        "y": 1,
+                                                        "z": 1
+                                                    },
+                                                    "rotation": {
+                                                        "w": 0.924,
+                                                        "x": 0,
+                                                        "y": 0.383,
+                                                        "z": 0
+                                                    },
+                                                    "stableTime": 0.5,
+                                                    "respawnTime": 0.5
+                                                }
+                                            }
+                                        ],
+                                        "scale": {
+                                            "y": 1,
+                                            "x": 1,
+                                            "z": 4
+                                        }
+                                    }
+                                }
+                            ],
+                            "scale": {
+                                "y": 1,
+                                "x": 1,
+                                "z": 0.5
+                            }
+                        }
+                    },
+                    {
+                        "levelNodeGroup": {
+                            "position": {
+                                "y": 0,
+                                "x": 0,
+                                "z": 0
+                            },
+                            "rotation": {
+                                "w": 1
+                            },
+                            "childNodes": [
+                                {
+                                    "levelNodeGroup": {
+                                        "position": {
+                                            "y": 0,
+                                            "x": 0,
+                                            "z": 0
+                                        },
+                                        "rotation": {
+                                            "w": 1
+                                        },
+                                        "childNodes": [
+                                            {
+                                                "levelNodeStatic": {
+                                                    "shape": 1000,
+                                                    "material": 9,
+                                                    "position": {
+                                                        "x": 4,
+                                                        "y": 0,
+                                                        "z": 0
+                                                    },
+                                                    "scale": {
+                                                        "x": 2,
+                                                        "y": 1,
+                                                        "z": 1
+                                                    },
+                                                    "rotation": {
+                                                        "w": 0.924,
+                                                        "x": 0,
+                                                        "y": 0.383,
+                                                        "z": 0
+                                                    }
+                                                }
+                                            }
+                                        ],
+                                        "scale": {
+                                            "y": 1,
+                                            "x": 1,
+                                            "z": 4
+                                        }
+                                    }
+                                }
+                            ],
+                            "scale": {
+                                "y": 1,
+                                "x": 1,
+                                "z": 0.5
+                            }
+                        }
+                    },
+                    {
+                        "levelNodeGroup": {
+                            "position": {
+                                "y": 0,
+                                "x": 0,
+                                "z": 0
+                            },
+                            "rotation": {
+                                "w": 1
+                            },
+                            "childNodes": [
+                                {
+                                    "levelNodeGroup": {
+                                        "position": {
+                                            "y": 0,
+                                            "x": 0,
+                                            "z": 0
+                                        },
+                                        "rotation": {
+                                            "w": 1
+                                        },
+                                        "childNodes": [
+                                            {
+                                                "levelNodeStatic": {
+                                                    "shape": 1000,
+                                                    "material": 8,
+                                                    "position": {
+                                                        "x": 6,
+                                                        "y": 0,
+                                                        "z": 0
+                                                    },
+                                                    "scale": {
+                                                        "x": 2,
+                                                        "y": 1,
+                                                        "z": 1
+                                                    },
+                                                    "rotation": {
+                                                        "w": 0.924,
+                                                        "x": 0,
+                                                        "y": 0.383,
+                                                        "z": 0
+                                                    },
+                                                    "color": {
+                                                        "r": 0,
+                                                        "g": 1,
+                                                        "b": 1,
+                                                        "a": 1
+                                                    }
+                                                }
+                                            }
+                                        ],
+                                        "scale": {
+                                            "y": 1,
+                                            "x": 1,
+                                            "z": 4
+                                        }
+                                    }
+                                }
+                            ],
+                            "scale": {
+                                "y": 1,
+                                "x": 1,
+                                "z": 0.5
+                            }
+                        }
+                    },
+                    {
+                        "levelNodeGroup": {
+                            "position": {
+                                "y": 0,
+                                "x": 0,
+                                "z": 0
+                            },
+                            "rotation": {
+                                "w": 1
+                            },
+                            "childNodes": [
+                                {
+                                    "levelNodeGroup": {
+                                        "position": {
+                                            "y": 0,
+                                            "x": 0,
+                                            "z": 0
+                                        },
+                                        "rotation": {
+                                            "w": 1
+                                        },
+                                        "childNodes": [
+                                            {
+                                                "levelNodeStatic": {
+                                                    "shape": 1000,
+                                                    "material": 6,
+                                                    "position": {
+                                                        "x": 8,
+                                                        "y": 0,
+                                                        "z": 0
+                                                    },
+                                                    "scale": {
+                                                        "x": 2,
+                                                        "y": 1,
+                                                        "z": 1
+                                                    },
+                                                    "rotation": {
+                                                        "w": 0.924,
+                                                        "x": 0,
+                                                        "y": 0.383,
+                                                        "z": 0
+                                                    }
+                                                }
+                                            }
+                                        ],
+                                        "scale": {
+                                            "y": 1,
+                                            "x": 1,
+                                            "z": 4
+                                        }
+                                    }
+                                }
+                            ],
+                            "scale": {
+                                "y": 1,
+                                "x": 1,
+                                "z": 0.5
+                            }
+                        }
+                    },
+                    {
+                        "levelNodeGroup": {
+                            "position": {
+                                "y": 0,
+                                "x": 0,
+                                "z": 0
+                            },
+                            "rotation": {
+                                "w": 1
+                            },
+                            "childNodes": [
+                                {
+                                    "levelNodeGroup": {
+                                        "position": {
+                                            "y": 0,
+                                            "x": 0,
+                                            "z": 0
+                                        },
+                                        "rotation": {
+                                            "w": 1
+                                        },
+                                        "childNodes": [
+                                            {
+                                                "levelNodeStatic": {
+                                                    "shape": 1000,
+                                                    "material": 5,
+                                                    "position": {
+                                                        "x": 10,
+                                                        "y": 0,
+                                                        "z": 0
+                                                    },
+                                                    "scale": {
+                                                        "x": 2,
+                                                        "y": 1,
+                                                        "z": 1
+                                                    },
+                                                    "rotation": {
+                                                        "w": 0.924,
+                                                        "x": 0,
+                                                        "y": 0.383,
+                                                        "z": 0
+                                                    }
+                                                }
+                                            }
+                                        ],
+                                        "scale": {
+                                            "y": 1,
+                                            "x": 1,
+                                            "z": 4
+                                        }
+                                    }
+                                }
+                            ],
+                            "scale": {
+                                "y": 1,
+                                "x": 1,
+                                "z": 0.5
+                            }
+                        }
+                    },
+                    {
+                        "levelNodeGroup": {
+                            "position": {
+                                "y": 0,
+                                "x": 0,
+                                "z": 0
+                            },
+                            "rotation": {
+                                "w": 1
+                            },
+                            "childNodes": [
+                                {
+                                    "levelNodeGroup": {
+                                        "position": {
+                                            "y": 0,
+                                            "x": 0,
+                                            "z": 0
+                                        },
+                                        "rotation": {
+                                            "w": 1
+                                        },
+                                        "childNodes": [
+                                            {
+                                                "levelNodeStatic": {
+                                                    "shape": 1000,
+                                                    "material": 4,
+                                                    "position": {
+                                                        "x": 12,
+                                                        "y": 0,
+                                                        "z": 0
+                                                    },
+                                                    "scale": {
+                                                        "x": 2,
+                                                        "y": 1,
+                                                        "z": 1
+                                                    },
+                                                    "rotation": {
+                                                        "w": 0.924,
+                                                        "x": 0,
+                                                        "y": 0.383,
+                                                        "z": 0
+                                                    }
+                                                }
+                                            }
+                                        ],
+                                        "scale": {
+                                            "y": 1,
+                                            "x": 1,
+                                            "z": 4
+                                        }
+                                    }
+                                }
+                            ],
+                            "scale": {
+                                "y": 1,
+                                "x": 1,
+                                "z": 0.5
+                            }
+                        }
+                    },
+                    {
+                        "levelNodeGroup": {
+                            "position": {
+                                "y": 0,
+                                "x": 0,
+                                "z": 0
+                            },
+                            "rotation": {
+                                "w": 1
+                            },
+                            "childNodes": [
+                                {
+                                    "levelNodeGroup": {
+                                        "position": {
+                                            "y": 0,
+                                            "x": 0,
+                                            "z": 0
+                                        },
+                                        "rotation": {
+                                            "w": 1
+                                        },
+                                        "childNodes": [
+                                            {
+                                                "levelNodeStatic": {
+                                                    "shape": 1000,
+                                                    "material": 3,
+                                                    "position": {
+                                                        "x": 14,
+                                                        "y": 0,
+                                                        "z": 0
+                                                    },
+                                                    "scale": {
+                                                        "x": 2,
+                                                        "y": 1,
+                                                        "z": 1
+                                                    },
+                                                    "rotation": {
+                                                        "w": 0.924,
+                                                        "x": 0,
+                                                        "y": 0.383,
+                                                        "z": 0
+                                                    }
+                                                }
+                                            }
+                                        ],
+                                        "scale": {
+                                            "y": 1,
+                                            "x": 1,
+                                            "z": 4
+                                        }
+                                    }
+                                }
+                            ],
+                            "scale": {
+                                "y": 1,
+                                "x": 1,
+                                "z": 0.5
+                            }
+                        }
+                    },
+                    {
+                        "levelNodeGroup": {
+                            "position": {
+                                "y": 0,
+                                "x": 0,
+                                "z": 0
+                            },
+                            "rotation": {
+                                "w": 1
+                            },
+                            "childNodes": [
+                                {
+                                    "levelNodeGroup": {
+                                        "position": {
+                                            "y": 0,
+                                            "x": 0,
+                                            "z": 0
+                                        },
+                                        "rotation": {
+                                            "w": 1
+                                        },
+                                        "childNodes": [
+                                            {
+                                                "levelNodeStatic": {
+                                                    "shape": 1000,
+                                                    "material": 2,
+                                                    "position": {
+                                                        "x": 16,
+                                                        "y": 0,
+                                                        "z": 0
+                                                    },
+                                                    "scale": {
+                                                        "x": 2,
+                                                        "y": 1,
+                                                        "z": 1
+                                                    },
+                                                    "rotation": {
+                                                        "w": 0.924,
+                                                        "x": 0,
+                                                        "y": 0.383,
+                                                        "z": 0
+                                                    }
+                                                }
+                                            }
+                                        ],
+                                        "scale": {
+                                            "y": 1,
+                                            "x": 1,
+                                            "z": 4
+                                        }
+                                    }
+                                }
+                            ],
+                            "scale": {
+                                "y": 1,
+                                "x": 1,
+                                "z": 0.5
+                            }
+                        }
+                    },
+                    {
+                        "levelNodeGroup": {
+                            "position": {
+                                "y": 0,
+                                "x": 0,
+                                "z": 0
+                            },
+                            "rotation": {
+                                "w": 1
+                            },
+                            "childNodes": [
+                                {
+                                    "levelNodeGroup": {
+                                        "position": {
+                                            "y": 0,
+                                            "x": 0,
+                                            "z": 0
+                                        },
+                                        "rotation": {
+                                            "w": 1
+                                        },
+                                        "childNodes": [
+                                            {
+                                                "levelNodeStatic": {
+                                                    "shape": 1000,
+                                                    "material": 1,
+                                                    "position": {
+                                                        "x": 18,
+                                                        "y": 0,
+                                                        "z": 0
+                                                    },
+                                                    "scale": {
+                                                        "x": 2,
+                                                        "y": 1,
+                                                        "z": 1
+                                                    },
+                                                    "rotation": {
+                                                        "w": 0.924,
+                                                        "x": 0,
+                                                        "y": 0.383,
+                                                        "z": 0
+                                                    }
+                                                }
+                                            }
+                                        ],
+                                        "scale": {
+                                            "y": 1,
+                                            "x": 1,
+                                            "z": 4
+                                        }
+                                    }
+                                }
+                            ],
+                            "scale": {
+                                "y": 1,
+                                "x": 1,
+                                "z": 0.5
+                            }
+                        }
+                    }
+                ],
+                "scale": {
+                    "y": 1,
+                    "x": 1,
+                    "z": 1
+                }
+            }
+        };
+            obj = JSON.parse(document.getElementById('out').value);
+            obj.levelNodes.push(parallelograms);
+            document.getElementById('out').value = JSON.stringify(obj, null, 4);
+        });
         document.getElementById("load-empty").addEventListener('click', function () {
             obj = {
                     "formatVersion": 6,
@@ -2215,36 +2856,119 @@
             document.getElementById('template').value = JSON.stringify(obj, null, 4);
         });
         document.getElementById('file').addEventListener("change", function (e) {loadFile(e)}, false);
-        document.getElementById('file-a').addEventListener("change", function (e) {loadFile(e, true)}, false);
+        // document.getElementById('file-a').addEventListener("change", function (e) {loadFile(e, true)}, false);
         document.getElementById('file-append').addEventListener("change", function (e) {appendFile(e)}, false);
+        // document.getElementById('file-append-a').addEventListener("change", function (e) {appendFile(e, true)}, false);
         document.getElementById('out').value = JSON.stringify({
                         "formatVersion": 6,
                         "title": "",
                         "creators": "",
                         "description": "",
                         "levelNodes": [],
-                        "maxCheckpointCount": 0,
+                        "maxCheckpointCount": 10,
                         "ambienceSettings": {
                             "skyZenithColor": {
-                                "r": 0,
-                                "g": 0,
-                                "b": 0,
+                                "r": 0.28,
+                                "g": 0.476,
+                                "b": 0.73,
                                 "a": 1
                             },
                             "skyHorizonColor": {
-                                "r": 0,
-                                "g": 0,
-                                "b": 0,
+                                "r": 0.916,
+                                "g": 0.9574,
+                                "b": 0.9574,
                                 "a": 1
                             },
-                            "sunAltitude": 0,
-                            "sunAzimuth": 0,
+                            "sunAltitude": 45,
+                            "sunAzimuth": 315,
                             "sunSize": 1,
                             "fogDDensity": 0
                         }
                     }, null, 4);
         document.getElementById('out').style.display = "block";
         document.getElementsByClassName('leg')[0].style.display = "flex";
+    
+        let cArr = [
+            [0, 0, 0],
+            [255, 0, 0],
+            [0, 255, 0],
+            [0, 0, 255],
+            [0, 255, 255],
+            [255, 0, 255],
+            [255, 255, 0],
+            [200, 0, 0],
+            [0, 200, 0],
+            [0, 0, 200],
+            [0, 200, 200],
+            [200, 0, 200],
+            [200, 200, 0],
+            [127.5, 0, 0],
+            [0, 127.5, 0],
+            [0, 0, 127.5],
+            [0, 127.5, 127.5],
+            [127.5, 0, 127.5],
+            [127.5, 127.5, 0],
+            [100, 0, 0],
+            [0, 100, 0],
+            [0, 0, 100],
+            [0, 100, 100],
+            [100, 0, 100],
+            [100, 100, 0],
+            [50, 0, 0],
+            [0, 50, 0],
+            [0, 0, 50],
+            [0, 50, 50],
+            [50, 0, 50],
+            [50, 50, 0],
+            [-255, -255, -255],
+            [255, -255, -255],
+            [-255, 255, -255],
+            [-255, -255, 255],
+            [-255, 255, 255],
+            [255, -255, 255],
+            [255, 255, -255]
+        ];
+        function addColorArray(arr) {
+            var cNodes = [];
+            for (let i = 0; i < arr.length; i++) {
+                const el = arr[i];
+                for (let j = 0; j < 5; j++) {
+                    cNode = {
+                        "levelNodeStatic": {
+                            "shape": 1000 + j,
+                            "material": 8,
+                            "position": {
+                                "x": j,
+                                "y": 0,
+                                "z": i
+                            },
+                            "scale": {
+                                "x": 1,
+                                "y": 1,
+                                "z": 1
+                            },
+                            "rotation": {
+                                "w": 1,
+                                "x": 0,
+                                "y": 0,
+                                "z": 0
+                            },
+                            "color": {
+                                "r": el[0]/255,
+                                "g": el[1]/255,
+                                "b": el[2]/255,
+                                "a": 1
+                            },
+                            "isNeon": true
+                        }
+                    }
+                    cNodes.push(cNode);
+                }
+            }
+            obj = JSON.parse(document.getElementById('out').value);
+            obj.levelNodes = cNodes;
+            document.getElementById('out').value = JSON.stringify(obj, null, 4);
+        }
     </script>
     <script src="visual-editor.js" type="module"></script>
 </body>
