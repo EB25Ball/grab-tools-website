@@ -27,17 +27,18 @@
     <script type="text/javascript">
         async function download(link) {
             let SERVER_URL = 'https://api.slin.dev/grab/v1/';
-            let response = await fetch(link.replaceAll(':', '/').replace('https///grabvr.quest/levels/viewer?level=', SERVER_URL + 'details/'));
+            let id = link.split('=')[1];
+            let response = await fetch(SERVER_URL + 'details/' + id.replace(':', '/'));
             let details = await response.json();
             let iteration = await details.iteration;
-            link = link.replaceAll(':', '/').replace('https///grabvr.quest/levels/viewer?level=', SERVER_URL + 'download/') + '/' + iteration;
+            link = SERVER_URL + 'download/' + id.replace(':', '/') + '/' + iteration;
 
             let fileResponse = await fetch(link);
             let fileBlob = await fileResponse.blob();
             let url = window.URL.createObjectURL(fileBlob);
             let a = document.createElement('a');
             a.href = url;
-            a.download = link.split('/').pop();
+            a.download = iteration + '.level';
             a.click();
         }
 
