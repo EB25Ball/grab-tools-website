@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Editor</title>
+        <style>
+            /* Base */
+            body {
+                margin: 0;
+            }
+
+            /* Menu */
+            .menu {
+                background-color: #f2f2f2;
+            }
+
+            .menu-list {
+                list-style: none;
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                margin: 0;
+                padding: 0;
+            }
+
+            .menu-btn {
+                background-color: #4CAF50;
+                color: white;
+                padding: 8px 16px;
+                border: none;
+                cursor: pointer;
+            }
+
+            .menu-dropdown {
+                display: none;
+                padding: 0;
+                margin: 0;
+                list-style: none;
+                position: absolute;
+                z-index: 1;
+                min-width: 160px;
+                white-space: nowrap;
+            }
+
+            .menu-dropdown .menu-btn {
+                background-color: #f2f2f2;
+                color: black;
+                text-align: left;
+                padding: 8px 16px;
+                display: block;
+                width: 100%;
+                border: none;
+            }
+
+            .menu-dropdown .menu-dropdown {
+                margin-left: 100%;
+            }
+
+            .menu-btn:hover + .menu-dropdown,
+            .menu-dropdown:hover {
+                display: block;
+            }
+
+            .menu-btn:focus {
+                outline: none;
+            }
+
+            .menu-dropdown .menu-btn:hover {
+                background-color: #ddd;
+            }
+
+            .menu-btn:not(.menu-list > li > ul > li > button):not(.menu-list > li > button) {
+                transform: translateY(-100%);
+            }
+        </style>
+    </head>
+    <body>
+        <nav class="menu">
+            <ul class="menu-list">
+                <li>
+                    <button class="menu-btn">File</button>
+                    <ul class="menu-dropdown">
+                        <li>
+                            <button class="menu-btn">New</button>
+                            <ul class="menu-dropdown">
+                                <li>
+                                    <button class="menu-btn">Empty</button>
+                                </li>
+                                <li>
+                                    <button class="menu-btn">Template</button>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <button class="menu-btn">Open</button>
+                            <ul class="menu-dropdown">
+                                <li>
+                                    <button class="menu-btn">From PC</button>
+                                </li>
+                                <li>
+                                    <button class="menu-btn">From Quest</button>
+                                </li>
+                                <li>
+                                    <button class="menu-btn">From Account</button>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <button class="menu-btn">Insert</button>
+                    <ul class="menu-dropdown">
+                        <li>
+                            <button class="menu-btn">Level</button>
+                            <ul class="menu-dropdown">
+                                <li>
+                                    <button class="menu-btn">From PC</button>
+                                </li>
+                                <li>
+                                    <button class="menu-btn">From Quest</button>
+                                </li>
+                                <li>
+                                    <button class="menu-btn">From Account</button>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <button class="menu-btn">Prefab</button>
+                        </li>
+                        <li>
+                            <button class="menu-btn">Media</button>
+                            <ul class="menu-dropdown">
+                                <li>
+                                    <button class="menu-btn">Image</button>
+                                </li>
+                                <li>
+                                    <button class="menu-btn">Video</button>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <button class="menu-btn">Node</button>
+                            <ul class="menu-dropdown">
+                            <li>
+                                <button class="menu-btn">Static</button>
+                            </li>
+                            <li>
+                                <button class="menu-btn">Colored</button>
+                            </li>
+                            <li>
+                                <button class="menu-btn">Crumbling</button>
+                            </li>
+                            <li>
+                                <button class="menu-btn">Sign</button>
+                            </li>
+                            <li>
+                                <button class="menu-btn">Start</button>
+                            </li>
+                            <li>
+                                <button class="menu-btn">Finish</button>
+                            </li>
+                        </ul>
+                        </li>
+                        <li>
+                            <button class="menu-btn">Bulk Text</button>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <button class="menu-btn">Settings</button>
+                    <ul class="menu-dropdown">
+                        <li>
+                            <button class="menu-btn">Login</button>
+                        </li>
+                        <li>
+                            <button class="menu-btn">Manage Prefabs</button>
+                        </li>
+                        <li>
+                            <button class="menu-btn">Controls</button>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <button class="menu-btn">Edit</button>
+                    <ul class="menu-dropdown">
+                        <li>
+                            <button class="menu-btn">Undo</button>
+                        </li>
+                        <li>
+                            <button class="menu-btn">Redo</button>
+                        </li>
+                        <li>
+                            <button class="menu-btn">Ambiance</button>
+                            <ul class="menu-dropdown">
+                                <li>
+                                    <button class="menu-btn">Set Custom</button>
+                                </li>
+                                <li>
+                                    <button class="menu-btn">Presets</button>
+                                </li>
+                                <li>
+                                    <button class="menu-btn">Clear</button>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <button class="menu-btn">Group</button>
+                        </li>
+                        <li>
+                            <button class="menu-btn">Details</button>
+                            <ul class="menu-dropdown">
+                                <li>
+                                    <button class="menu-btn">Title</button>
+                                </li>
+                                <li>
+                                    <button class="menu-btn">Description</button>
+                                </li>
+                                <li>
+                                    <button class="menu-btn">Creators</button>
+                                </li>
+                                <li>
+                                    <button class="menu-btn">Checkpoints</button>
+                                </li>
+                                <li>
+                                    <button class="menu-btn">Clear</button>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <button class="menu-btn">View</button>
+                    <ul class="menu-dropdown">
+                        <li>
+                            <button class="menu-btn">Terminal</button>
+                        </li>
+                        <li>
+                            <button class="menu-btn">Functions</button>
+                        </li>
+                        <li>
+                            <button class="menu-btn">3D Viewer</button>
+                        </li>
+                        <li>
+                            <button class="menu-btn">Goto Start</button>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <button class="menu-btn">Help</button>
+                    <ul class="menu-dropdown">
+                        <li>
+                            <button class="menu-btn">Search Menus</button>
+                        </li>
+                        <li>
+                            <button class="menu-btn">Docs</button>
+                        </li>
+                        <li>
+                            <button class="menu-btn">Show Help Menu</button>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </body>
+</html>
