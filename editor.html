@@ -73,6 +73,13 @@
             .menu-btn:not(.menu-list > li > ul > li > button):not(.menu-list > li > button) {
                 transform: translateY(-100%);
             }
+            .menu-btn:has(+ ul)::after {
+                content: ">";
+                position: absolute;
+                width: 10px;
+                top: 6;
+                left: 85%;
+            }
         </style>
     </head>
     <body>
