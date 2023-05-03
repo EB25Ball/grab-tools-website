@@ -426,6 +426,9 @@
         document
             .getElementById('edit-resize')
             .addEventListener('mousedown', mD)
+        document
+            .getElementById('edit-resize')
+            .addEventListener('touchstart', mD)
 
         function mD(event) {
             ismdwn = 1
@@ -434,7 +437,13 @@
                 .addEventListener('mousemove', mV)
             document
                 .body
+                .addEventListener('touchmove', mV)
+            document
+                .body
                 .addEventListener('mouseup', end)
+            document
+                .body
+                .addEventListener('touchend', end)
         }
 
         function mV(event) {
@@ -453,8 +462,14 @@
                 .body
                 .removeEventListener('mouseup', end)
             document
+                .body
+                .removeEventListener('touchend', end)
+            document
                 .getElementById('edit-resize')
                 .removeEventListener('mousemove', mV)
+            document
+                .getElementById('edit-resize')
+                .removeEventListener('touchmove', mV)
         }
     </script>
 </html>
