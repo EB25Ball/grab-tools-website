@@ -6,15 +6,16 @@
         <title>Editor</title>
         <style>
             /* Base */
-            body, html {
+            body,
+            html {
                 margin: 0;
                 max-height: 100vh;
                 max-width: 100vw;
                 overflow: hidden;
             }
-            
+
             /* Resize Main */
-            #content  {
+            #content {
                 display: flex;
                 width: 100%;
                 height: 100vh;
@@ -92,7 +93,7 @@
                 background: #424243;
                 height: 0.2rem;
                 cursor: row-resize;
-                margin: auto 0 0 0;
+                margin: auto 0 0;
                 user-select: none;
 
             }
@@ -474,75 +475,58 @@
         </div>
     </body>
     <script>
-        let ismdwn = 0
-        document
-            .getElementById('edit-resize')
-            .addEventListener('mousedown', mD)
-            
+        let ismdwn = 0;
+
+        function registerResize(id, mVCallback) {
+            document
+                .getElementById(id)
+                .addEventListener('mousedown', mD);
+
             function mD(event) {
-                ismdwn = 1
+                ismdwn = 1;
                 document
-                .body
-                .addEventListener('mousemove', mV)
+                    .body
+                    .addEventListener('mousemove', mV);
                 document
-                .body
-                .addEventListener('mouseup', end)
+                    .body
+                    .addEventListener('mouseup', end);
             }
-            
+
             function mV(event) {
                 if (ismdwn === 1) {
-                    document
-                    .getElementById('render-container')
-                    .style
-                    .flexBasis = event.clientX + "px"
+                    if (mVCallback) {
+                        mVCallback(event);
+                    }
                 } else {
-                    end()
+                    end();
                 }
             }
-            const end = (e) => {
-                ismdwn = 0
+
+            function end(e) {
+                ismdwn = 0;
                 document
-                .body
-                .removeEventListener('mouseup', end)
+                    .body
+                    .removeEventListener('mouseup', end);
                 document
-                .body
-                .removeEventListener('mousemove', mV)
+                    .body
+                    .removeEventListener('mousemove', mV);
             }
+        }
 
-
-
+        registerResize('edit-resize', (event) => {
             document
-                .getElementById('terminal-resize')
-                .addEventListener('mousedown', mD2)
+                .getElementById('render-container')
+                .style
+                .flexBasis = event.clientX + "px";
+        });
 
-            function mD2(event) {
-                ismdwn = 1
-                document
-                .body
-                .addEventListener('mousemove', mV2)
-                document
-                .body
-                .addEventListener('mouseup', end2)
-            }
-            
-            function mV2(event) {
-                if (ismdwn === 1) {
-                    document
-                    .getElementById('editor')
-                    .style
-                    .flexBasis = event.clientY - document.getElementsByClassName('menu')[0].clientHeight + "px"
-                } else {
-                    end2()
-                }
-            }
-            const end2 = (e) => {
-                ismdwn = 0
-                document
-                .body
-                .removeEventListener('mouseup', end2)
-                document
-                .body
-                .removeEventListener('mousemove', mV2)
-            }
+        registerResize('terminal-resize', (event) => {
+            document
+                .getElementById('editor')
+                .style
+                .flexBasis = event.clientY - document
+                .getElementsByClassName('menu')[0]
+                .clientHeight + "px";
+        });
     </script>
 </html>
