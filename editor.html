@@ -175,7 +175,44 @@
                 transform: translateY(-100%);
             }
             .menu-btn:has(+ ul):not(.menu-list > li > button)::after {
-                content: ">";
+                content: url(editor-icons/carat.svg);
+                position: absolute;
+                width: 10px;
+                top: 6;
+                left: 85%;
+            }
+
+            /* menu icons */
+            .menu-btn#protobuf-btn::after {
+                content: url(editor-icons/protobuf.svg);
+                position: absolute;
+                width: 10px;
+                top: 6;
+                left: 85%;
+            }
+            .menu-btn#docs-btn::after {
+                content: url(editor-icons/info.svg);
+                position: absolute;
+                width: 10px;
+                top: 6;
+                left: 85%;
+            }
+            .menu-btn#search-btn::after {
+                content: url(editor-icons/search.svg);
+                position: absolute;
+                width: 10px;
+                top: 6;
+                left: 85%;
+            }
+            .menu-btn#help-btn::after {
+                content: url(editor-icons/help.svg);
+                position: absolute;
+                width: 10px;
+                top: 6;
+                left: 85%;
+            }
+            .menu-btn#prefabs-btn::after, .menu-btn#prefab-btn::after {
+                content: url(editor-icons/cube.svg);
                 position: absolute;
                 width: 10px;
                 top: 6;
@@ -224,7 +261,7 @@
                                     <button class="menu-btn">To Quest</button>
                                 </li>
                                 <li>
-                                    <button class="menu-btn">To Prefab</button>
+                                    <button class="menu-btn" id="prefab-btn">To Prefab</button>
                                 </li>
                             </ul>
                         </li>
@@ -265,7 +302,7 @@
                             <button class="menu-btn">Prefab</button>
                             <ul class="menu-dropdown">
                                 <li>
-                                    <button class="menu-btn">Prefabs Menu</button>
+                                    <button class="menu-btn" id="prefabs-btn">Prefabs Menu</button>
                                 </li>
                                 <li>
                                     <button class="menu-btn">Parallelograms</button>
@@ -336,13 +373,10 @@
                             <button class="menu-btn">Login</button>
                         </li>
                         <li>
-                            <button class="menu-btn">Manage Prefabs</button>
-                        </li>
-                        <li>
                             <button class="menu-btn">Controls</button>
                         </li>
                         <li>
-                            <button class="menu-btn">Edit Protobuf</button>
+                            <button class="menu-btn" id="protobuf-btn">Edit Protobuf</button>
                         </li>
                     </ul>
                 </li>
@@ -421,9 +455,6 @@
                             <button class="menu-btn">Terminal</button>
                         </li>
                         <li>
-                            <button class="menu-btn">Functions</button>
-                        </li>
-                        <li>
                             <button class="menu-btn">3D Viewer</button>
                         </li>
                         <li>
@@ -435,13 +466,13 @@
                     <button class="menu-btn">Help</button>
                     <ul class="menu-dropdown">
                         <li>
-                            <button class="menu-btn">Search Menus</button>
+                            <button class="menu-btn" id="search-btn">Search Menus</button>
                         </li>
                         <li>
-                            <button class="menu-btn">Docs</button>
+                            <button class="menu-btn" id="docs-btn">Docs</button>
                         </li>
                         <li>
-                            <button class="menu-btn">Show Help Menu</button>
+                            <button class="menu-btn" id="help-btn">Show Help Menu</button>
                         </li>
                         <li>
                             <button class="menu-btn">Contact Me</button>
