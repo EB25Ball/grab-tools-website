@@ -13,24 +13,25 @@
                 overflow: hidden;
             }
             
-            /* Resize */
+            /* Resize Main */
             #content  {
                 display: flex;
-                border: 1px black solid;
                 width: 100%;
                 height: 100vh;
             }
             #render-container {
+                background-image: linear-gradient(#5f8bc2, #cfe0ea, #5f8bc2);
                 display: flex;
-                border: 1px black solid;
                 width: 100%;
                 height: 100vh;
                 flex-grow: 1;
                 flex-shrink: 0;
-                flex-basis: 50%;
+                flex-basis: 60%;
             }
             #editing-container {
+                background-color: #eeeeee;
                 display: flex;
+                flex-direction: column;
                 width: 100%;
                 height: 100vh;
                 flex-grow: 0;
@@ -46,6 +47,8 @@
                 width: 0.2rem;
                 cursor: col-resize;
                 margin: 0 0 0 auto;
+                user-select: none;
+
             }
             #edit-resize::before {
                 content: "\00A0≡";
@@ -57,11 +60,59 @@
                 position: fixed;
                 transform: translateX(-10.5px);
                 border-left: 3px solid #424243;
+                user-select: none;
+            }
+
+            /* Resize Terminal */
+            #editor {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                height: 100%;
+                flex-grow: 1;
+                flex-shrink: 0;
+                flex-basis: 60%;
+            }
+            #terminal {
+                background-color: #252526;
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                height: 100%;
+                flex-grow: 0;
+                flex-shrink: 1;
+                overflow-y: auto;
+            }
+            #terminal-resize {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                flex-grow: 0;
+                flex-shrink: 0;
+                background: #424243;
+                height: 0.2rem;
+                cursor: row-resize;
+                margin: auto 0 0 0;
+                user-select: none;
+
+            }
+            #terminal-resize::before {
+                content: "\00A0≡";
+                color: #d7d7d7;
+                width: 20px;
+                height: 20px;
+                background: #424243;
+                cursor: row-resize;
+                position: relative;
+                margin-left: 100%;
+                transform: translateX(-20.5px);
+                border-left: 3px solid #424243;
+                user-select: none;
             }
 
             /* Menu */
             .menu {
-                background-color: #f2f2f2;
+                background-color: #424243;
             }
 
             .menu-list {
@@ -74,7 +125,7 @@
             }
 
             .menu-btn {
-                background-color: #4CAF50;
+                background-color: #424243;
                 color: white;
                 padding: 8px 16px;
                 border: none;
@@ -122,7 +173,7 @@
             .menu-btn:not(.menu-list > li > ul > li > button):not(.menu-list > li > button) {
                 transform: translateY(-100%);
             }
-            .menu-btn:has(+ ul)::after {
+            .menu-btn:has(+ ul):not(.menu-list > li > button)::after {
                 content: ">";
                 position: absolute;
                 width: 10px;
@@ -416,8 +467,9 @@
             <div id="render-container"></div>
             <div id="edit-resize">&nbsp;</div>
             <div id="editing-container">
-                <div class="editor"></div>
-                <div class="terminal"></div>
+                <div id="editor"></div>
+                <div id="terminal-resize">&nbsp;</div>
+                <div id="terminal"></div>
             </div>
         </div>
     </body>
@@ -426,35 +478,71 @@
         document
             .getElementById('edit-resize')
             .addEventListener('mousedown', mD)
-
-        function mD(event) {
-            ismdwn = 1
-            document
+            
+            function mD(event) {
+                ismdwn = 1
+                document
                 .body
                 .addEventListener('mousemove', mV)
-            document
+                document
                 .body
                 .addEventListener('mouseup', end)
-        }
-
-        function mV(event) {
-            if (ismdwn === 1) {
-                document
+            }
+            
+            function mV(event) {
+                if (ismdwn === 1) {
+                    document
                     .getElementById('render-container')
                     .style
                     .flexBasis = event.clientX + "px"
-            } else {
-                end()
+                } else {
+                    end()
+                }
             }
-        }
-        const end = (e) => {
-            ismdwn = 0
-            document
+            const end = (e) => {
+                ismdwn = 0
+                document
                 .body
                 .removeEventListener('mouseup', end)
-            document
-                .getElementById('edit-resize')
+                document
+                .body
                 .removeEventListener('mousemove', mV)
-        }
+            }
+
+
+
+            document
+                .getElementById('terminal-resize')
+                .addEventListener('mousedown', mD2)
+
+            function mD2(event) {
+                ismdwn = 1
+                document
+                .body
+                .addEventListener('mousemove', mV2)
+                document
+                .body
+                .addEventListener('mouseup', end2)
+            }
+            
+            function mV2(event) {
+                if (ismdwn === 1) {
+                    document
+                    .getElementById('editor')
+                    .style
+                    .flexBasis = event.clientY - document.getElementsByClassName('menu')[0].clientHeight + "px"
+                } else {
+                    end2()
+                }
+            }
+            const end2 = (e) => {
+                ismdwn = 0
+                document
+                .body
+                .removeEventListener('mouseup', end2)
+                document
+                .body
+                .removeEventListener('mousemove', mV2)
+            }
     </script>
 </html>
