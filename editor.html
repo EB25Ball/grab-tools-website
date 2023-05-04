@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Editor</title>
         <style>
+            @import "editor-icons.css";
             /* Base */
             body,
             html {
@@ -181,43 +182,6 @@
                 top: 6;
                 left: 85%;
             }
-
-            /* menu icons */
-            .menu-btn#protobuf-btn::after {
-                content: url(editor-icons/protobuf.svg);
-                position: absolute;
-                width: 10px;
-                top: 6;
-                left: 85%;
-            }
-            .menu-btn#docs-btn::after {
-                content: url(editor-icons/info.svg);
-                position: absolute;
-                width: 10px;
-                top: 6;
-                left: 85%;
-            }
-            .menu-btn#search-btn::after {
-                content: url(editor-icons/search.svg);
-                position: absolute;
-                width: 10px;
-                top: 6;
-                left: 85%;
-            }
-            .menu-btn#help-btn::after {
-                content: url(editor-icons/help.svg);
-                position: absolute;
-                width: 10px;
-                top: 6;
-                left: 85%;
-            }
-            .menu-btn#prefabs-btn::after, .menu-btn#prefab-btn::after {
-                content: url(editor-icons/cube.svg);
-                position: absolute;
-                width: 10px;
-                top: 6;
-                left: 85%;
-            }
         </style>
     </head>
     <body>
@@ -230,10 +194,10 @@
                             <button class="menu-btn">New</button>
                             <ul class="menu-dropdown">
                                 <li>
-                                    <button class="menu-btn">Empty</button>
+                                    <button class="menu-btn" id="empty-btn">Empty</button>
                                 </li>
                                 <li>
-                                    <button class="menu-btn">Template</button>
+                                    <button class="menu-btn" id="template-btn">Template</button>
                                 </li>
                             </ul>
                         </li>
@@ -269,13 +233,13 @@
                             <button class="menu-btn">Export</button>
                             <ul class="menu-dropdown">
                                 <li>
-                                    <button class="menu-btn">glTF</button>
+                                    <button class="menu-btn" id="gltf-btn">glTF</button>
                                 </li>
                                 <li>
-                                    <button class="menu-btn">JSON</button>
+                                    <button class="menu-btn" id="json-btn">JSON</button>
                                 </li>
                                 <li>
-                                    <button class="menu-btn">PNG</button>
+                                    <button class="menu-btn" id="png-btn">PNG</button>
                                 </li>
                             </ul>
                         </li>
@@ -331,10 +295,10 @@
                             <button class="menu-btn">Media</button>
                             <ul class="menu-dropdown">
                                 <li>
-                                    <button class="menu-btn">Image</button>
+                                    <button class="menu-btn" id="image-btn">Image</button>
                                 </li>
                                 <li>
-                                    <button class="menu-btn">Video</button>
+                                    <button class="menu-btn" id="video-btn">Video</button>
                                 </li>
                             </ul>
                         </li>
@@ -362,7 +326,7 @@
                             </ul>
                         </li>
                         <li>
-                            <button class="menu-btn">Bulk Text</button>
+                            <button class="menu-btn" id="text-btn">Bulk Text</button>
                         </li>
                     </ul>
                 </li>
@@ -370,10 +334,10 @@
                     <button class="menu-btn">Settings</button>
                     <ul class="menu-dropdown">
                         <li>
-                            <button class="menu-btn">Login</button>
+                            <button class="menu-btn" id="login-btn">Login</button>
                         </li>
                         <li>
-                            <button class="menu-btn">Controls</button>
+                            <button class="menu-btn" id="controls-btn">Controls</button>
                         </li>
                         <li>
                             <button class="menu-btn" id="protobuf-btn">Edit Protobuf</button>
@@ -424,7 +388,7 @@
                             </ul>
                         </li>
                         <li>
-                            <button class="menu-btn">Group</button>
+                            <button class="menu-btn" id="group-btn">Group</button>
                         </li>
                         <li>
                             <button class="menu-btn">Details</button>
@@ -478,7 +442,7 @@
                             <button class="menu-btn">Contact Me</button>
                             <ul class="menu-dropdown">
                                 <li>
-                                    <button class="menu-btn">.index#9919</button>
+                                    <button class="menu-btn" id="discord-btn">.index#9919</button>
                                 </li>
                                 <li>
                                     <button class="menu-btn">twhlynch@gmail.com</button>

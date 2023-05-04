@@ -1,0 +1,106 @@
+/* menu icons */
+.menu-btn#protobuf-btn::after {
+    content: url(editor-icons/protobuf.svg);
+    position: absolute;
+    width: 10px;
+    top: 6;
+    left: 85%;
+}
+.menu-btn#docs-btn::after {
+    content: url(editor-icons/info.svg);
+    position: absolute;
+    width: 10px;
+    top: 6;
+    left: 85%;
+}
+.menu-btn#search-btn::after {
+    content: url(editor-icons/search.svg);
+    position: absolute;
+    width: 10px;
+    top: 6;
+    left: 85%;
+}
+.menu-btn#help-btn::after {
+    content: url(editor-icons/help.svg);
+    position: absolute;
+    width: 10px;
+    top: 6;
+    left: 85%;
+}
+.menu-btn#prefabs-btn::after, .menu-btn#prefab-btn::after {
+    content: url(editor-icons/cube.svg);
+    position: absolute;
+    width: 10px;
+    top: 6;
+    left: 85%;
+}
+.menu-btn#empty-btn::after, .menu-btn#template-btn::after {
+    content: url(editor-icons/blank.svg);
+    position: absolute;
+    width: 10px;
+    top: 6;
+    left: 85%;
+}
+.menu-btn#controls-btn::after {
+    content: url(editor-icons/controls.svg);
+    position: absolute;
+    width: 10px;
+    top: 6;
+    left: 85%;
+}
+.menu-btn#login-btn::after {
+    content: url(editor-icons/login.svg);
+    position: absolute;
+    width: 10px;
+    top: 6;
+    left: 85%;
+}
+.menu-btn#logout-btn::after {
+    content: url(editor-icons/logout.svg);
+    position: absolute;
+    width: 10px;
+    top: 6;
+    left: 85%;
+}
+.menu-btn#gltf-btn::after {
+    content: url(editor-icons/export.svg);
+    position: absolute;
+    width: 10px;
+    top: 6;
+    left: 85%;
+}
+.menu-btn#png-btn::after, .menu-btn#image-btn::after {
+    content: url(editor-icons/photo.svg);
+    position: absolute;
+    width: 10px;
+    top: 6;
+    left: 85%;
+}
+.menu-btn#json-btn::after {
+    content: "{}";
+    position: absolute;
+    width: 10px;
+    top: 6;
+    left: 85%;
+}
+.menu-btn#discord-btn::after {
+    content: url(editor-icons/message.svg);
+    position: absolute;
+    width: 10px;
+    top: 6;
+    left: 85%;
+}
+.menu-btn#text-btn::after {
+    content: url(editor-icons/text.svg);
+    position: absolute;
+    width: 10px;
+    top: 6;
+    left: 85%;
+}
+.menu-btn#group-btn::after {
+    content: url(editor-icons/group.svg);
+    position: absolute;
+    width: 10px;
+    top: 6;
+    left: 85%;
+}
