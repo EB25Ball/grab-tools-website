@@ -139,3 +139,46 @@
     top: 6;
     left: 85%;
 }
+.menu-btn#account-btn::after {
+    content: url(editor-icons/user.svg);
+    position: absolute;
+    width: 10px;
+    top: 6;
+    left: 85%;
+}
+
+.menu-btn#quest-btn::after {
+    content: url(editor-icons/drive.svg);
+    position: absolute;
+    width: 10px;
+    top: 6;
+    left: 85%;
+}
+.menu-btn#toquest-btn::after {
+    content: url(editor-icons/export.svg);
+    position: absolute;
+    width: 10px;
+    top: 6;
+    left: 85%;
+}
+.menu-btn#pc-btn::after {
+    content: url(editor-icons/drive.svg);
+    position: absolute;
+    width: 10px;
+    top: 6;
+    left: 85%;
+}
+.menu-btn#topc-btn::after {
+    content: url(editor-icons/save.svg);
+    position: absolute;
+    width: 10px;
+    top: 6;
+    left: 85%;
+}
+.menu-btn#model-btn::after {
+    content: url(editor-icons/cube.svg);
+    position: absolute;
+    width: 10px;
+    top: 6;
+    left: 85%;
+}
