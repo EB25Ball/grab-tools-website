@@ -104,3 +104,38 @@
     top: 6;
     left: 85%;
 }
+.menu-btn#video-btn::after {
+    content: url(editor-icons/video.svg);
+    position: absolute;
+    width: 10px;
+    top: 6;
+    left: 85%;
+}
+.menu-btn#joshi-btn::after {
+    content: url(editor-icons/mountain.svg);
+    position: absolute;
+    width: 10px;
+    top: 6;
+    left: 85%;
+}
+.menu-btn#slin-btn::after {
+    content: url(editor-icons/slindev.svg);
+    position: absolute;
+    width: 10px;
+    top: 6;
+    left: 85%;
+}
+.menu-btn#ebspark-btn::after {
+    content: url(editor-icons/moon.svg);
+    position: absolute;
+    width: 10px;
+    top: 6;
+    left: 85%;
+}
+.menu-btn#rad-btn::after {
+    content: url(editor-icons/lilrad.svg);
+    position: absolute;
+    width: 10px;
+    top: 6;
+    left: 85%;
+}
