@@ -649,4 +649,23 @@
                 .clientHeight + "px";
         });
     </script>
+    <script>
+        function highlightedTextEditor() {
+            var textEditor = document.getElementById('edit-input');
+
+            const editText = textEditor.innerText;
+    
+            const highlightedText = editText.replace(/([bruf]*)(\"""|'''|"|')(?:(?!\2)(?:\\.|[^\\]))*\2:?/gs, (match) => {
+            if (match.endsWith(":")) {
+                return `<span style="color: #dd612e">${match.slice(0,-1)}</span><span style="color: #007acc">:</span>`;
+            } else {
+                return `<span style="color: #487e02">${match}</span>`;
+            }
+            });
+    
+            textEditor.innerHTML = highlightedText;
+        }
+        var textEditor = document.getElementById('edit-input').addEventListener('blur', highlightedTextEditor);
+        highlightedTextEditor();
+    </script>
 </html>
