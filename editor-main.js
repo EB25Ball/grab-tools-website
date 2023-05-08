@@ -545,6 +545,14 @@ document.querySelector('#prompt-checkpoints .prompt-submit').addEventListener('c
     document.getElementById('checkpoints-prompt').value = '';
 });
 
+document.getElementById('cleardetails-btn').addEventListener('click', () => {
+    var levelData = getLevel();
+    levelData.maxCheckpointCount = 0;
+    levelData.title = "";
+    levelData.description = "";
+    levelData.creators = "";
+    setLevel(levelData);
+});
 
 
 // Main
