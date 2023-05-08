@@ -318,6 +318,8 @@ function refreshScene() {
     console.log(complexity);
     // document.getElementById('complexity').innerText = `Complexity: ${complexity}`;
     
+    
+
     renderer.render( scene, camera );
 }
 
