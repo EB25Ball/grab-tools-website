@@ -250,19 +250,19 @@
                             <button class="menu-btn">Details</button>
                             <ul class="menu-dropdown">
                                 <li>
-                                    <button class="menu-btn">Title</button>
+                                    <button class="menu-btn" id="title-btn">Title</button>
                                 </li>
                                 <li>
-                                    <button class="menu-btn">Description</button>
+                                    <button class="menu-btn" id="description-btn">Description</button>
                                 </li>
                                 <li>
-                                    <button class="menu-btn">Creators</button>
+                                    <button class="menu-btn" id="creators-btn">Creators</button>
                                 </li>
                                 <li>
-                                    <button class="menu-btn">Checkpoints</button>
+                                    <button class="menu-btn" id="checkpoints-btn">Checkpoints</button>
                                 </li>
                                 <li>
-                                    <button class="menu-btn">Clear</button>
+                                    <button class="menu-btn" id="cleardetails-btn">Clear</button>
                                 </li>
                             </ul>
                         </li>
@@ -301,13 +301,13 @@
                                     <button class="menu-btn" id="discord-btn">.index#9919</button>
                                 </li>
                                 <li>
-                                    <button class="menu-btn">twhlynch@gmail.com</button>
+                                    <button class="menu-btn" id="email-btn">twhlynch@gmail.com</button>
                                 </li>
                                 <li>
-                                    <button class="menu-btn">twhlynch.me/discord</button>
+                                    <button class="menu-btn" id="server-btn">twhlynch.me/discord</button>
                                 </li>
                                 <li>
-                                    <button class="menu-btn">discord.slin.dev</button>
+                                    <button class="menu-btn" id="slindev-btn">discord.slin.dev</button>
                                 </li>
                             </ul>
                         </li>
@@ -412,6 +412,16 @@
                     <script>
                         document.getElementById("terminal-input").placeholder = "[Enter] to run JS code\n[Alt] & [UpArrow] for last ran\nvar level.levelNodes.forEach(node => {})";
                     </script>
+                </div>
+            </div>
+        </div>
+        <!-- Prompts -->
+        <div id="prompts">
+            <div class="prompt-simple" id="prompt-title">
+                <textarea name="title" id="title-prompt" cols="30" rows="10" spellcheck="false" autocapitalize="false" placeholder="Title"></textarea>
+                <div class="prompt-buttons">
+                    <button class="prompt-cancel">Cancel</button>
+                    <button class="prompt-submit">Sumbit</button>
                 </div>
             </div>
         </div>

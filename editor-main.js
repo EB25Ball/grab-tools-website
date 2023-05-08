@@ -461,6 +461,26 @@ document.getElementById('pc-btn-input').addEventListener('change', (e) => {
     openLevelFile(e.target.files);
 });
 
+document.getElementById('title-btn').addEventListener('click', () => {
+    document.getElementById('prompts').style.display = 'grid';
+    document.getElementById('prompt-title').style.display = 'flex';
+});
+
+document.querySelector('#prompt-title .prompt-cancel').addEventListener('click', () => {
+    document.getElementById('prompts').style.display = 'none';
+    document.getElementById('prompt-title').style.display = 'none';
+    document.getElementById('title-prompt').value = '';
+});
+
+document.querySelector('#prompt-title .prompt-submit').addEventListener('click', () => {
+    document.getElementById('prompts').style.display = 'none';
+    document.getElementById('prompt-title').style.display = 'none';
+    var input = document.getElementById('title-prompt').value;
+    var levelData = getLevel();
+    levelData.title = input;
+    setLevel(levelData);
+    document.getElementById('title-prompt').value = '';
+});
 
 
 
