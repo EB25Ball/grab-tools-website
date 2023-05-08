@@ -387,7 +387,7 @@ function openLevelFile(level) {
     }
 
     Promise.all(readers).then((values) => {
-        setLevel(values);
+        setLevel(values[0]);
     });
 }
 
@@ -472,6 +472,11 @@ function getLevel() {
     return JSON.parse(document.getElementById('edit-input').innerText);
 }
 function setLevel(level) {
+    if (level.formatVersion != 6) {
+        document.getElementById('warning').style.display = "block";
+    } else {
+        document.getElementById('warning').style.display = "none";
+    }
     document.getElementById('edit-input').innerText = JSON.stringify(level, null, 4);
     highlightTextEditor();
     refreshScene();

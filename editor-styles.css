@@ -46,6 +46,14 @@
                 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
                 bottom: 5px;
             }
+            #warning {
+                display: none;
+                background: #df3719;
+                color: #eee;
+                font-size: 12px;
+                padding: 3px;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
 
             /* Resize Main */
             #content {
