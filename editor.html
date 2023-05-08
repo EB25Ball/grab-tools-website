@@ -591,6 +591,9 @@
                 <div id="terminal-resize">&nbsp;</div>
                 <div id="terminal">
                     <textarea name="terminal-input" id="terminal-input" cols="30" rows="10" spellcheck="false" contenteditable="true"></textarea>
+                    <script>
+                        document.getElementById("terminal-input").placeholder = "[Enter] to run JS code\n[Alt] & [UpArrow] for last ran\nvar level.levelNodes.forEach(node => {})";
+                    </script>
                 </div>
             </div>
         </div>
@@ -704,6 +707,21 @@
                 let range = selection.getRangeAt(0);
                 range.insertNode(document.createTextNode("    "));
                 selection.collapseToEnd();
+            }
+        });
+    </script>
+    <script>
+        var lastRan = '';
+        document.getElementById('terminal-input').addEventListener('keydown', (e) => {
+            if (e.which === 13 && e.shiftKey === false) {
+                e.preventDefault();
+                var input = document.getElementById('terminal-input').value;
+                eval(input);
+                lastRan = input
+                document.getElementById('terminal-input').value = '';
+            } else if (e.which === 38 && e.altKey === true) {
+                e.preventDefault();
+                document.getElementById('terminal-input').value = lastRan;
             }
         });
     </script>
