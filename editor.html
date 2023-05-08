@@ -31,11 +31,6 @@
                 }
             }
         </script>
-        <script src="editor-resize.js" defer></script>
-        <script src="editor-highlighting.js" defer></script>
-        <script src="editor-terminal.js" defer></script>
-        <script src="editor-three.js" defer></script>
-        <script src="editor-main.js" defer></script>
     </head>
     <body>
         <nav class="menu">
@@ -376,7 +371,6 @@
         </nav>
         <div id="content">
             <div id="render-container">
-                <canvas id="renderer"></canvas>
             </div>
             <div id="edit-resize">&nbsp;</div>
             <div id="editing-container">
@@ -417,5 +411,7 @@
                 </div>
             </div>
         </div>
+        <script src="editor-resize.js"></script>
+        <script type="module" src="editor-main.js"></script>
     </body>
 </html>

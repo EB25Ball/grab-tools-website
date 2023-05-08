@@ -39,10 +39,6 @@
                 border: none;
                 outline: none;
             }
-            #renderer {
-                height: 100%;
-                margin: 0;
-            }
 
             /* Resize Main */
             #content {
