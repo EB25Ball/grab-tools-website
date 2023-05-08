@@ -44,6 +44,7 @@
                 resize: none;
                 border-radius: 0;
                 border: none;
+                outline: none;
             }
 
             /* Resize Main */
@@ -664,27 +665,26 @@
             });
 
             highlightedText = highlightedText.replace(/(?<=<span style="color: #dd612e">"material"<\/span><span style="color: #007acc">:<\/span> ?)[0-9]+(?=(,|\n))/gsi, (match) => {
-                console.log(match);
                 switch (match) {
                     case "0":
                         return `<span style="background-image: url(textures/default.png); background-size: contain">${match}</span>`;
-                    case 1:
+                    case "1":
                         return `<span style="background-image: url(textures/grabbable.png); background-size: contain">${match}</span>`;
-                    case 2:
+                    case "2":
                         return `<span style="background-image: url(textures/ice.png); background-size: contain">${match}</span>`;
-                    case 3:
+                    case "3":
                         return `<span style="background-image: url(textures/lava.png); background-size: contain">${match}</span>`;
-                    case 4:
+                    case "4":
                         return `<span style="background-image: url(textures/wood.png); background-size: contain">${match}</span>`;
-                    case 5:
+                    case "5":
                         return `<span style="background-image: url(textures/grapplable.png); background-size: contain">${match}</span>`;
-                    case 6:
+                    case "6":
                         return `<span style="background-image: url(textures/grapplable_lava.png); background-size: contain">${match}</span>`;
-                    case 7:
+                    case "7":
                         return `<span style="background-image: url(textures/grabbable_crumbling.png); background-size: contain">${match}</span>`;
-                    case 8:
+                    case "8":
                         return `<span style="background-image: url(textures/default_colored.png); background-size: contain">${match}</span>`;
-                    case 9:
+                    case "9":
                         return `<span style="background-image: url(textures/bouncing.png); background-size: contain">${match}</span>`;
                     default:
                         break;
