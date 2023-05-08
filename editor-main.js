@@ -315,10 +315,10 @@ function refreshScene() {
         complexity += loadLevelNode(node, scene);
     });
     
-    console.log(complexity);
-    // document.getElementById('complexity').innerText = `Complexity: ${complexity}`;
+    // console.log(complexity);
+    document.getElementById('complexity').innerText = `Complexity: ${complexity}`;
     
-    
+
 
     renderer.render( scene, camera );
 }

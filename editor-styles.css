@@ -39,6 +39,13 @@
                 border: none;
                 outline: none;
             }
+            #complexity {
+                position: fixed;
+                left: 5px;
+                font-size: 13px;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                bottom: 5px;
+            }
 
             /* Resize Main */
             #content {
@@ -206,13 +213,15 @@
             }
             .menu-btn:has(+ ul):not(.menu-list > li > button)::after {
                 content: url(editor-icons/carat.svg);
-                position: absolute;
-                width: 10px;
-                top: 6;
-                left: 85%;
             }
             #credit-menu {
                 max-height: 200px;
                 overflow-y: scroll;
                 transform: matrix(1, 0, 0, 1, 0, -32);
+            }
+            .menu-btn::after {
+                position: absolute;
+                width: 10px;
+                left: 85%;
+                margin-top: 3px;
             }
