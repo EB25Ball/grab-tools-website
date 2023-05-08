@@ -460,7 +460,7 @@ document.getElementById('pc-btn').addEventListener('click', () => {
 document.getElementById('pc-btn-input').addEventListener('change', (e) => {
     openLevelFile(e.target.files);
 });
-
+//
 document.getElementById('title-btn').addEventListener('click', () => {
     document.getElementById('prompts').style.display = 'grid';
     document.getElementById('prompt-title').style.display = 'flex';
@@ -480,6 +480,69 @@ document.querySelector('#prompt-title .prompt-submit').addEventListener('click',
     levelData.title = input;
     setLevel(levelData);
     document.getElementById('title-prompt').value = '';
+});
+//
+document.getElementById('description-btn').addEventListener('click', () => {
+    document.getElementById('prompts').style.display = 'grid';
+    document.getElementById('prompt-description').style.display = 'flex';
+});
+
+document.querySelector('#prompt-description .prompt-cancel').addEventListener('click', () => {
+    document.getElementById('prompts').style.display = 'none';
+    document.getElementById('prompt-description').style.display = 'none';
+    document.getElementById('description-prompt').value = '';
+});
+
+document.querySelector('#prompt-description .prompt-submit').addEventListener('click', () => {
+    document.getElementById('prompts').style.display = 'none';
+    document.getElementById('prompt-description').style.display = 'none';
+    var input = document.getElementById('description-prompt').value;
+    var levelData = getLevel();
+    levelData.description = input;
+    setLevel(levelData);
+    document.getElementById('description-prompt').value = '';
+});
+//
+document.getElementById('creators-btn').addEventListener('click', () => {
+    document.getElementById('prompts').style.display = 'grid';
+    document.getElementById('prompt-creators').style.display = 'flex';
+});
+
+document.querySelector('#prompt-creators .prompt-cancel').addEventListener('click', () => {
+    document.getElementById('prompts').style.display = 'none';
+    document.getElementById('prompt-creators').style.display = 'none';
+    document.getElementById('creators-prompt').value = '';
+});
+
+document.querySelector('#prompt-creators .prompt-submit').addEventListener('click', () => {
+    document.getElementById('prompts').style.display = 'none';
+    document.getElementById('prompt-creators').style.display = 'none';
+    var input = document.getElementById('creators-prompt').value;
+    var levelData = getLevel();
+    levelData.creators = input;
+    setLevel(levelData);
+    document.getElementById('creators-prompt').value = '';
+});
+//
+document.getElementById('checkpoints-btn').addEventListener('click', () => {
+    document.getElementById('prompts').style.display = 'grid';
+    document.getElementById('prompt-checkpoints').style.display = 'flex';
+});
+
+document.querySelector('#prompt-checkpoints .prompt-cancel').addEventListener('click', () => {
+    document.getElementById('prompts').style.display = 'none';
+    document.getElementById('prompt-checkpoints').style.display = 'none';
+    document.getElementById('checkpoints-prompt').value = '';
+});
+
+document.querySelector('#prompt-checkpoints .prompt-submit').addEventListener('click', () => {
+    document.getElementById('prompts').style.display = 'none';
+    document.getElementById('prompt-checkpoints').style.display = 'none';
+    var input = document.getElementById('checkpoints-prompt').value;
+    var levelData = getLevel();
+    levelData.maxCheckpointCount = parseInt(input);
+    setLevel(levelData);
+    document.getElementById('checkpoints-prompt').value = '';
 });
 
 
