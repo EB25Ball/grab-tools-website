@@ -331,8 +331,135 @@ function animate() {
 animate();
 
 
+// proto functions
+
+function readArrayBuffer(file) {
+    return new Promise(function(resolve, reject) {
+        let reader = new FileReader();
+        reader.onload = function() {
+            let data = reader.result;
+            protobuf.load("proto/level.proto", function(err, root) {
+                if(err) throw err;
+                let message = root.lookupType("COD.Level.Level");
+                let decoded = message.decode(new Uint8Array(data));
+                let object = message.toObject(decoded);
+                resolve(object);
+            });
+        }
+        reader.onerror = function() {
+            reject(reader);
+        }
+        reader.readAsArrayBuffer(file);
+    });
+}
 
 
+function openJSON(link) {
+    fetch(link)
+        .then(response => response.json())
+        .then(data => {
+            setLevel(data)
+        })
+}
+function openProto(link) {
+    fetch(link)
+        .then(response => response.arrayBuffer())
+        .then(data => {
+            let readers = [];
+            let blob = new Blob([data]);
+            readers.push(readArrayBuffer(blob));
+            
+
+            Promise.all(readers).then((values) => {
+                setLevel(values[0]);
+            });
+        })
+}
+
+function openLevelFile(level) {
+    let files = level;
+    let readers = [];
+
+    if (!files.length) return;
+
+    for (let i = 0; i < files.length; i++) {
+        readers.push(readArrayBuffer(files[i]));
+    }
+
+    Promise.all(readers).then((values) => {
+        setLevel(values);
+    });
+}
+
+function appendJSON(Link) {
+
+}
+function appendLevelFile(level) {
+    let files = e.target.files;
+    let readers = [];
+
+    if (!files.length) return;
+
+    for (let i = 0; i < files.length; i++) {
+        readers.push(readArrayBuffer(files[i]));
+    }
+
+    Promise.all(readers).then((values) => {
+        obj = getLevel();
+        obj.levelNodes += values.levelNodes;
+        setLevel(JSON.stringify(obj, null, 4));
+    });
+}
+
+
+// Buttons
+document.getElementById('empty-btn').addEventListener( 'click', () => {
+    setLevel({
+        "formatVersion": 6,
+        "title": "New Level",
+        "creators": ".index-editor",
+        "description": ".index - Level modding",
+        "levelNodes": [],
+        "maxCheckpointCount": 10,
+        "ambienceSettings": {
+            "skyZenithColor": {
+                "r": 0.28,
+                "g": 0.476,
+                "b": 0.73,
+                "a": 1
+            },
+            "skyHorizonColor": {
+                "r": 0.916,
+                "g": 0.9574,
+                "b": 0.9574,
+                "a": 1
+            },
+            "sunAltitude": 45,
+            "sunAzimuth": 315,
+            "sunSize": 1,
+            "fogDDensity": 0
+        }
+    });
+});
+
+document.getElementById('json-btn').addEventListener('click', () => {
+    const json = JSON.stringify(getLevel());
+    const blob = new Blob([json], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = (Date.now()).toString().slice(0, -3)+".json";
+    document.body.appendChild(link);
+    link.click();
+    URL.revokeObjectURL(url);
+});
+
+document.getElementById('pc-btn').addEventListener('click', () => {
+    document.getElementById('pc-btn-input').click();
+});
+document.getElementById('pc-btn-input').addEventListener('change', (e) => {
+    openLevelFile(e.target.files);
+});
 
 
 
