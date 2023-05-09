@@ -319,7 +319,7 @@ function refreshScene() {
     document.getElementById('complexity').innerText = `Complexity: ${complexity}`;
     
     
-    var ambiance = levelData.ambianceSettings;
+    var ambience = levelData.ambienceSettings;
     var sky = [
         [
             0, 0, 0
@@ -328,16 +328,16 @@ function refreshScene() {
             0, 0, 0
         ]
     ];
-    if (ambiance) {
-        if (ambiance.skyZenithColor) {
-            ambiance.skyZenithColor.r ? sky[0][0] = ambiance.skyZenithColor.r * 255 : sky[0][0] = 0;
-            ambiance.skyZenithColor.g ? sky[0][1] = ambiance.skyZenithColor.g * 255 : sky[0][1] = 0;
-            ambiance.skyZenithColor.b ? sky[0][2] = ambiance.skyZenithColor.b * 255 : sky[0][2] = 0;
+    if (ambience) {
+        if (ambience.skyZenithColor) {
+            ambience.skyZenithColor.r ? sky[0][0] = ambience.skyZenithColor.r * 255 : sky[0][0] = 0;
+            ambience.skyZenithColor.g ? sky[0][1] = ambience.skyZenithColor.g * 255 : sky[0][1] = 0;
+            ambience.skyZenithColor.b ? sky[0][2] = ambience.skyZenithColor.b * 255 : sky[0][2] = 0;
         }
-        if (ambiance.skyHorizonColor) {
-            ambiance.skyHorizonColor.r ? sky[1][0] = ambiance.skyHorizonColor.r * 255 : sky[1][0] = 0;
-            ambiance.skyHorizonColor.g ? sky[1][1] = ambiance.skyHorizonColor.g * 255 : sky[1][1] = 0;
-            ambiance.skyHorizonColor.b ? sky[1][2] = ambiance.skyHorizonColor.b * 255 : sky[1][2] = 0;
+        if (ambience.skyHorizonColor) {
+            ambience.skyHorizonColor.r ? sky[1][0] = ambience.skyHorizonColor.r * 255 : sky[1][0] = 0;
+            ambience.skyHorizonColor.g ? sky[1][1] = ambience.skyHorizonColor.g * 255 : sky[1][1] = 0;
+            ambience.skyHorizonColor.b ? sky[1][2] = ambience.skyHorizonColor.b * 255 : sky[1][2] = 0;
         }
     }
 
@@ -769,8 +769,8 @@ document.getElementById('nodeFinish-btn').addEventListener('click', () => {
     setLevel(levelData);
 });
 
-document.getElementById('clearambiance-btn').addEventListener('click', () => {
-    var ambiance = {
+document.getElementById('clearambience-btn').addEventListener('click', () => {
+    var ambience = {
         "skyZenithColor": {
             "r": 0,
             "g": 0,
@@ -789,7 +789,7 @@ document.getElementById('clearambiance-btn').addEventListener('click', () => {
         "fogDDensity": 0
     };
     var levelData = getLevel();
-    levelData.ambianceSettings = ambiance;
+    levelData.ambienceSettings = ambience;
     setLevel(levelData);
 });
 
