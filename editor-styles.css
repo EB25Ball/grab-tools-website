@@ -47,6 +47,7 @@
                 bottom: 5px;
             }
             #warning {
+                width: 100%;
                 display: none;
                 background: #df3719;
                 color: #eee;
