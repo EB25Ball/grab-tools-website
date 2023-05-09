@@ -746,6 +746,30 @@ document.getElementById('nodeFinish-btn').addEventListener('click', () => {
     setLevel(levelData);
 });
 
+document.getElementById('clearambiance-btn').addEventListener('click', () => {
+    var ambiance = {
+        "skyZenithColor": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 1
+        },
+        "skyHorizonColor": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 1
+        },
+        "sunAltitude": 0,
+        "sunAzimuth": 0,
+        "sunSize": 1,
+        "fogDDensity": 0
+    };
+    var levelData = getLevel();
+    levelData.ambianceSettings = ambiance;
+    setLevel(levelData);
+});
+
 document.querySelector('#prompt-protobuf .prompt-submit').addEventListener('click', () => {
     document.getElementById('prompts').style.display = 'none';
     document.getElementById('prompt-protobuf').style.display = 'none';
