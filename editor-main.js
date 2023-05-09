@@ -318,7 +318,30 @@ function refreshScene() {
     // console.log(complexity);
     document.getElementById('complexity').innerText = `Complexity: ${complexity}`;
     
+    
+    var ambiance = levelData.ambianceSettings;
+    var sky = [
+        [
+            0, 0, 0
+        ],
+        [
+            0, 0, 0
+        ]
+    ];
+    if (ambiance) {
+        if (ambiance.skyZenithColor) {
+            ambiance.skyZenithColor.r ? sky[0][0] = ambiance.skyZenithColor.r * 255 : sky[0][0] = 0;
+            ambiance.skyZenithColor.g ? sky[0][1] = ambiance.skyZenithColor.g * 255 : sky[0][1] = 0;
+            ambiance.skyZenithColor.b ? sky[0][2] = ambiance.skyZenithColor.b * 255 : sky[0][2] = 0;
+        }
+        if (ambiance.skyHorizonColor) {
+            ambiance.skyHorizonColor.r ? sky[1][0] = ambiance.skyHorizonColor.r * 255 : sky[1][0] = 0;
+            ambiance.skyHorizonColor.g ? sky[1][1] = ambiance.skyHorizonColor.g * 255 : sky[1][1] = 0;
+            ambiance.skyHorizonColor.b ? sky[1][2] = ambiance.skyHorizonColor.b * 255 : sky[1][2] = 0;
+        }
+    }
 
+    document.getElementById('render-container').style.backgroundImage = `linear-gradient(rgb(${sky[0][0]}, ${sky[0][1]}, ${sky[0][2]}), rgb(${sky[1][0]}, ${sky[1][1]}, ${sky[1][2]}), rgb(${sky[0][0]}, ${sky[0][1]}, ${sky[0][2]}))`;
 
     renderer.render( scene, camera );
 }
