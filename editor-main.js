@@ -414,6 +414,25 @@ function appendLevelFile(level) {
     });
 }
 
+function downloadProto(obj) {
+    var root = protobuf.parse(PROTOBUF_DATA, { keepCase: true }).root;
+    // protobuf.load("proto/level.proto", function(err, root) {
+        // if(err) throw err;
+
+        let message = root.lookupType("COD.Level.Level");
+        let errMsg = message.verify(obj);
+        if(errMsg) throw Error(errMsg);
+        let buffer = message.encode(message.fromObject(obj)).finish();
+        
+        let blob = new Blob([buffer], {type: "application/octet-stream"});
+
+        let link = document.createElement("a");
+        link.href = window.URL.createObjectURL(blob);
+        link.download = (Date.now()).toString().slice(0, -3)+".level";
+        link.click();
+    // });
+}
+
 
 // Buttons
 document.getElementById('empty-btn').addEventListener( 'click', () => {
@@ -568,6 +587,10 @@ document.querySelector('#prompt-protobuf .prompt-cancel').addEventListener('clic
     document.getElementById('prompts').style.display = 'none';
     document.getElementById('prompt-protobuf').style.display = 'none';
     document.getElementById('protobuf-prompt').value = PROTOBUF_DATA;
+});
+
+document.getElementById('topc-btn').addEventListener('click', () => {
+    downloadProto(getLevel());
 });
 
 document.querySelector('#prompt-protobuf .prompt-submit').addEventListener('click', () => {
