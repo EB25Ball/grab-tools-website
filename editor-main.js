@@ -693,17 +693,13 @@ message LevelNodeGroup
 	Vector scale = 2;
 	Quaternion rotation = 3;
 
-	//This is where level nodes that are part of the group are stored when saving to file / loading
-	//It is ok to be empty when networking a groups transform
-	//There is an additional message for networking grouping and ungrouping (LevelNodeGroupRequest, LevelNodeGroupResponse)
-	//When sending the full level on a new player joining the editor, first the level nodes are sent on their own and then a group response to group them
 	repeated LevelNode childNodes = 4;
 }
 
 message LevelNodeStart
 {
 	Vector position = 1;
-	Quaternion rotation = 2; //Should always be upright and is meant to be used for the player rotation on spawn
+	Quaternion rotation = 2;
 	float radius = 3;
 }
 
@@ -715,8 +711,8 @@ message LevelNodeFinish
 
 message LevelNodeStatic
 {
-	LevelNodeShape shape = 1; //Must be one of CUBE, SPHERE, CYLINDER, PYRAMID, PRISM
-	LevelNodeMaterial material = 2; //Can not be GRABBABLE_CRUMBLING
+	LevelNodeShape shape = 1;
+	LevelNodeMaterial material = 2;
 
 	Vector position = 3;
 	Vector scale = 4;
@@ -728,8 +724,8 @@ message LevelNodeStatic
 
 message LevelNodeCrumbling
 {
-	LevelNodeShape shape = 1; //Must be one of CUBE, SPHERE, CYLINDER, PYRAMID, PRISM
-	LevelNodeMaterial material = 2; //Must be GRABBABLE_CRUMBLING
+	LevelNodeShape shape = 1;
+	LevelNodeMaterial material = 2;
 
 	Vector position = 3;
 	Vector scale = 4;
@@ -758,8 +754,8 @@ message Animation
 {
 	enum Direction
 	{
-		RESTART = 0; //After the last frame, jump back to the first frame
-		PINGPONG = 1; //After the last frame, play the animation backwards
+		RESTART = 0;
+		PINGPONG = 1;
 	}
 
 	string name = 1;
