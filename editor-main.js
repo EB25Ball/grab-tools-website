@@ -778,7 +778,6 @@ message LevelNode
 		LevelNodeGroup levelNodeGroup = 7;
 	}
 
-	//A level node can have any number (might limit it in the UI) of named animations, if groups are involved every block that is part of the same animation should have an animation with the same name
 	repeated Animation animations = 15;
 }
 `
