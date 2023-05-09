@@ -247,8 +247,8 @@
                 background: #6464646d;
                 z-index: 100;
                 display: grid;
-                place-items: center;
-                justify-content: center;
+                align-items: center;
+                justify-items: center;
                 display: none;
             }
             .prompt-simple {
