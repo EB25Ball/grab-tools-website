@@ -593,6 +593,159 @@ document.getElementById('topc-btn').addEventListener('click', () => {
     downloadProto(getLevel());
 });
 
+document.getElementById('nodeStatic-btn').addEventListener('click', () => {
+    var staticNode = {
+        "levelNodeStatic": {
+            "shape": 1000,
+            "material": 0,
+            "position": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+            },
+            "scale": {
+                "x": 1,
+                "y": 1,
+                "z": 1
+            },
+            "rotation": {
+                "w": 1,
+                "x": 0,
+                "y": 0,
+                "z": 0
+            }
+        }
+    };
+    var levelData = getLevel();
+    levelData.levelNodes.push(staticNode);
+    setLevel(levelData);
+});
+
+document.getElementById('nodeCrumbling-btn').addEventListener('click', () => {
+    var crumblingNode = {
+        "levelNodeCrumbling": {
+            "shape": 1000,
+            "material": 7,
+            "position": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+            },
+            "scale": {
+                "x": 1,
+                "y": 1,
+                "z": 1
+            },
+            "rotation": {
+                "w": 1,
+                "x": 0,
+                "y": 0,
+                "z": 0
+            },
+            "stableTime": 0.5,
+            "respawnTime": 0.5
+        }
+    };
+    var levelData = getLevel();
+    levelData.levelNodes.push(crumblingNode);
+    setLevel(levelData);
+});
+
+document.getElementById('nodeColored-btn').addEventListener('click', () => {
+    var coloredNode = {
+        "levelNodeStatic": {
+            "shape": 1000,
+            "material": 8,
+            "position": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+            },
+            "scale": {
+                "x": 1,
+                "y": 1,
+                "z": 1
+            },
+            "rotation": {
+                "w": 1,
+                "x": 0,
+                "y": 0,
+                "z": 0
+            },
+            "color": {
+                "r": 1,
+                "g": 1,
+                "b": 1,
+                "a": 1
+            },
+            "isNeon": false
+        }
+    };
+    var levelData = getLevel();
+    levelData.levelNodes.push(coloredNode);
+    setLevel(levelData);
+});
+
+document.getElementById('nodeSign-btn').addEventListener('click', () => {
+    var signNode = {
+        "levelNodeSign": {
+            "position": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+            },
+            "rotation": {
+                "w": 1,
+                "x": 0,
+                "y": 0,
+                "z": 0
+            },
+            "text": "Sample text"
+        }
+    };
+    var levelData = getLevel();
+    levelData.levelNodes.push(signNode);
+    setLevel(levelData);
+});
+
+document.getElementById('nodeStart-btn').addEventListener('click', () => {
+    var startNode = {
+        "levelNodeStart": {
+            "position": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+            },
+            "rotation": {
+                "w": 1,
+                "x": 0,
+                "y": 0,
+                "z": 0
+            },
+            "radius": 1
+        }
+    };
+    var levelData = getLevel();
+    levelData.levelNodes.push(startNode);
+    setLevel(levelData);
+});
+
+document.getElementById('nodeFinish-btn').addEventListener('click', () => {
+    var finishNode = {
+        "levelNodeFinish": {
+            "position": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+            },
+            "radius": 1
+        }
+    };
+    var levelData = getLevel();
+    levelData.levelNodes.push(finishNode);
+    setLevel(levelData);
+});
+
 document.querySelector('#prompt-protobuf .prompt-submit').addEventListener('click', () => {
     document.getElementById('prompts').style.display = 'none';
     document.getElementById('prompt-protobuf').style.display = 'none';
