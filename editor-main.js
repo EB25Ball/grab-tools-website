@@ -910,6 +910,30 @@ document.getElementById('fireambience-btn').addEventListener('click', () => {
     setLevel(levelData);
 });
 
+document.getElementById('defaultambience-btn').addEventListener('click', () => {
+    var ambience = {
+        "skyZenithColor": {
+            "r": 0.28,
+            "g": 0.476,
+            "b": 0.73,
+            "a": 1
+        },
+        "skyHorizonColor": {
+            "r": 0.916,
+            "g": 0.9574,
+            "b": 0.9574,
+            "a": 1
+        },
+        "sunAltitude": 45,
+        "sunAzimuth": 315,
+        "sunSize": 1,
+        "fogDDensity": 0
+    };
+    var levelData = getLevel();
+    levelData.ambienceSettings = ambience;
+    setLevel(levelData);
+});
+
 document.getElementById('randomambience-btn').addEventListener('click', () => {
     var ambience = {
         "skyZenithColor": {
