@@ -17,7 +17,7 @@ var lastRan = '';
 document
     .getElementById('terminal-input')
     .addEventListener('keydown', (e) => {
-        if (e.which === 13 && e.shiftKey === false) {
+        if (e.which === 13 && e.shiftKey === false && e.altKey === false) {
             e.preventDefault();
             var input = document
                 .getElementById('terminal-input')
@@ -33,8 +33,27 @@ document
                     console.error(e)
                     fail++;
                 }
-                document.getElementById("terminal-input").placeholder = `[Enter] to run JS code\n[Alt] & [UpArrow] for last ran\nvar level.levelNodes.forEach(node => {})\n\n${success} success | ${fail} error${fail != 0 ? "\n[ctrl]+[shift]+[i] for details" : ""}`;
             });
+            document.getElementById("terminal-input").placeholder = `[Enter] to run JS code in loop\n[Alt] & [Enter] to run JS code out of loop\n[Alt] & [UpArrow] for last ran\nvar level = getLevel()\nlevel.levelNodes.forEach(node => {})\n\n${success} success | ${fail} error${fail != 0 ? "\n[ctrl]+[shift]+[i] for details" : ""}`;
+            setLevel(level);
+            lastRan = input
+            document
+                .getElementById('terminal-input')
+                .value = '';
+        } else if (e.which === 13 && e.altKey === true && e.shiftKey === false) {
+            e.preventDefault();
+            var input = document
+                .getElementById('terminal-input')
+                .value;
+            var level = getLevel();
+            try {
+                eval(input);
+                document.getElementById("terminal-input").placeholder = `[Enter] to run JS code in loop\n[Alt] & [Enter] to run JS code out of loop\n[Alt] & [UpArrow] for last ran\nvar level = getLevel()\nlevel.levelNodes.forEach(node => {})\n\nsuccess`;
+            } catch (e) {
+                console.error(e);
+                document.getElementById("terminal-input").placeholder = `[Enter] to run JS code in loop\n[Alt] & [Enter] to run JS code out of loop\n[Alt] & [UpArrow] for last ran\nvar level = getLevel()\nlevel.levelNodes.forEach(node => {})\n\nerror | [ctrl]+[shift]+[i] for details`;
+            }
+            
             setLevel(level);
             lastRan = input
             document
