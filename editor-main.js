@@ -642,6 +642,12 @@ document.getElementById('group-btn').addEventListener('click', () => {
     setLevel(levelData);
 });
 
+document.getElementById('duplicate-btn').addEventListener('click', () => {
+    var levelData = getLevel();
+    levelData.levelNodes.concat(levelData.levelNodes);
+    setLevel(levelData);
+});
+
 document.getElementById('protobuf-btn').addEventListener('click', () => {
     document.getElementById('prompts').style.display = 'grid';
     document.getElementById('prompt-protobuf').style.display = 'flex';
@@ -829,6 +835,54 @@ document.getElementById('clearambience-btn').addEventListener('click', () => {
         "sunAzimuth": 0,
         "sunSize": 1,
         "fogDDensity": 0
+    };
+    var levelData = getLevel();
+    levelData.ambienceSettings = ambience;
+    setLevel(levelData);
+});
+
+document.getElementById('maxambience-btn').addEventListener('click', () => {
+    var ambience = {
+        "skyZenithColor": {
+            "r": 32000,
+            "g": 32000,
+            "b": 32000,
+            "a": 1
+        },
+        "skyHorizonColor": {
+            "r": 32000,
+            "g": 32000,
+            "b": 32000,
+            "a": 1
+        },
+        "sunAltitude": 32000,
+        "sunAzimuth": 32000,
+        "sunSize": 32000,
+        "fogDDensity": 32000
+    };
+    var levelData = getLevel();
+    levelData.ambienceSettings = ambience;
+    setLevel(levelData);
+});
+
+document.getElementById('minambience-btn').addEventListener('click', () => {
+    var ambience = {
+        "skyZenithColor": {
+            "r": -32000,
+            "g": -32000,
+            "b": -32000,
+            "a": 1
+        },
+        "skyHorizonColor": {
+            "r": -32000,
+            "g": -32000,
+            "b": -32000,
+            "a": 1
+        },
+        "sunAltitude": -32000,
+        "sunAzimuth": -32000,
+        "sunSize": -32000,
+        "fogDDensity": -32000
     };
     var levelData = getLevel();
     levelData.ambienceSettings = ambience;
