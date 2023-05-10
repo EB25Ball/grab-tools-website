@@ -71,9 +71,16 @@ document
 function highlightTextEditor() {
     var textEditor = document.getElementById('edit-input');
 
-    const editText = textEditor.innerText;
+    const editText = JSON.stringify(JSON.parse(textEditor.innerText), null, 4);
 
-    var highlightedText = editText.replace(/([bruf]*)(\"""|'''|"|')(?:(?!\2)(?:\\.|[^\\]))*\2:?/gs, (match) => {
+    var highlightedText = editText.replace(/"color":\s*{\s*("r":\s*(\d+(?:\.\d+)?),)?\s*("g":\s*(\d+(?:\.\d+)?),)?\s*("b":\s*(\d+(?:\.\d+)?),)?\s*("a":\s*\d+(?:\.\d+)?)?\s*}/, (match) => {
+        var jsonData = JSON.parse(`{${match}}`);
+        var color = `rgba(${(jsonData.color.r || 0) * 255}, ${(jsonData.color.g || 0) * 255}, ${(jsonData.color.b || 0) * 255}, 0.3)`;
+        // return `<span style='background-color: ${color};'>"color"</span>${match.replace('"color"', "")}`
+        return `<span style='text-shadow: 0 0 10px ${color}, 0 0 10px ${color}, 0 0 10px ${color}, 0 0 10px ${color}, 0 0 10px ${color}, 0 0 10px ${color};'>${match}</span>`
+    });
+
+    highlightedText = highlightedText.replace(/([bruf]*)(\"""|")(?:(?!\2)(?:\\.|[^\\]))*\2:?/gs, (match) => {
     if (match.endsWith(":")) {
         return `<span style="color: #dd612e">${match.slice(0,-1)}</span><span style="color: #007acc">:</span>`;
     } else {
@@ -424,7 +431,7 @@ function openProto(link) {
             });
         })
 }
-openProto('https://api.slin.dev/grab/v1/download/29r46v7djliny6t4rzvq7/1654257963/4');
+openProto('lobbies/lobby.level');
 
 function openLevelFile(level) {
     let files = level;
