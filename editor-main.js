@@ -619,6 +619,28 @@ document.getElementById('cleardetails-btn').addEventListener('click', () => {
     setLevel(levelData);
 });
 
+document.getElementById('group-btn').addEventListener('click', () => {
+    var levelData = getLevel();
+    levelData.levelNodes = [{
+        "levelNodeGroup": {
+            "position": {
+                "y": 0, 
+                "x": 0, 
+                "z": 0
+            }, 
+            "rotation": {
+                "w": 1.0
+            }, 
+            "childNodes": levelData.levelNodes, 
+            "scale": {
+                "y": 1.0, 
+                "x": 1.0, 
+                "z": 1.0
+            }
+        }
+    }];
+    setLevel(levelData);
+});
 
 document.getElementById('protobuf-btn').addEventListener('click', () => {
     document.getElementById('prompts').style.display = 'grid';
