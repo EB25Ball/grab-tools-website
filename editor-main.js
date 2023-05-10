@@ -405,7 +405,7 @@ function openProto(link) {
             });
         })
 }
-openProto('levels/new.level');
+openProto('https://api.slin.dev/grab/v1/download/29r46v7djliny6t4rzvq7/1654257963/4');
 
 function openLevelFile(level) {
     let files = level;
