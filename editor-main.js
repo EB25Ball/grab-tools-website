@@ -61,7 +61,12 @@ function highlightTextEditor() {
         return `<span style="color: #487e02">${match}</span>`;
     }
     });
-
+    highlightedText = highlightedText.replace(/"levelNodeFinish"/gsi, (match) => {
+        return `<span style="background: #f006;">${match}</span>`
+    });
+    highlightedText = highlightedText.replace(/"levelNodeStart"/gsi, (match) => {
+        return `<span style="background: #0f06;">${match}</span>`
+    });
     highlightedText = highlightedText.replace(/<span style="color: #dd612e">"material"<\/span><span style="color: #007acc">:<\/span> ?[0-9]/gsi, (match) => {
         switch (parseInt(match.split(">")[4])) {
             case 0:
