@@ -1190,6 +1190,16 @@ function setLevel(level) {
     } else {
         document.getElementById('warning').style.display = "none";
     }
+    !level.levelNodes ? level.levelNodes = [] : {};
+    level.levelNodes.forEach(node => {
+        if (node.levelNodeColor) {
+            !node.levelNodeColor.color ? node.levelNodeColor.color = {} : {};
+            !node.levelNodeColor.color.r ? node.levelNodeColor.color.r = 0 : {};
+            !node.levelNodeColor.color.g ? node.levelNodeColor.color.g = 0 : {};
+            !node.levelNodeColor.color.b ? node.levelNodeColor.color.b = 0 : {};
+        }
+    });
+
     document.getElementById('edit-input').innerText = JSON.stringify(level, null, 4);
     highlightTextEditor();
     refreshScene();
