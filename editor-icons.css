@@ -78,3 +78,8 @@
 .menu-btn#model-btn::after {
     content: url(editor-icons/cube.svg);
 }
+
+
+.r {
+    background-color: #ff7777;
+}

@@ -487,6 +487,26 @@ document.getElementById('empty-btn').addEventListener( 'click', () => {
     });
 });
 
+document.getElementById('slindev-btn').addEventListener('click', () => {
+    window.open("https://discord.slin.dev", "_blank");
+});
+
+document.getElementById('email-btn').addEventListener('click', () => {
+    location.href = "mailto:twhlynch@gmail.com";
+});
+
+document.getElementById('discord-btn').addEventListener('click', () => {
+    window.open("https://discordapp.com/users/649165311257608192", "_blank");
+});
+
+document.getElementById('server-btn').addEventListener('click', () => {
+    window.open("https://twhlynch.me/discord", "_blank");
+});
+
+document.getElementById('docs-btn').addEventListener('click', () => {
+    window.open("editor-docs.html", "_blank");
+});
+
 document.getElementById('json-btn').addEventListener('click', () => {
     const json = JSON.stringify(getLevel());
     const blob = new Blob([json], { type: 'application/json' });
