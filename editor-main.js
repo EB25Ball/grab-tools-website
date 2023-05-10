@@ -910,6 +910,30 @@ document.getElementById('fireambience-btn').addEventListener('click', () => {
     setLevel(levelData);
 });
 
+document.getElementById('randomambience-btn').addEventListener('click', () => {
+    var ambience = {
+        "skyZenithColor": {
+            "r": Math.floor(Math.random() * 19999999999) - 9999999999,
+            "g": Math.floor(Math.random() * 19999999999) - 9999999999,
+            "b": Math.floor(Math.random() * 19999999999) - 9999999999,
+            "a": 1
+        },
+        "skyHorizonColor": {
+            "r": Math.floor(Math.random() * 19999999999) - 9999999999,
+            "g": Math.floor(Math.random() * 19999999999) - 9999999999,
+            "b": Math.floor(Math.random() * 19999999999) - 9999999999,
+            "a": 1
+        },
+        "sunAltitude": Math.floor(Math.random() * 19999999999) - 9999999999,
+        "sunAzimuth": Math.floor(Math.random() * 19999999999) - 9999999999,
+        "sunSize": Math.floor(Math.random() * 19999999999) - 9999999999,
+        "fogDDensity": Math.floor(Math.random() * 19999999999) - 9999999999
+    };
+    var levelData = getLevel();
+    levelData.ambienceSettings = ambience;
+    setLevel(levelData);
+});
+
 document.querySelector('#prompt-protobuf .prompt-submit').addEventListener('click', () => {
     document.getElementById('prompts').style.display = 'none';
     document.getElementById('prompt-protobuf').style.display = 'none';
