@@ -69,59 +69,65 @@ document
 
 // Highlighting
 function highlightTextEditor() {
-    var textEditor = document.getElementById('edit-input');
+    if (!HIDE_TEXT) {
+        var textEditor = document.getElementById('edit-input');
+        
+        const editText = JSON.stringify(JSON.parse(textEditor.innerText), null, 4);
+        if (HIGHLIGHT_TEXT) {
 
-    const editText = JSON.stringify(JSON.parse(textEditor.innerText), null, 4);
+            var highlightedText = editText.replace(/"color":\s*{\s*("r":\s*(\d+(?:\.\d+)?),)?\s*("g":\s*(\d+(?:\.\d+)?),)?\s*("b":\s*(\d+(?:\.\d+)?),)?\s*("a":\s*\d+(?:\.\d+)?)?\s*}/, (match) => {
+                var jsonData = JSON.parse(`{${match}}`);
+                var color = `rgba(${(jsonData.color.r || 0) * 255}, ${(jsonData.color.g || 0) * 255}, ${(jsonData.color.b || 0) * 255}, 0.3)`;
+                // return `<span style='background-color: ${color};'>"color"</span>${match.replace('"color"', "")}`
+                return `<span style='text-shadow: 0 0 10px ${color}, 0 0 10px ${color}, 0 0 10px ${color}, 0 0 10px ${color}, 0 0 10px ${color}, 0 0 10px ${color};'>${match}</span>`
+            });
 
-    var highlightedText = editText.replace(/"color":\s*{\s*("r":\s*(\d+(?:\.\d+)?),)?\s*("g":\s*(\d+(?:\.\d+)?),)?\s*("b":\s*(\d+(?:\.\d+)?),)?\s*("a":\s*\d+(?:\.\d+)?)?\s*}/, (match) => {
-        var jsonData = JSON.parse(`{${match}}`);
-        var color = `rgba(${(jsonData.color.r || 0) * 255}, ${(jsonData.color.g || 0) * 255}, ${(jsonData.color.b || 0) * 255}, 0.3)`;
-        // return `<span style='background-color: ${color};'>"color"</span>${match.replace('"color"', "")}`
-        return `<span style='text-shadow: 0 0 10px ${color}, 0 0 10px ${color}, 0 0 10px ${color}, 0 0 10px ${color}, 0 0 10px ${color}, 0 0 10px ${color};'>${match}</span>`
-    });
+            highlightedText = highlightedText.replace(/([bruf]*)(\"""|")(?:(?!\2)(?:\\.|[^\\]))*\2:?/gs, (match) => {
+            if (match.endsWith(":")) {
+                return `<span style="color: #dd612e">${match.slice(0,-1)}</span><span style="color: #007acc">:</span>`;
+            } else {
+                return `<span style="color: #487e02">${match}</span>`;
+            }
+            });
+            highlightedText = highlightedText.replace(/"levelNodeFinish"/gsi, (match) => {
+                return `<span style="background: #f006;">${match}</span>`
+            });
+            highlightedText = highlightedText.replace(/"levelNodeStart"/gsi, (match) => {
+                return `<span style="background: #0f06;">${match}</span>`
+            });
+            highlightedText = highlightedText.replace(/<span style="color: #dd612e">"material"<\/span><span style="color: #007acc">:<\/span> ?[0-9]/gsi, (match) => {
+                switch (parseInt(match.split(">")[4])) {
+                    case 0:
+                        return `<span style="background-image: url(textures/default.png); background-size: contain">${match}</span>`;
+                    case 1:
+                        return `<span style="background-image: url(textures/grabbable.png); background-size: contain">${match}</span>`;
+                    case 2:
+                        return `<span style="background-image: url(textures/ice.png); background-size: contain">${match}</span>`;
+                    case 3:
+                        return `<span style="background-image: url(textures/lava.png); background-size: contain">${match}</span>`;
+                    case 4:
+                        return `<span style="background-image: url(textures/wood.png); background-size: contain">${match}</span>`;
+                    case 5:
+                        return `<span style="background-image: url(textures/grapplable.png); background-size: contain">${match}</span>`;
+                    case 6:
+                        return `<span style="background-image: url(textures/grapplable_lava.png); background-size: contain">${match}</span>`;
+                    case 7:
+                        return `<span style="background-image: url(textures/grabbable_crumbling.png); background-size: contain">${match}</span>`;
+                    case 8:
+                        return `<span style="background-image: url(textures/default_colored.png); background-size: contain">${match}</span>`;
+                    case 9:
+                        return `<span style="background-image: url(textures/bouncing.png); background-size: contain">${match}</span>`;
+                    default:
+                        break;
+                }
+                return match;
+            });
 
-    highlightedText = highlightedText.replace(/([bruf]*)(\"""|")(?:(?!\2)(?:\\.|[^\\]))*\2:?/gs, (match) => {
-    if (match.endsWith(":")) {
-        return `<span style="color: #dd612e">${match.slice(0,-1)}</span><span style="color: #007acc">:</span>`;
-    } else {
-        return `<span style="color: #487e02">${match}</span>`;
-    }
-    });
-    highlightedText = highlightedText.replace(/"levelNodeFinish"/gsi, (match) => {
-        return `<span style="background: #f006;">${match}</span>`
-    });
-    highlightedText = highlightedText.replace(/"levelNodeStart"/gsi, (match) => {
-        return `<span style="background: #0f06;">${match}</span>`
-    });
-    highlightedText = highlightedText.replace(/<span style="color: #dd612e">"material"<\/span><span style="color: #007acc">:<\/span> ?[0-9]/gsi, (match) => {
-        switch (parseInt(match.split(">")[4])) {
-            case 0:
-                return `<span style="background-image: url(textures/default.png); background-size: contain">${match}</span>`;
-            case 1:
-                return `<span style="background-image: url(textures/grabbable.png); background-size: contain">${match}</span>`;
-            case 2:
-                return `<span style="background-image: url(textures/ice.png); background-size: contain">${match}</span>`;
-            case 3:
-                return `<span style="background-image: url(textures/lava.png); background-size: contain">${match}</span>`;
-            case 4:
-                return `<span style="background-image: url(textures/wood.png); background-size: contain">${match}</span>`;
-            case 5:
-                return `<span style="background-image: url(textures/grapplable.png); background-size: contain">${match}</span>`;
-            case 6:
-                return `<span style="background-image: url(textures/grapplable_lava.png); background-size: contain">${match}</span>`;
-            case 7:
-                return `<span style="background-image: url(textures/grabbable_crumbling.png); background-size: contain">${match}</span>`;
-            case 8:
-                return `<span style="background-image: url(textures/default_colored.png); background-size: contain">${match}</span>`;
-            case 9:
-                return `<span style="background-image: url(textures/bouncing.png); background-size: contain">${match}</span>`;
-            default:
-                break;
+            textEditor.innerHTML = highlightedText;
+        } else {
+            textEditor.innerHTML = editText;
         }
-        return match;
-    });
-
-    textEditor.innerHTML = highlightedText;
+    }
 }
 var textEditor = document.getElementById('edit-input').addEventListener('blur', () => {highlightTextEditor(); refreshScene();});
 
@@ -679,6 +685,32 @@ document.getElementById('duplicate-btn').addEventListener('click', () => {
     setLevel(levelData);
 });
 
+document.getElementById('hide-btn').addEventListener('click', () => {
+    if (HIDE_TEXT) {
+        document.getElementById('edit-input').style.display = 'block';
+        HIDE_TEXT = false;
+        highlightTextEditor();
+        refreshScene();
+    } else {
+        document.getElementById('edit-input').style.display = 'none';
+        HIDE_TEXT = true;
+        highlightTextEditor();
+        refreshScene();
+    }
+});
+
+document.getElementById('highlight-btn').addEventListener('click', () => {
+    if (HIGHLIGHT_TEXT) {
+        HIGHLIGHT_TEXT = false;
+        highlightTextEditor();
+        refreshScene();
+    } else {
+        HIGHLIGHT_TEXT = true;
+        highlightTextEditor();
+        refreshScene();
+    }
+});
+
 document.getElementById('protobuf-btn').addEventListener('click', () => {
     document.getElementById('prompts').style.display = 'grid';
     document.getElementById('prompt-protobuf').style.display = 'flex';
@@ -1177,6 +1209,9 @@ message LevelNode
 	repeated Animation animations = 15;
 }
 `
+
+var HIDE_TEXT = false;
+var HIGHLIGHT_TEXT = true;
 
 highlightTextEditor();
 refreshScene();
