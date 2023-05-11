@@ -32,8 +32,8 @@
 .menu-btn#png-btn::after, .menu-btn#image-btn::after {
     content: url(editor-icons/photo.svg);
 }
-.menu-btn#json-btn::after {
-    content: "{}";
+.menu-btn#json-btn::after, .menu-btn#pcjson-btn::after {
+    content: url(editor-icons/json.svg);
 }
 .menu-btn#discord-btn::after {
     content: url(editor-icons/message.svg);

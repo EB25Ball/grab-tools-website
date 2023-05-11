@@ -457,6 +457,14 @@ function openLevelFile(level) {
 function appendJSON(Link) {
 
 }
+function openJSONFile(file) {
+    var reader = new FileReader();
+    reader.onload = (event) => {
+        var obj = JSON.parse(event.target.result);
+        setLevel(obj);
+    };
+    reader.readAsText(file)
+}
 function appendLevelFile(level) {
     let files = e.target.files;
     let readers = [];
@@ -562,6 +570,15 @@ document.getElementById('pc-btn').addEventListener('click', () => {
 document.getElementById('pc-btn-input').addEventListener('change', (e) => {
     openLevelFile(e.target.files);
 });
+
+
+document.getElementById('pcjson-btn').addEventListener('click', () => {
+    document.getElementById('pcjson-btn-input').click();
+});
+document.getElementById('pcjson-btn-input').addEventListener('change', (e) => {
+    openJSONFile(e.target.files[0]);
+});
+
 //
 document.getElementById('title-btn').addEventListener('click', () => {
     document.getElementById('prompts').style.display = 'grid';
