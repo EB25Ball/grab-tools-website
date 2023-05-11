@@ -612,6 +612,10 @@ document.getElementById('description-btn').addEventListener('click', () => {
     document.getElementById('prompt-description').style.display = 'flex';
 });
 
+document.getElementById('performance-btn').addEventListener('click', () => {
+    renderer.getPixelRatio() == 1 ? renderer.setPixelRatio( window.devicePixelRatio / 10 ) : renderer.setPixelRatio( 1 );
+});
+
 document.querySelector('#prompt-description .prompt-cancel').addEventListener('click', () => {
     document.getElementById('prompts').style.display = 'none';
     document.getElementById('prompt-description').style.display = 'none';
@@ -704,7 +708,7 @@ document.getElementById('group-btn').addEventListener('click', () => {
 
 document.getElementById('duplicate-btn').addEventListener('click', () => {
     var levelData = getLevel();
-    levelData.levelNodes.concat(levelData.levelNodes);
+    levelData.levelNodes = levelData.levelNodes.concat(levelData.levelNodes);
     setLevel(levelData);
 });
 
