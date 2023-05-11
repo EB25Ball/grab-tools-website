@@ -454,8 +454,14 @@ function openLevelFile(level) {
     });
 }
 
-function appendJSON(Link) {
-
+function appendJSON(link) {
+    fetch(link)
+        .then(response => response.json())
+        .then(data => {
+            var levelData = getLevel();
+            levelData.levelNodes = levelData.levelNodes.concat(data.levelNodes);
+            setLevel(levelData);
+        })
 }
 function openJSONFile(file) {
     var reader = new FileReader();
@@ -466,7 +472,7 @@ function openJSONFile(file) {
     reader.readAsText(file)
 }
 function appendLevelFile(level) {
-    let files = e.target.files;
+    let files = level;
     let readers = [];
 
     if (!files.length) return;
@@ -476,9 +482,9 @@ function appendLevelFile(level) {
     }
 
     Promise.all(readers).then((values) => {
-        obj = getLevel();
-        obj.levelNodes += values.levelNodes;
-        setLevel(JSON.stringify(obj, null, 4));
+        var obj = getLevel();
+        obj.levelNodes = obj.levelNodes.concat(values[0].levelNodes);
+        setLevel(obj);
     });
 }
 
@@ -700,6 +706,13 @@ document.getElementById('duplicate-btn').addEventListener('click', () => {
     var levelData = getLevel();
     levelData.levelNodes.concat(levelData.levelNodes);
     setLevel(levelData);
+});
+
+document.getElementById('insertpc-btn').addEventListener('click', () => {
+    document.getElementById('insertpc-btn-input').click();
+});
+document.getElementById('insertpc-btn-input').addEventListener('change', (e) => {
+    appendLevelFile(e.target.files);
 });
 
 document.getElementById('hide-btn').addEventListener('click', () => {
@@ -1244,11 +1257,11 @@ function setLevel(level) {
     }
     !level.levelNodes ? level.levelNodes = [] : {};
     level.levelNodes.forEach(node => {
-        if (node.levelNodeColor) {
-            !node.levelNodeColor.color ? node.levelNodeColor.color = {} : {};
-            !node.levelNodeColor.color.r ? node.levelNodeColor.color.r = 0 : {};
-            !node.levelNodeColor.color.g ? node.levelNodeColor.color.g = 0 : {};
-            !node.levelNodeColor.color.b ? node.levelNodeColor.color.b = 0 : {};
+        if (node.hasOwnProperty('levelNodeStatic')) {
+            !node.levelNodeStatic.color ? node.levelNodeStatic.color = {} : {};
+            !node.levelNodeStatic.color.r ? node.levelNodeStatic.color.r = 0 : {};
+            !node.levelNodeStatic.color.g ? node.levelNodeStatic.color.g = 0 : {};
+            !node.levelNodeStatic.color.b ? node.levelNodeStatic.color.b = 0 : {};
         }
     });
 
