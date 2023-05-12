@@ -519,3 +519,7 @@ h3 {
 #maps > div h2 {
     position: relative;
 }
+.leaderboards-output {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}

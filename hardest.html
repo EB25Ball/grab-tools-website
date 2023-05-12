@@ -21,8 +21,11 @@
             <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
         </svg></a>
     </div>
-    <p>Data updated 00:00 UTC daily<br>Verified maps > 1 week age</p>
-    <ul id="leaderboard-output"></ul>
+    <p>Data updated 00:00 UTC daily<br>Verified maps > 1 week age<br>Ranked | Adjusted by age</p>
+    <div class="leaderboards-output">
+        <ul id="leaderboard-output"></ul>
+        <ul id="leaderboard-output-2"></ul>
+    </div>
     <footer>Developed by&nbsp;&bull;&nbsp;.index&nbsp;&bull;&nbsp;<a href=https://github.com/twhlynch>@twhlynch</a>&nbsp;&bull;&nbsp;<a href=https://twhlynch.me>twhlynch.me</a></footer>
     <script type="text/javascript">
         
@@ -32,7 +35,7 @@
             .then(data => {
                 
                 data.forEach((level) => {
-                    level.score = level.statistics.difficulty;
+                    level.score = 1 - level.statistics.difficulty;
                     if (!level.statistics.time) {
                         level.statistics.time = 9007199254740990;
                     }
@@ -41,7 +44,7 @@
                         data.splice(data.indexOf(level), 1);
                     }
                     percentage = (level.statistics.total_played ** 2) / (1000 ** 2);
-                    percentage > 100 ? level.percentage = 100 : level.percentage = percentage;
+                    percentage > 1 ? level.percentage = 1 : level.percentage = percentage;
                 });
                 
                 data.sort(function(a, b) {
@@ -67,10 +70,10 @@
                 i = 0;
                 data.forEach(level => {
                     if (i < 100) {
-                        if (level.statistics.time == 0) {
+                        /*if (level.statistics.time == 9007199254740990) {
                             i--;
 //                            level.score++;
-                        }
+                        }*/
                         level.score++;
                         i++;
                     }
@@ -85,7 +88,7 @@
                     if (i < 100) {
                         if (level.statistics.finishes == 0) {
                             i--;
-//                            level.score++;
+                            level.score++;
                         }
                         level.score++;
                         i++;
@@ -93,6 +96,11 @@
                 });
 
                     
+
+                data.sort(function(a, b) {
+                    return a.creation_timestamp - b.creation_timestamp;
+                });
+
                 data.sort(function(a, b) {
                     return b.score*b.percentage - a.score*a.percentage;
                 });
@@ -102,7 +110,25 @@
                 i = 0;
                 data.forEach(level => {
                     if (i < 100) {
-                        document.getElementById("leaderboard-output").innerHTML += "<div><a href='https://grabvr.quest/levels/levels/viewer/?level=" + level.identifier + "'>" + level.title + "</a> by " + level.creators + " <p>(" + (Math.round(level.statistics.difficulty * 10000) / 10000) + " | " + (Math.round(level.score * 10000) / 10000) + ")</p></div>";
+                        document.getElementById("leaderboard-output").innerHTML += "<div><a href='https://grabvr.quest/levels/levels/viewer/?level=" + level.identifier + "'>" + level.title + "</a> by " + level.creators + " <p>(" + (Math.round(level.statistics.difficulty * 10000) / 10000) + " | " + (Math.round((level.score*level.percentage) * 10000) / 10000) + ")</p></div>";
+                        i++;
+                    }
+                });
+
+                data.sort(function(a, b) {
+                    return a.creation_timestamp - b.creation_timestamp;
+                });
+
+                data.sort(function(a, b) {
+                    return b.score - a.score;
+                });
+
+                console.log(data);
+
+                i = 0;
+                data.forEach(level => {
+                    if (i < 100) {
+                        document.getElementById("leaderboard-output-2").innerHTML += "<div><a href='https://grabvr.quest/levels/levels/viewer/?level=" + level.identifier + "'>" + level.title + "</a> by " + level.creators + " <p>(" + (Math.round(level.statistics.difficulty * 10000) / 10000) + " | " + (Math.round(level.score * 10000) / 10000) + ")</p></div>";
                         i++;
                     }
                 });
