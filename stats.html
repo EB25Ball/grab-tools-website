@@ -89,7 +89,10 @@
             }
             return false;
         });
-
+        levels.forEach(level => {
+            !level.statistics && (level.statistics = {});
+            !level.statistics.total_played && (level.statistics.total_played = 0);
+        });
         levels.sort((a, b) => b.statistics.total_played - a.statistics.total_played);
 
         let total = 0;
