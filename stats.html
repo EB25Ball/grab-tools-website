@@ -28,13 +28,43 @@
         <input type="text" id="key-input" placeholder="KEY (split '|')">
         <button id="submit-btn">Submit</button>
         <p id="stats-out"></p>
+        <h3>Top players by verified levels</h3>
+        <p id="player-stats"></p>
     </div>
     <script>
         const submitBtn = document.getElementById("submit-btn");
         const idInput = document.getElementById("user-input");
         const keyInput = document.getElementById("key-input");
         const output = document.getElementById("stats-out");
-    
+        
+
+
+        async function getTopPlayers(id, limit = 10) {
+            fetch('stats-data.json')
+            .then(res => res.json())
+            .then(json_data => {
+                console.log(json_data);
+                var playersArr = {};
+                json_data.forEach(json => {
+                    user_id = json.identifier.split(":")[0];
+                    if (playersArr[user_id]) {
+                        playersArr[user_id] += 1;
+                    } else {
+                        playersArr[user_id] = 1;
+                    }
+                });
+                const topPlayers = Object.keys(playersArr).sort(function(a,b){return playersArr[b]-playersArr[a]}).slice(0, limit);
+                topPlayers.forEach(player => {
+                    document.getElementById("player-stats").innerHTML += `<a style="text-decoration: none; color: #595" href="https://grabvr.quest/levels?tab=tab_other_user&user_id=${player}">${player}: ${playersArr[player]}</a><br>`;
+                });
+            });
+          }
+          
+          getTopPlayers("example", 10);
+          
+
+
+
         submitBtn.addEventListener("click", async () => {
         var user = idInput.value;
         
