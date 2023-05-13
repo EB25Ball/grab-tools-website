@@ -1,5 +1,161 @@
 [
   {
+    "identifier": "2bcw05auge92xtehn42vj:1683803736",
+    "title": "DEVILS ICE VI",
+    "complexity": 456,
+    "format_version": 6,
+    "update_timestamp": 1683893902025,
+    "creation_timestamp": 1683893902025,
+    "data_key": "level_data:2bcw05auge92xtehn42vj:1683803736:1",
+    "creators": [
+      "POPTEN47VR",
+      "CYDIGI3",
+      "galnightwatcher"
+    ],
+    "tags": [
+      "ok"
+    ],
+    "statistics": {
+      "total_played": 300,
+      "difficulty": 0.014925373134328358,
+      "liked": 1,
+      "time": 104.42375
+    }
+  },
+  {
+    "identifier": "2axm4b3yypfhaaxp2q69g:1683902336",
+    "title": "SHORT LEVELS 2",
+    "complexity": 98,
+    "format_version": 6,
+    "update_timestamp": 1683906107600,
+    "creation_timestamp": 1683906107600,
+    "data_key": "level_data:2axm4b3yypfhaaxp2q69g:1683902336:1",
+    "description": "Part 2 of the somewhat easy short speedrun levels.",
+    "creators": [
+      "K1dfun",
+      "CoblerB1"
+    ],
+    "tags": [
+      "ok"
+    ],
+    "statistics": {
+      "total_played": 200,
+      "difficulty": 0.08108108108108109,
+      "liked": 0.9090909090909091,
+      "time": 23.601063333333336
+    }
+  },
+  {
+    "identifier": "2af2v4lqxksl1ru5itxr1:1683828134",
+    "title": "Mt. Death The Story Pt 3 The End",
+    "complexity": 2865,
+    "format_version": 6,
+    "update_timestamp": 1683910445558,
+    "creation_timestamp": 1683910445558,
+    "data_key": "level_data:2af2v4lqxksl1ru5itxr1:1683828134:1",
+    "description": "We got lost inside the mountain and we have to find our way back to the base.",
+    "creators": [
+      "KillTheSith",
+      "CoblerB1",
+      "Levi8020"
+    ],
+    "tags": [
+      "ok"
+    ],
+    "statistics": {
+      "total_played": 100,
+      "difficulty": 0.010526315789473684,
+      "liked": 1,
+      "time": 1454.08
+    }
+  },
+  {
+    "identifier": "29xc83sott7wc21mlni58:1683762996",
+    "title": "easy small speedrun",
+    "complexity": 829,
+    "format_version": 6,
+    "update_timestamp": 1683814647282,
+    "creation_timestamp": 1683814647282,
+    "data_key": "level_data:29xc83sott7wc21mlni58:1683762996:1",
+    "description": "nice speedrun map i made",
+    "creators": [
+      "13Olivia"
+    ],
+    "tags": [
+      "ok"
+    ],
+    "statistics": {
+      "total_played": 400,
+      "difficulty": 0.05491329479768786,
+      "liked": 0.75,
+      "time": 135.0011947368421
+    }
+  },
+  {
+    "identifier": "29uyvcxcuqnm4ekq7z5u0:1683761970",
+    "title": "Grab Basketball",
+    "complexity": 2754,
+    "format_version": 6,
+    "update_timestamp": 1683848396660,
+    "creation_timestamp": 1683848396660,
+    "data_key": "level_data:29uyvcxcuqnm4ekq7z5u0:1683761970:1",
+    "description": "this map is very hard so play at your own risk remember stay in the bule square",
+    "creators": [
+      "Triplecyber57"
+    ],
+    "tags": [
+      "ok"
+    ],
+    "statistics": {
+      "total_played": 300,
+      "difficulty": 0.011152416356877323,
+      "liked": 1,
+      "time": 32.08926666666667
+    }
+  },
+  {
+    "identifier": "2b7vatjz4liybgrljogqf:1683676224",
+    "title": "OUTLINE PARKOUR",
+    "complexity": 1674,
+    "format_version": 6,
+    "update_timestamp": 1683770671161,
+    "creation_timestamp": 1683770671161,
+    "data_key": "level_data:2b7vatjz4liybgrljogqf:1683676224:1",
+    "creators": [
+      "sylveonvrr ENVI0US"
+    ],
+    "tags": [
+      "ok"
+    ],
+    "statistics": {
+      "total_played": 300,
+      "difficulty": 0.055762081784386616,
+      "liked": 1,
+      "time": 110.94738666666665
+    }
+  },
+  {
+    "identifier": "29srqtwaq08zzhp3kng3u:1683816858",
+    "title": "crammed in a box",
+    "complexity": 68,
+    "format_version": 6,
+    "update_timestamp": 1683817679308,
+    "creation_timestamp": 1683817679308,
+    "data_key": "level_data:29srqtwaq08zzhp3kng3u:1683816858:1",
+    "creators": [
+      "CoblerB1"
+    ],
+    "tags": [
+      "ok"
+    ],
+    "statistics": {
+      "total_played": 200,
+      "difficulty": 0.0111731843575419,
+      "liked": 1,
+      "time": 38.24055
+    }
+  },
+  {
     "identifier": "2blpivozn2sda2qtolsem:1683760985",
     "title": "Water slide parkour!",
     "complexity": 227,
@@ -15,10 +171,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 300,
-      "difficulty": 0.23863636363636365,
-      "liked": 0.8,
-      "time": 71.74934126984125
+      "total_played": 700,
+      "difficulty": 0.26949152542372884,
+      "liked": 0.8102189781021898,
+      "time": 67.37820188679247
     }
   },
   {
@@ -39,10 +195,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 400,
-      "difficulty": 0.022535211267605635,
+      "total_played": 600,
+      "difficulty": 0.02095238095238095,
       "liked": 0.8,
-      "time": 98.8483625
+      "time": 111.04825454545454
     }
   },
   {
@@ -61,10 +217,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 300,
-      "difficulty": 0.04460966542750929,
-      "liked": 1,
-      "time": 192.98958333333334
+      "total_played": 600,
+      "difficulty": 0.03802281368821293,
+      "liked": 0.9090909090909091,
+      "time": 171.857435
     }
   },
   {
@@ -83,10 +239,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 300,
-      "difficulty": 0.4981949458483754,
-      "liked": 0.8173076923076923,
-      "time": 119.34648768115946
+      "total_played": 400,
+      "difficulty": 0.505464480874317,
+      "liked": 0.8201438848920863,
+      "time": 120.66962270270272
     }
   },
   {
@@ -101,10 +257,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 200,
-      "difficulty": 0.011494252873563218,
+      "total_played": 300,
+      "difficulty": 0.011363636363636364,
       "liked": 1,
-      "time": 51.4965
+      "time": 47.28733333333333
     }
   },
   {
@@ -124,10 +280,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 200,
-      "difficulty": 0.655367231638418,
-      "liked": 0.7586206896551724,
-      "time": 48.60854568965517
+      "total_played": 300,
+      "difficulty": 0.6877323420074349,
+      "liked": 0.7819548872180451,
+      "time": 48.51349335135136
     }
   },
   {
@@ -145,10 +301,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 200,
-      "difficulty": 0.30158730158730157,
-      "liked": 0.7941176470588235,
-      "time": 94.62623368421056
+      "total_played": 300,
+      "difficulty": 0.2826086956521739,
+      "liked": 0.8163265306122449,
+      "time": 104.47537846153847
     }
   },
   {
@@ -188,8 +344,8 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 300,
-      "difficulty": 0.0035587188612099642,
+      "total_played": 400,
+      "difficulty": 0.0027548209366391185,
       "time": 106.178
     }
   },
@@ -209,10 +365,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 300,
-      "difficulty": 0.8102189781021898,
-      "liked": 0.8076923076923077,
-      "time": 28.16121036036034
+      "total_played": 400,
+      "difficulty": 0.8125,
+      "liked": 0.8067226890756303,
+      "time": 28.36935699300698
     }
   },
   {
@@ -231,8 +387,8 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 300,
-      "difficulty": 0.018315018315018316,
+      "total_played": 400,
+      "difficulty": 0.013927576601671309,
       "liked": 0.5,
       "time": 459.67179999999996
     }
@@ -274,10 +430,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 200,
-      "difficulty": 0.15873015873015872,
-      "liked": 0.75,
-      "time": 13.313801333333329
+      "total_played": 300,
+      "difficulty": 0.1601423487544484,
+      "liked": 0.8275862068965517,
+      "time": 12.692781777777776
     }
   },
   {
@@ -316,8 +472,8 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 600,
-      "difficulty": 0.005825242718446602,
+      "total_played": 700,
+      "difficulty": 0.00510204081632653,
       "liked": 1,
       "time": 1252.0410000000002
     }
@@ -361,10 +517,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 200,
-      "difficulty": 0.29473684210526313,
-      "liked": 0.851063829787234,
-      "time": 126.09151250000004
+      "total_played": 300,
+      "difficulty": 0.29225352112676056,
+      "liked": 0.8571428571428571,
+      "time": 121.117986746988
     }
   },
   {
@@ -383,10 +539,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 100,
-      "difficulty": 0.010638297872340425,
+      "total_played": 200,
+      "difficulty": 0.0106951871657754,
       "liked": 1,
-      "time": 164.996
+      "time": 206.3185
     }
   },
   {
@@ -425,8 +581,9 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 200,
-      "difficulty": 0
+      "total_played": 300,
+      "difficulty": 0.0036101083032490976,
+      "time": 47.011
     }
   },
   {
@@ -445,10 +602,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 100,
-      "difficulty": 0.34782608695652173,
-      "liked": 0.88,
-      "time": 60.397240625
+      "total_played": 200,
+      "difficulty": 0.34831460674157305,
+      "liked": 0.8541666666666666,
+      "time": 56.410272580645135
     }
   },
   {
@@ -627,8 +784,8 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 500,
-      "difficulty": 0.006711409395973154,
+      "total_played": 600,
+      "difficulty": 0.005660377358490566,
       "liked": 1,
       "time": 229.5253333333333
     }
@@ -694,10 +851,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 1300,
-      "difficulty": 0.11209179170344219,
-      "liked": 0.8791208791208791,
-      "time": 198.28613070866146
+      "total_played": 1400,
+      "difficulty": 0.10882110469909316,
+      "liked": 0.8723404255319149,
+      "time": 195.96264924242433
     }
   },
   {
@@ -1113,10 +1270,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 500,
-      "difficulty": 0.5444444444444444,
-      "liked": 0.7733990147783252,
-      "time": 36.671053224489775
+      "total_played": 600,
+      "difficulty": 0.5374531835205992,
+      "liked": 0.7863247863247863,
+      "time": 36.16213554006967
     }
   },
   {
@@ -1245,10 +1402,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 600,
-      "difficulty": 0.009380863039399626,
+      "total_played": 700,
+      "difficulty": 0.00967741935483871,
       "liked": 1,
-      "time": 164.577
+      "time": 143.34983333333332
     }
   },
   {
@@ -2341,10 +2498,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 700,
-      "difficulty": 0.24668874172185432,
-      "liked": 0.8151260504201681,
-      "time": 63.39795020134228
+      "total_played": 800,
+      "difficulty": 0.23469387755102042,
+      "liked": 0.8153846153846154,
+      "time": 60.84660987577639
     }
   },
   {
@@ -2428,10 +2585,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 300,
-      "difficulty": 0.28205128205128205,
-      "liked": 0.8166666666666667,
-      "time": 100.79940259740259
+      "total_played": 400,
+      "difficulty": 0.2540983606557377,
+      "liked": 0.8028169014084507,
+      "time": 103.58467526881722
     }
   },
   {
@@ -2450,10 +2607,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 300,
-      "difficulty": 0.1169811320754717,
-      "liked": 0.8148148148148148,
-      "time": 231.15458387096777
+      "total_played": 400,
+      "difficulty": 0.14887640449438203,
+      "liked": 0.7777777777777778,
+      "time": 223.872062264151
     }
   },
   {
@@ -2538,10 +2695,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 200,
-      "difficulty": 0.005263157894736842,
+      "total_played": 300,
+      "difficulty": 0.007042253521126761,
       "liked": 1,
-      "time": 144.524
+      "time": 889.252
     }
   },
   {
@@ -2582,10 +2739,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 400,
-      "difficulty": 0.06077348066298342,
-      "liked": 0.9,
-      "time": 178.9023
+      "total_played": 500,
+      "difficulty": 0.066815144766147,
+      "liked": 0.8846153846153846,
+      "time": 166.61655333333331
     }
   },
   {
@@ -3760,10 +3917,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 1700,
-      "difficulty": 0.16654330125832717,
-      "liked": 0.8424242424242424,
-      "time": 420.6450755555555
+      "total_played": 1800,
+      "difficulty": 0.1695865451997197,
+      "liked": 0.8547486033519553,
+      "time": 425.58017768595033
     }
   },
   {
@@ -3808,8 +3965,8 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 800,
-      "difficulty": 0.009985734664764621,
+      "total_played": 900,
+      "difficulty": 0.009009009009009009,
       "liked": 0.5,
       "time": 37.65774714285714
     }
@@ -4005,10 +4162,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 1500,
-      "difficulty": 0.22897196261682243,
-      "liked": 0.8149779735682819,
-      "time": 90.94129421768706
+      "total_played": 1600,
+      "difficulty": 0.2290748898678414,
+      "liked": 0.8067226890756303,
+      "time": 89.61245256410255
     }
   },
   {
@@ -4297,8 +4454,8 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 1800,
-      "difficulty": 0.007107320540156361,
+      "total_played": 1900,
+      "difficulty": 0.006765899864682003,
       "liked": 1,
       "time": 145.97046999999998
     }
@@ -5198,10 +5355,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 1700,
-      "difficulty": 0.008190618019359643,
+      "total_played": 1800,
+      "difficulty": 0.007790368271954674,
       "liked": 1,
-      "time": 72.31992727272728
+      "time": 72.22883636363638
     }
   },
   {
@@ -6008,10 +6165,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 800,
-      "difficulty": 0.07327586206896551,
-      "liked": 0.7941176470588235,
-      "time": 153.2754666666667
+      "total_played": 900,
+      "difficulty": 0.07573812580231065,
+      "liked": 0.8048780487804879,
+      "time": 162.19751016949155
     }
   },
   {
@@ -6442,10 +6599,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 2300,
-      "difficulty": 0.13128976286871025,
-      "liked": 0.8181818181818182,
-      "time": 112.11632246696031
+      "total_played": 2400,
+      "difficulty": 0.1293007769145394,
+      "liked": 0.8222222222222222,
+      "time": 111.93221545064377
     }
   },
   {
@@ -6553,8 +6710,8 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 4400,
-      "difficulty": 0.058991165574237676,
+      "total_played": 4500,
+      "difficulty": 0.05774058577405858,
       "liked": 0.8089171974522293,
       "time": 338.89689371980677
     }
@@ -6639,10 +6796,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 800,
-      "difficulty": 0.014705882352941176,
+      "total_played": 900,
+      "difficulty": 0.013245033112582781,
       "liked": 0.75,
-      "time": 824.7204000000002
+      "time": 820.2568000000001
     }
   },
   {
@@ -7717,10 +7874,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 2633,
-      "difficulty": 0.22174840085287847,
-      "liked": 0.8050632911392405,
-      "time": 201.19024173228345
+      "total_played": 2733,
+      "difficulty": 0.21801727684080624,
+      "liked": 0.8059701492537313,
+      "time": 203.93179305019308
     }
   },
   {
@@ -8036,10 +8193,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 1000,
-      "difficulty": 0.07525510204081633,
-      "liked": 0.8333333333333334,
-      "time": 107.144420338983
+      "total_played": 1100,
+      "difficulty": 0.07710280373831775,
+      "liked": 0.8571428571428571,
+      "time": 109.0009636363636
     }
   },
   {
@@ -8255,7 +8412,7 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 4200,
+      "total_played": 4300,
       "difficulty": 0
     }
   },
@@ -8445,8 +8602,8 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 4400,
-      "difficulty": 0.0002905287623474724,
+      "total_played": 4500,
+      "difficulty": 0.0002844950213371266,
       "liked": 1,
       "time": 2388.95
     }
@@ -8665,10 +8822,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 7200,
-      "difficulty": 0.12241684707734699,
-      "liked": 0.8110236220472441,
-      "time": 185.01181641479104
+      "total_played": 7300,
+      "difficulty": 0.12261951029926156,
+      "liked": 0.8128654970760234,
+      "time": 184.27383805071324
     }
   },
   {
@@ -11200,10 +11357,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 9100,
-      "difficulty": 0.1853030062032766,
-      "liked": 0.852529601722282,
-      "time": 348.8449268669526
+      "total_played": 9200,
+      "difficulty": 0.184823677581864,
+      "liked": 0.8518123667377399,
+      "time": 349.63814463373075
     }
   },
   {
@@ -13160,8 +13317,8 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 4900,
-      "difficulty": 0.0007651109410864575,
+      "total_played": 5000,
+      "difficulty": 0.000751503006012024,
       "liked": 1,
       "time": 595.5653333333333
     }
@@ -15109,7 +15266,7 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 1900,
+      "total_played": 2000,
       "difficulty": 0
     }
   },
@@ -17356,10 +17513,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 1200,
-      "difficulty": 0.02504638218923933,
-      "liked": 0.8571428571428571,
-      "time": 537.9584814814815
+      "total_played": 1300,
+      "difficulty": 0.024701873935264053,
+      "liked": 0.8636363636363636,
+      "time": 554.2843448275862
     }
   },
   {
@@ -18560,7 +18717,7 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 3000,
+      "total_played": 3100,
       "difficulty": 0
     }
   },
@@ -19266,10 +19423,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 1700,
-      "difficulty": 0.1453218314532183,
-      "liked": 0.7821229050279329,
-      "time": 116.48866301369863
+      "total_played": 1800,
+      "difficulty": 0.14339386349405134,
+      "liked": 0.7872340425531915,
+      "time": 117.36254017467249
     }
   },
   {
@@ -21480,10 +21637,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 800,
-      "difficulty": 0.01366120218579235,
+      "total_played": 900,
+      "difficulty": 0.013563501849568433,
       "liked": 0.9090909090909091,
-      "time": 293.55129999999997
+      "time": 320.6437272727273
     }
   },
   {
@@ -21762,7 +21919,8 @@
       "difficulty": 0.5144124168514412,
       "liked": 0.7694369973190348,
       "time": 118.93579547413796
-    }
+    },
+    "page_timestamp": "AAAAAFuJaxWoQeZWfHFdoANuvcLPMhWh0z1kcxT9Lv_pUhKTs3USB226Mb6ybxALlZv2LZhKbHZ4peJsRan2qJxOq2wsHJR9Z6_AfgK28JA6IODshYrrVTIqvPrFGIGYohTSLH_44t5gKOHfyXaahRLoHcFKr0dkQbQg1TenqSp75UB3EVuMj7WaL_yqMw26jMiGkMrzbPDnQhhFLMnYoERIOy2dyxfJiOaowdh5vUiA-57EoH84rfvjXVMg3d5xWSEW3bYvscRvmCH3XSbWzf5WN_3eKHZT9i3I2eZj1RsPKN1atDcLOF0fT9lHx_4CTn7WbA3vLIfRjokIRz2YyjE5o_7hzP4n7u5gLwn3IQAdZUqgrGQDuICg_CNuPqPt4Vmaoqznsjcl-0eMuaFho7CboKtW30A"
   },
   {
     "identifier": "29wtu55kcx5whczmidnx3:1671745320",
@@ -21916,8 +22074,7 @@
       "difficulty": 0.009523809523809525,
       "liked": 0.8,
       "time": 583.647
-    },
-    "page_timestamp": "AAAAAFJxK5hO4OHv3j0_j00FHIZ36r-Ow4ctbDIcJzdrFUQ4xtjrzfhTRxFRnZLa28wtNvBOEcrLO-OK1fJ7lLyWvTJn0kHeUKmLIEKoHzMCvKfk_YgxaUR2OysTnoglESIIzWSF9OOM6uG4PVKlhJPA6Y01RPBhQ8tiNnCdv5bXS_Ytv-Z1WDzls0-mdqpK19zmmVEs8zl_7tWeNR8vVEd0S115WQoJ2nc7WFOvXjBnkzBYlYLmRah6nrAL6lenEV188H8bygH7vdFIK4sAFMQdhpEI0sYq7IzpZgqnzx1NtgulkZQ-KDj_pr51Ec-SmD4Y9SucGyko95boGwvLS9etv0eZrhbEhcheA-Hpmq-3We6MyObNXPtvB7EAo_J1KOTwUbXLZLcQ24j6O0lDChpbsEiTHog"
+    }
   },
   {
     "identifier": "2b1jnyxt723xlz8k28e7p:1675026075",
@@ -23639,10 +23796,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 1200,
-      "difficulty": 0.3780135004821601,
-      "liked": 0.7401129943502824,
-      "time": 42.565308928571426
+      "total_played": 1300,
+      "difficulty": 0.36436170212765956,
+      "liked": 0.7331536388140162,
+      "time": 42.156562043795624
     }
   },
   {
@@ -25704,10 +25861,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 10800,
-      "difficulty": 0.16564766102658893,
-      "liked": 0.8261390887290168,
-      "time": 266.5467878111588
+      "total_played": 10900,
+      "difficulty": 0.1649063512181383,
+      "liked": 0.8265550239234449,
+      "time": 266.384700939368
     }
   },
   {
@@ -25903,10 +26060,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 3000,
-      "difficulty": 0.00039077764751856197,
+      "total_played": 3100,
+      "difficulty": 0.00076103500761035,
       "liked": 1,
-      "time": 601.754
+      "time": 887.0720000000001
     }
   },
   {
@@ -25934,8 +26091,8 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 1500,
-      "difficulty": 0.003179650238473768,
+      "total_played": 1600,
+      "difficulty": 0.0029895366218236174,
       "liked": 1,
       "time": 842.6117499999999
     }
@@ -26134,8 +26291,8 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 5200,
-      "difficulty": 0.00024125452352231604,
+      "total_played": 5300,
+      "difficulty": 0.00023691068467187872,
       "liked": 1,
       "time": 237.025
     }
@@ -30050,10 +30207,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 22600,
-      "difficulty": 0.010992727887705056,
-      "liked": 0.7549019607843137,
-      "time": 98.4171883846154
+      "total_played": 22800,
+      "difficulty": 0.010999160369437447,
+      "liked": 0.7475728155339806,
+      "time": 99.96648465648857
     }
   },
   {
@@ -32849,10 +33006,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 400,
-      "difficulty": 0.05235602094240838,
-      "liked": 0.75,
-      "time": 268.37466000000006
+      "total_played": 500,
+      "difficulty": 0.056485355648535567,
+      "liked": 0.8,
+      "time": 252.73471481481482
     }
   },
   {
@@ -33543,10 +33700,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 2200,
-      "difficulty": 0.03666666666666667,
+      "total_played": 2300,
+      "difficulty": 0.03503184713375796,
       "liked": 0.7924528301886793,
-      "time": 379.0002575757574
+      "time": 377.50371212121195
     }
   },
   {
@@ -33852,8 +34009,8 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 2400,
-      "difficulty": 0.0035353535353535356,
+      "total_played": 2500,
+      "difficulty": 0.0033931168201648087,
       "liked": 0.8,
       "time": 6114.865714285714
     }
@@ -34181,8 +34338,8 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 1400,
-      "difficulty": 0.007346938775510204,
+      "total_played": 1500,
+      "difficulty": 0.00683371298405467,
       "liked": 0.875,
       "time": 149.63965555555558
     }
@@ -35308,8 +35465,8 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 1400,
-      "difficulty": 0.0008123476848090983,
+      "total_played": 1500,
+      "difficulty": 0.0007564296520423601,
       "liked": 1,
       "time": 110.485
     }
@@ -37821,8 +37978,8 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 1100,
-      "difficulty": 0.011088709677419355,
+      "total_played": 1200,
+      "difficulty": 0.010166358595194085,
       "liked": 0.5555555555555556,
       "time": 728.7795454545454
     }
@@ -38536,10 +38693,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 1500,
-      "difficulty": 0.5511869436201781,
-      "liked": 0.6953125,
-      "time": 65.2581271870795
+      "total_played": 1600,
+      "difficulty": 0.5493055555555556,
+      "liked": 0.6900584795321637,
+      "time": 65.46610341340083
     }
   },
   {
@@ -38673,8 +38830,8 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 33800,
-      "difficulty": 0.00032385167593242293,
+      "total_played": 33900,
+      "difficulty": 0.00032280626244149136,
       "liked": 0.8333333333333334,
       "time": 6035.223333333334
     }
@@ -38696,8 +38853,8 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 2700,
-      "difficulty": 0.0004492362982929021,
+      "total_played": 2800,
+      "difficulty": 0.00043233895373973193,
       "liked": 0.5,
       "time": 2685.38
     }
@@ -38983,10 +39140,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 3100,
-      "difficulty": 0.6569488817891374,
-      "liked": 0.7870662460567823,
-      "time": 95.09402881458968
+      "total_played": 3200,
+      "difficulty": 0.6552388289676425,
+      "liked": 0.7871853546910755,
+      "time": 95.03832968841859
     }
   },
   {
@@ -39094,10 +39251,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 2950,
-      "difficulty": 0.1097165991902834,
-      "liked": 0.7298578199052133,
-      "time": 77.72151279069759
+      "total_played": 3050,
+      "difficulty": 0.10637465780211185,
+      "liked": 0.7311320754716981,
+      "time": 77.89619420849414
     }
   },
   {
@@ -42082,10 +42239,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 2700,
-      "difficulty": 0.14010507880910683,
-      "liked": 0.776,
-      "time": 223.00879950687494
+      "total_played": 2800,
+      "difficulty": 0.13540790580319595,
+      "liked": 0.78,
+      "time": 222.3136035472049
     }
   },
   {
@@ -43085,10 +43242,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 6400,
-      "difficulty": 0.017007491395019236,
-      "liked": 0.7678571428571429,
-      "time": 1297.0195357142857
+      "total_played": 6500,
+      "difficulty": 0.016945773524720893,
+      "liked": 0.7719298245614035,
+      "time": 1286.009611764706
     }
   },
   {
@@ -43830,7 +43987,8 @@
       "difficulty": 0.07336621454993834,
       "liked": 0.7604166666666666,
       "time": 279.4317428571431
-    }
+    },
+    "page_timestamp": "AAAAAKcTKstfkOYTB8q3RWvb82Y2ixC-fPxSkJwewMP07l9LJK3I2wsblZblXMlTvZ_eqBf1ZFiJ_gyfRX0umMqVyf54NeGR_NWY41unZWrYML8Fl8OGROPxolFvJCF-VTd_DcswR_LCGS1n8W8YcSW5EgVw7lyZrsLIgssbl2Sa2SCZLFtUEz3f6UaqAstQ4iIUnUX7xZ0nFP4W9yFCVF7z8WN_a7wDwb5ExfxKXV3sLJziilUIAz_SBX7PU9vmxzBlAfXMgVQcyGDJPo72F4Uco_1HMK-EcLCTJTw-fQpbSRhZ4xIBZz65PB9uj7nDP4VqDEa792icBngTPtzxB7trLFI8Crv3zZBfj40SpeclAQy8FoD55POPM4qezdGOuEg41DcxVaOdXdrYZOmmNAaEcgaUjds"
   },
   {
     "identifier": "29l6h45xoo3u4813a4376:1662002876",
@@ -43985,8 +44143,7 @@
       "difficulty": 0.030629139072847682,
       "liked": 0.8076923076923077,
       "time": 324.3211189189189
-    },
-    "page_timestamp": "AAAAAEjl1cbodTj9hnyCJWsDMJNRsLxnuX9Crr2_qeeEtZfJl9lwrwkDHS1GDpTjDvomsr1CHNq6zp8LMgvRUM8JAA_xNJKf6f5d3dBUdUV4Ik2BxRvcZWH1Kgo4vSjulH4_D9LVMxjaG29huDMOE6XXivmW2noI0QJF0FMqv2J-Y3YIUdVxI3AEY-sBhx_oRumXZDJJM7Wp75t0ZdK6JBidviJUk7YfVDvQhHNy5_KmaEHLchKkZG344sWT5fPGCflYvYVNOj8M3fAptJLzi_dc31gb8TzOsN8Ch3qP15c0hhtT9zI7qCZQI4Z_O65P9YUYiquy7tXW2P9BPmmB1IbN639cLO6Nc_xtBXXJMyslWjdgjixFw8_006iou5JyI-Yy--DWM2WMbNKC2TWJT0GCXrRsn34"
+    }
   },
   {
     "identifier": "29zwujsnjq6iu1jqa4keo:1668615316",
@@ -44135,8 +44292,8 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 1800,
-      "difficulty": 0.0006157635467980296,
+      "total_played": 1900,
+      "difficulty": 0.0005834305717619603,
       "liked": 1,
       "time": 735.873
     }
@@ -45231,10 +45388,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 10100,
-      "difficulty": 0.00937882288976485,
+      "total_played": 10200,
+      "difficulty": 0.009287925696594427,
       "liked": 0.7446808510638298,
-      "time": 1364.4769681159426
+      "time": 1360.1959246376819
     }
   },
   {
@@ -45432,8 +45589,8 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 1700,
-      "difficulty": 0.014896373056994818,
+      "total_played": 1800,
+      "difficulty": 0.014058679706601468,
       "liked": 0.85,
       "time": 240.79204347826087
     }
@@ -47411,10 +47568,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 2400,
-      "difficulty": 0.06244087038789026,
-      "liked": 0.78,
-      "time": 79.3050740909091
+      "total_played": 2500,
+      "difficulty": 0.0625,
+      "liked": 0.7452830188679245,
+      "time": 79.65000782608696
     }
   },
   {
@@ -47785,10 +47942,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 14000,
-      "difficulty": 0.09521203830369357,
-      "liked": 0.7835909631391201,
-      "time": 307.9565714559387
+      "total_played": 14100,
+      "difficulty": 0.09507424846070264,
+      "liked": 0.783175355450237,
+      "time": 307.2235490476191
     }
   },
   {
@@ -48184,10 +48341,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 2600,
-      "difficulty": 0.26733536851286527,
-      "liked": 0.748,
-      "time": 175.86202805872742
+      "total_played": 2700,
+      "difficulty": 0.26563155686109946,
+      "liked": 0.7461240310077519,
+      "time": 173.89981769352272
     }
   },
   {
@@ -48641,10 +48798,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 2100,
-      "difficulty": 0.3210862619808307,
-      "liked": 0.7695473251028807,
-      "time": 99.98495305140963
+      "total_played": 2200,
+      "difficulty": 0.3168870803662258,
+      "liked": 0.772,
+      "time": 99.6494678812199
     }
   },
   {
@@ -49038,10 +49195,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 3100,
-      "difficulty": 0.3834785903751421,
-      "liked": 0.814385150812065,
-      "time": 143.44238438735147
+      "total_played": 3200,
+      "difficulty": 0.3778835591358477,
+      "liked": 0.8125714285714286,
+      "time": 142.93163294573608
     }
   },
   {
@@ -50112,10 +50269,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 43500,
-      "difficulty": 0.4937359362646719,
-      "liked": 0.7673511444763377,
-      "time": 78.0332962142021
+      "total_played": 43600,
+      "difficulty": 0.4937188979245054,
+      "liked": 0.7674059929494712,
+      "time": 78.03374896625893
     }
   },
   {
@@ -50133,10 +50290,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 28500,
-      "difficulty": 0.3492433061699651,
-      "liked": 0.7976023664954072,
-      "time": 135.327630362821
+      "total_played": 28600,
+      "difficulty": 0.3493997411523185,
+      "liked": 0.7975802698929735,
+      "time": 135.24036008813437
     }
   },
   {
@@ -50154,10 +50311,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 19400,
-      "difficulty": 0.6933995289924257,
-      "liked": 0.7301605504587156,
-      "time": 28.81893953185243
+      "total_played": 19500,
+      "difficulty": 0.6937689969604863,
+      "liked": 0.7309754706217912,
+      "time": 28.81847991602778
     }
   },
   {
@@ -50176,10 +50333,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 19000,
-      "difficulty": 0.20456763615069296,
-      "liked": 0.8037205770690964,
-      "time": 126.48687179071237
+      "total_played": 19100,
+      "difficulty": 0.20442775763852927,
+      "liked": 0.8040105940219447,
+      "time": 126.85525288473708
     }
   },
   {
@@ -50265,10 +50422,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 5647,
-      "difficulty": 0.05138339920948617,
-      "liked": 0.757396449704142,
-      "time": 457.89566356828175
+      "total_played": 5747,
+      "difficulty": 0.05127100387763895,
+      "liked": 0.7588235294117647,
+      "time": 452.64301095238085
     }
   },
   {
@@ -50985,10 +51142,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 39292,
-      "difficulty": 0.31073758326717976,
-      "liked": 0.8023162939297125,
-      "time": 248.86065131276987
+      "total_played": 39392,
+      "difficulty": 0.31097414000895285,
+      "liked": 0.8022823779193206,
+      "time": 248.89721814528056
     }
   },
   {
@@ -51336,8 +51493,8 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 2700,
-      "difficulty": 0.0008375209380234506,
+      "total_played": 2800,
+      "difficulty": 0.0008067769261799112,
       "liked": 1,
       "time": 821.0754999999999
     }
@@ -51655,8 +51812,8 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 92700,
-      "difficulty": 0.0003214744963566224,
+      "total_played": 92900,
+      "difficulty": 0.0003208213025344883,
       "liked": 0.7619047619047619,
       "time": 2360.124666666667
     }
@@ -52406,10 +52563,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 22400,
-      "difficulty": 0.01896946051392439,
+      "total_played": 22500,
+      "difficulty": 0.019020829147411426,
       "liked": 0.8272727272727273,
-      "time": 74.10519036879437
+      "time": 74.10042423943666
     }
   },
   {
@@ -52428,8 +52585,8 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 3500,
-      "difficulty": 0.0006894174422612892,
+      "total_played": 3600,
+      "difficulty": 0.0006684491978609625,
       "liked": 0,
       "time": 766.881
     }
@@ -53791,8 +53948,8 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 5100,
-      "difficulty": 0.00023272050267628578,
+      "total_played": 5200,
+      "difficulty": 0.0002284669865204478,
       "liked": 0.75,
       "time": 4.287
     }
@@ -54124,10 +54281,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 2900,
-      "difficulty": 0.25851938895417154,
-      "liked": 0.7861271676300579,
-      "time": 84.19007257575768
+      "total_played": 3000,
+      "difficulty": 0.26021180030257185,
+      "liked": 0.7854477611940298,
+      "time": 83.52090494186059
     }
   },
   {
@@ -54256,10 +54413,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 9035,
-      "difficulty": 0.4902601482970969,
-      "liked": 0.8126341613002147,
-      "time": 60.80649365821971
+      "total_played": 9135,
+      "difficulty": 0.49141150112023896,
+      "liked": 0.8135798726886936,
+      "time": 60.82380156316729
     }
   },
   {
@@ -54344,10 +54501,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 24676,
-      "difficulty": 0.35347122670489456,
-      "liked": 0.8094744121715076,
-      "time": 110.22156711776115
+      "total_played": 24776,
+      "difficulty": 0.35394032134659525,
+      "liked": 0.8097040605643496,
+      "time": 110.11069975266614
     }
   },
   {
@@ -54856,8 +55013,8 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 85088,
-      "difficulty": 0.0006715555913718537,
+      "total_played": 85188,
+      "difficulty": 0.0006708167865192658,
       "liked": 0.7419354838709677,
       "time": 1328.8121599999995
     }
@@ -57409,8 +57566,8 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 83273,
-      "difficulty": 0.004920114273621839,
+      "total_played": 83373,
+      "difficulty": 0.004915823136083727,
       "liked": 0.7387387387387387,
       "time": 784.682162222222
     }
@@ -58329,10 +58486,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 90028,
-      "difficulty": 0.06411939137620923,
-      "liked": 0.7672209026128266,
-      "time": 622.14242954457
+      "total_played": 90128,
+      "difficulty": 0.06412436239980568,
+      "liked": 0.7673314339981007,
+      "time": 622.1624587709063
     }
   },
   {
@@ -58417,10 +58574,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 93080,
-      "difficulty": 0.09556564405924703,
-      "liked": 0.7750769230769231,
-      "time": 516.8366261434991
+      "total_played": 93180,
+      "difficulty": 0.09552389242681084,
+      "liked": 0.7751461088895725,
+      "time": 516.6676432619535
     }
   },
   {
@@ -59563,8 +59720,8 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 31254,
-      "difficulty": 0.023641757834229556,
+      "total_played": 31354,
+      "difficulty": 0.023575093606989322,
       "liked": 0.8602150537634409,
       "time": 1869.043760991276
     }
@@ -60317,8 +60474,8 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 11206,
-      "difficulty": 0.0038823529411764705,
+      "total_played": 11306,
+      "difficulty": 0.0038569424964936885,
       "liked": 0.7083333333333334,
       "time": 151.0951832142857
     }
@@ -60592,10 +60749,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 3124,
-      "difficulty": 0.6317542561065878,
-      "liked": 0.7563694267515924,
-      "time": 36.183292944983876
+      "total_played": 3224,
+      "difficulty": 0.6313528990694345,
+      "liked": 0.7534668721109399,
+      "time": 35.954628152309674
     }
   },
   {
@@ -60703,10 +60860,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 8767,
-      "difficulty": 0.019795758051846035,
-      "liked": 0.8080808080808081,
-      "time": 728.41760338983
+      "total_played": 8867,
+      "difficulty": 0.0201363073110285,
+      "liked": 0.8058252427184466,
+      "time": 719.3317229508193
     }
   },
   {
@@ -61978,8 +62135,8 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 6885,
-      "difficulty": 0.0017032551097653293,
+      "total_played": 6985,
+      "difficulty": 0.0016766020864381521,
       "liked": 0.7857142857142857,
       "time": 40.54277500000002
     }
@@ -62420,10 +62577,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 4372,
-      "difficulty": 0.0008021390374331551,
+      "total_played": 4472,
+      "difficulty": 0.000783289817232376,
       "liked": 0.5,
-      "time": 446.7626666666667
+      "time": 413.0986666666667
     }
   },
   {
@@ -63207,10 +63364,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 6691,
-      "difficulty": 0.044900329011031546,
-      "liked": 0.8300653594771242,
-      "time": 905.162409030244
+      "total_played": 6791,
+      "difficulty": 0.04537654909437559,
+      "liked": 0.8280254777070064,
+      "time": 891.0660040341234
     }
   },
   {
@@ -65845,7 +66002,8 @@
       "difficulty": 0.5122389400404221,
       "liked": 0.811332127787824,
       "time": 81.14500324351286
-    }
+    },
+    "page_timestamp": "AAAAAKh05VL1jgkiPr3cBHrKNIpjAU0hqbm0APZ54UcIJTAM5lH0nhT1evD_QLzvKjVTJ8dN42YIHkiwsJ4Siwy4lnte8cOBObZ7YP5oC0oHfEQPSHQFCuvgt7DvhZv9LpgbCYpc-KrgHlxAqQXXq2MQxObgi_kadJvVh9mpsif3j5o9mVeBcaRqxh7Gr7CGLodbMfsIuTIY8kUZJ0Bxf6bhGwEbpKx0xiKJKGUdIJGUVP8OH8YdxpWLbSW_RaHvDYYW7xRSfj9iGLEYVZYHC5N0G9sLn2As9wgRggj-V-KCdyC5O_uSt02AGp2TAM_f04sR0utKipjgPqSpsOnu5Ol7f5C2ULrZvnSzaVNvRS73iSGv7BWLReou4Gxmp32Jwocam8XE6gyQMLfRyroYWlbzKRvV8no"
   },
   {
     "identifier": "29yyxnknuaikwurm4nubp:1653317735",
@@ -65999,8 +66157,7 @@
       "difficulty": 0.2932008131917777,
       "liked": 0.7901740020470829,
       "time": 140.38619163907273
-    },
-    "page_timestamp": "AAAAAPKMyTErZDHXzMr8Ctky0cIV9n-yzLYlA5K_oVQhpV9OKhcj2tXP3Dsy8-1-PHx4mxC5KaniM0eWS9al2isg0EGpgPLpXupXBFQ2GR-4Qs9FbKW-1xnBwohNYnvYuCSC-pToehSyjfhNtDWdjIULBxte7B4qsmv60licdGkdEMQHGuBrkXDbc1VArgLWk_0NCMakPSjATFrSSTap38mici2C73tIFGCdgcSZ0kqXQ2_JBYensrzGgF5QA2elM1zLHn3eS5CNHI9cw7Krv7SoKT_V_4W_PBeZO98qkwROTwiosnns5bIVMAuxDuObheADu9T_FRA1axNrAmnw02xh2RmNE0MxtxGoghboXWm63Nxddssqt7J69MdIRPwQcpxSH7qx8yKLye8C_AwyuIDR2EZUhAs"
+    }
   },
   {
     "identifier": "29iz7lwjt8f9l20uvr28b:1654050661",
@@ -66633,10 +66790,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 14302,
-      "difficulty": 0.07023324373536807,
-      "liked": 0.8049586776859504,
-      "time": 481.47271897233213
+      "total_played": 14402,
+      "difficulty": 0.07008016550297388,
+      "liked": 0.80623973727422,
+      "time": 481.5568526246721
     }
   },
   {
@@ -67201,8 +67358,8 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 28078,
-      "difficulty": 0.0019869281045751634,
+      "total_played": 28178,
+      "difficulty": 0.0019805076353781206,
       "liked": 0.7931034482758621,
       "time": 1932.2993285294122
     }
@@ -69952,8 +70109,8 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 43113,
-      "difficulty": 0.01002490262435349,
+      "total_played": 43213,
+      "difficulty": 0.010005735772098656,
       "liked": 0.7603305785123967,
       "time": 263.119304243421
     }
@@ -71511,10 +71668,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 13804,
-      "difficulty": 0.10315509116984224,
-      "liked": 0.8075187969924812,
-      "time": 634.8464054388131
+      "total_played": 13904,
+      "difficulty": 0.10266043866774979,
+      "liked": 0.8083832335329342,
+      "time": 634.404656826568
     }
   },
   {
@@ -73568,10 +73725,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 15632,
-      "difficulty": 0.03023758099352052,
-      "liked": 0.7532894736842105,
-      "time": 483.02398412698375
+      "total_played": 15732,
+      "difficulty": 0.030353018805674696,
+      "liked": 0.755700325732899,
+      "time": 481.5852445141062
     }
   },
   {
@@ -76396,10 +76553,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 8327,
-      "difficulty": 0.2596415770609319,
-      "liked": 0.7786476868327402,
-      "time": 247.04868818944823
+      "total_played": 8427,
+      "difficulty": 0.25983583356920464,
+      "liked": 0.7787921348314607,
+      "time": 245.83863975191937
     }
   },
   {
@@ -76659,10 +76816,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 11665,
-      "difficulty": 0.1894519131334023,
-      "liked": 0.7815362931642001,
-      "time": 224.2548619912335
+      "total_played": 11765,
+      "difficulty": 0.18970467596390483,
+      "liked": 0.7817294281729428,
+      "time": 222.77928303405568
     }
   },
   {
@@ -77144,10 +77301,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 11200,
-      "difficulty": 0.1327092511013216,
-      "liked": 0.7678756476683938,
-      "time": 252.78119709090944
+      "total_played": 11300,
+      "difficulty": 0.1323737869370843,
+      "liked": 0.7672502574665293,
+      "time": 251.643545897205
     }
   },
   {
@@ -77933,10 +78090,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 7016,
-      "difficulty": 0.012066365007541479,
-      "liked": 0.7924528301886793,
-      "time": 529.1439838709676
+      "total_played": 7116,
+      "difficulty": 0.012042230287033983,
+      "liked": 0.7962962962962963,
+      "time": 527.4443809523809
     }
   },
   {
@@ -78062,10 +78219,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 8290,
-      "difficulty": 0.4443160479560884,
-      "liked": 0.7719445611087778,
-      "time": 166.33559225331416
+      "total_played": 8390,
+      "difficulty": 0.44403251105090547,
+      "liked": 0.7728968089515127,
+      "time": 165.61663135802513
     }
   },
   {
@@ -80830,10 +80987,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 5640,
-      "difficulty": 0.10043668122270742,
-      "liked": 0.7537091988130564,
-      "time": 300.03082788461546
+      "total_played": 5740,
+      "difficulty": 0.09978561683882284,
+      "liked": 0.7565982404692082,
+      "time": 296.96098507109014
     }
   },
   {
@@ -84488,10 +84645,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 42067,
-      "difficulty": 0.2943195223965967,
-      "liked": 0.8214651264804796,
-      "time": 126.81219655206185
+      "total_played": 42167,
+      "difficulty": 0.2943758475483549,
+      "liked": 0.8211263495768895,
+      "time": 126.77639371351833
     }
   },
   {
@@ -84947,10 +85104,10 @@
       "ok"
     ],
     "statistics": {
-      "total_played": 45900,
-      "difficulty": 0.12231737691494081,
-      "liked": 0.7970660146699267,
-      "time": 636.1858213710939
+      "total_played": 46000,
+      "difficulty": 0.12230019758806296,
+      "liked": 0.7974198047419805,
+      "time": 636.214724008195
     }
   },
   {
