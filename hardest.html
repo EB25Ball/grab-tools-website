@@ -110,7 +110,7 @@
                 i = 0;
                 data.forEach(level => {
                     if (i < 100) {
-                        document.getElementById("leaderboard-output").innerHTML += "<div><a href='https://grabvr.quest/levels/levels/viewer/?level=" + level.identifier + "'>" + level.title + "</a> by " + level.creators + " <p>(" + (Math.round(level.statistics.difficulty * 10000) / 10000) + " | " + (Math.round((level.score*level.percentage) * 10000) / 10000) + ")</p></div>";
+                        document.getElementById("leaderboard-output").innerHTML += "<div><a href='https://grabvr.quest/levels/viewer/?level=" + level.identifier + "'>" + level.title + "</a> by " + level.creators + " <p>(" + (Math.round(level.statistics.difficulty * 10000) / 10000) + " | " + (Math.round((level.score*level.percentage) * 10000) / 10000) + ")</p></div>";
                         i++;
                     }
                 });
@@ -128,7 +128,7 @@
                 i = 0;
                 data.forEach(level => {
                     if (i < 100) {
-                        document.getElementById("leaderboard-output-2").innerHTML += "<div><a href='https://grabvr.quest/levels/levels/viewer/?level=" + level.identifier + "'>" + level.title + "</a> by " + level.creators + " <p>(" + (Math.round(level.statistics.difficulty * 10000) / 10000) + " | " + (Math.round(level.score * 10000) / 10000) + ")</p></div>";
+                        document.getElementById("leaderboard-output-2").innerHTML += "<div><a href='https://grabvr.quest/levels/viewer/?level=" + level.identifier + "'>" + level.title + "</a> by " + level.creators + " <p>(" + (Math.round(level.statistics.difficulty * 10000) / 10000) + " | " + (Math.round(level.score * 10000) / 10000) + ")</p></div>";
                         i++;
                     }
                 });
